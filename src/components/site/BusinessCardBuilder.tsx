@@ -597,11 +597,12 @@ function CardPreview({
   const [svg, setSvg] = useState<string>("");
 
   useEffect(() => {
+    const isFront = side === "front";
     const s = prettyQrSvg(qrValue, {
-      dark: NAVY.hex,
-      light: CREAM.hex,
+      dark: ORANGE.hex,
+      light: isFront ? CREAM.hex : NAVY.hex,
       style: fields.qrStyle,
-      logoUrl: fields.qrLogo ? QR_MARK_URL : null,
+      logoUrl: isFront && fields.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     });
     setSvg(s);
