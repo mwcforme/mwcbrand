@@ -893,6 +893,38 @@ export function BusinessCardBuilder() {
                   borderTop: "1px solid var(--cream-deep)",
                   display: "grid", gap: 16,
                 }}>
+                  <div>
+                    <label style={labelStyle}>QR style</label>
+                    <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                      {(["rounded", "dots", "classic"] as QrStyle[]).map((s) => {
+                        const active = fields.qrStyle === s;
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => update("qrStyle", s)}
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: 4,
+                              border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
+                              background: active ? "var(--orange)" : "var(--cream)",
+                              color: active ? "var(--cream)" : "var(--ink)",
+                              fontFamily: "Montserrat, sans-serif",
+                              fontSize: 11, fontWeight: 700,
+                              letterSpacing: "0.08em", textTransform: "uppercase",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 12, color: "var(--ink-soft)" }}>
+                      <input type="checkbox" checked={fields.qrLogo} onChange={(e) => update("qrLogo", e.target.checked)} />
+                      Embed brand logo in QR center (uses high error-correction)
+                    </label>
+                  </div>
                   <QrControls
                     label="Front QR"
                     value={fields.front}
