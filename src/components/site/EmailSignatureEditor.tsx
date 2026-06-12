@@ -198,7 +198,6 @@ export function EmailSignatureEditor() {
         // Clipboard API fallback (rich)
         const blob = new Blob([html], { type: "text/html" });
         const textBlob = new Blob([previewRef.current?.innerText ?? ""], { type: "text/plain" });
-        // @ts-expect-error - ClipboardItem typing
         await navigator.clipboard.write([new ClipboardItem({ "text/html": blob, "text/plain": textBlob })]);
         setStatus({ kind: "rendered", msg: "Rendered signature copied. Paste into your email client." });
       } catch {
