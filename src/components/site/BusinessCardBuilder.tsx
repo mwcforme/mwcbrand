@@ -36,6 +36,8 @@ type Fields = {
   front: QrConfig;
   back: QrConfig;
   sameQr: boolean;
+  qrStyle: QrStyle;
+  qrLogo: boolean;
 };
 
 const DEFAULTS: Fields = {
@@ -52,6 +54,8 @@ const DEFAULTS: Fields = {
   front: { type: "profile", url: "", caption: "Scan to connect" },
   back:  { type: "booking", url: "https://book.menswellnesscenters.com", caption: "Scan to book" },
   sameQr: false,
+  qrStyle: "rounded",
+  qrLogo: true,
 };
 
 function digits(s: string) { return s.replace(/\D+/g, ""); }
@@ -106,26 +110,155 @@ function defaultCaptionFor(type: QrType): string {
 
 /* ---------------------------- QR rendering ---------------------------- */
 
-async function qrSvg(value: string, dark: string, light: string): Promise<string> {
-  return QRCode.toString(value || " ", {
-    type: "svg",
-    margin: 0,
-    errorCorrectionLevel: "M",
-    color: { dark, light },
-  });
+export type QrStyle = "classic" | "dots" | "rounded";
+export type QrRenderOpts = {
+  dark: string;
+  light: string;
+  style: QrStyle;
+  logoUrl?: string | null;
+  /** size of the logo cutout as fraction of the QR (0.18–0.26 is safe with EC=H) */
+  logoScale?: number;
+};
+
+/** Returns true if module (r,c) lies inside any of the 3 finder-eye 7x7 blocks. */
+function isFinder(r: number, c: number, n: number) {
+  const inBlock = (br: number, bc: number) =>
+    r >= br && r < br + 7 && c >= bc && c < bc + 7;
+  return inBlock(0, 0) || inBlock(0, n - 7) || inBlock(n - 7, 0);
 }
-async function qrPngBytes(value: string, dark: string, light: string, size = 600): Promise<Uint8Array> {
-  const dataUrl = await QRCode.toDataURL(value || " ", {
-    margin: 0,
-    width: size,
-    errorCorrectionLevel: "M",
-    color: { dark, light },
-  });
-  const b64 = dataUrl.split(",")[1];
-  const bin = atob(b64);
-  const bytes = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-  return bytes;
+
+function prettyQrSvg(value: string, opts: QrRenderOpts): string {
+  const ec = opts.logoUrl ? "H" : "M";
+  const qr = QRCode.create(value || " ", { errorCorrectionLevel: ec });
+  const n: number = qr.modules.size;
+  const data: Uint8Array = qr.modules.data as unknown as Uint8Array;
+  const get = (r: number, c: number) =>
+    r >= 0 && c >= 0 && r < n && c < n ? data[r * n + c] === 1 : false;
+
+  const { dark, light, style } = opts;
+  const logoScale = opts.logoScale ?? 0.22;
+  const logoBox = opts.logoUrl
+    ? { x: (n - n * logoScale) / 2, y: (n - n * logoScale) / 2, s: n * logoScale }
+    : null;
+  const inLogo = (r: number, c: number) => {
+    if (!logoBox) return false;
+    // include a 1-module safety padding around cutout
+    const pad = 0.6;
+    return (
+      c + 1 > logoBox.x - pad &&
+      c < logoBox.x + logoBox.s + pad &&
+      r + 1 > logoBox.y - pad &&
+      r < logoBox.y + logoBox.s + pad
+    );
+  };
+
+  const parts: string[] = [];
+  parts.push(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="geometricPrecision">`,
+  );
+  parts.push(`<rect width="${n}" height="${n}" fill="${light}"/>`);
+
+  // Modules (skip finder eyes, draw separately)
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (!get(r, c)) continue;
+      if (isFinder(r, c, n)) continue;
+      if (inLogo(r, c)) continue;
+      if (style === "dots") {
+        parts.push(
+          `<circle cx="${c + 0.5}" cy="${r + 0.5}" r="0.42" fill="${dark}"/>`,
+        );
+      } else if (style === "rounded") {
+        parts.push(
+          `<rect x="${c + 0.06}" y="${r + 0.06}" width="0.88" height="0.88" rx="0.32" ry="0.32" fill="${dark}"/>`,
+        );
+      } else {
+        parts.push(`<rect x="${c}" y="${r}" width="1" height="1" fill="${dark}"/>`);
+      }
+    }
+  }
+
+  // Stylized finder eyes
+  const eyes = [
+    { x: 0, y: 0 },
+    { x: n - 7, y: 0 },
+    { x: 0, y: n - 7 },
+  ];
+  const outerRx = style === "classic" ? 0.6 : 1.8;
+  const innerRx = style === "classic" ? 0.3 : 1.0;
+  for (const e of eyes) {
+    // Outer rounded square ring (7x7 with 1-module thick stroke = inner 5x5 hole)
+    parts.push(
+      `<rect x="${e.x + 0.5}" y="${e.y + 0.5}" width="6" height="6" rx="${outerRx}" ry="${outerRx}" fill="none" stroke="${dark}" stroke-width="1"/>`,
+    );
+    // Inner solid 3x3
+    parts.push(
+      `<rect x="${e.x + 2}" y="${e.y + 2}" width="3" height="3" rx="${innerRx}" ry="${innerRx}" fill="${dark}"/>`,
+    );
+  }
+
+  // Logo plate + image
+  if (logoBox && opts.logoUrl) {
+    const padPx = 0.6;
+    parts.push(
+      `<rect x="${logoBox.x - padPx}" y="${logoBox.y - padPx}" width="${logoBox.s + padPx * 2}" height="${logoBox.s + padPx * 2}" rx="0.8" ry="0.8" fill="${light}"/>`,
+    );
+    parts.push(
+      `<image href="${opts.logoUrl}" x="${logoBox.x}" y="${logoBox.y}" width="${logoBox.s}" height="${logoBox.s}" preserveAspectRatio="xMidYMid meet"/>`,
+    );
+  }
+
+  parts.push(`</svg>`);
+  return parts.join("");
+}
+
+/** Rasterize a styled QR SVG to PNG bytes for pdf-lib embed. */
+async function prettyQrPngBytes(
+  value: string,
+  opts: QrRenderOpts,
+  pxSize = 900,
+): Promise<Uint8Array> {
+  // Inline the logo as a data URI so the SVG renders in an <img> without CORS issues.
+  let inlineOpts = opts;
+  if (opts.logoUrl) {
+    try {
+      const res = await fetch(opts.logoUrl);
+      const buf = await res.arrayBuffer();
+      const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      const ct = res.headers.get("content-type") || "image/png";
+      inlineOpts = { ...opts, logoUrl: `data:${ct};base64,${b64}` };
+    } catch {
+      inlineOpts = { ...opts, logoUrl: null };
+    }
+  }
+  const svg = prettyQrSvg(value, inlineOpts);
+  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = reject;
+      i.src = url;
+    });
+    const canvas = document.createElement("canvas");
+    canvas.width = pxSize;
+    canvas.height = pxSize;
+    const ctx = canvas.getContext("2d")!;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.fillStyle = opts.light;
+    ctx.fillRect(0, 0, pxSize, pxSize);
+    ctx.drawImage(img, 0, 0, pxSize, pxSize);
+    const dataUrl = canvas.toDataURL("image/png");
+    const b64 = dataUrl.split(",")[1];
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }
 
 /* ---------------------------- PDF builder ---------------------------- */
@@ -163,8 +296,24 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   const frontVal = resolveQrValue(f.sameQr ? f.front : f.front, f);
   const backVal  = resolveQrValue(f.sameQr ? f.front : f.back,  f);
 
-  const frontQr = await pdf.embedPng(await qrPngBytes(frontVal, CREAM.hex, NAVY.hex, 700));
-  const backQr  = await pdf.embedPng(await qrPngBytes(backVal,  NAVY.hex,  CREAM.hex, 900));
+  // Front: dark modules on cream tile → use cream-on-navy logo
+  const frontQr = await pdf.embedPng(
+    await prettyQrPngBytes(frontVal, {
+      dark: NAVY.hex, light: CREAM.hex,
+      style: f.qrStyle,
+      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    }, 900),
+  );
+  // Back: cream modules on navy background → use white wordmark
+  const backQr = await pdf.embedPng(
+    await prettyQrPngBytes(backVal, {
+      dark: NAVY.hex, light: CREAM.hex,
+      style: f.qrStyle,
+      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    }, 1000),
+  );
 
   /* ---------------- FRONT PAGE ---------------- */
   const front = pdf.addPage([PAGE_W, PAGE_H]);
@@ -449,12 +598,15 @@ function CardPreview({
   const [svg, setSvg] = useState<string>("");
 
   useEffect(() => {
-    let cancelled = false;
-    const dark  = side === "front" ? NAVY.hex  : NAVY.hex;
-    const light = side === "front" ? CREAM.hex : CREAM.hex;
-    qrSvg(qrValue, dark, light).then((s) => { if (!cancelled) setSvg(s); });
-    return () => { cancelled = true; };
-  }, [qrValue, side]);
+    const s = prettyQrSvg(qrValue, {
+      dark: NAVY.hex,
+      light: CREAM.hex,
+      style: fields.qrStyle,
+      logoUrl: fields.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    });
+    setSvg(s);
+  }, [qrValue, side, fields.qrStyle, fields.qrLogo]);
 
   // Card displayed at 350×200 px (1:1 aspect with trim), with bleed visualized outside
   const W = 350, H = 200;
@@ -741,6 +893,38 @@ export function BusinessCardBuilder() {
                   borderTop: "1px solid var(--cream-deep)",
                   display: "grid", gap: 16,
                 }}>
+                  <div>
+                    <label style={labelStyle}>QR style</label>
+                    <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                      {(["rounded", "dots", "classic"] as QrStyle[]).map((s) => {
+                        const active = fields.qrStyle === s;
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => update("qrStyle", s)}
+                            style={{
+                              padding: "6px 10px",
+                              borderRadius: 4,
+                              border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
+                              background: active ? "var(--orange)" : "var(--cream)",
+                              color: active ? "var(--cream)" : "var(--ink)",
+                              fontFamily: "Montserrat, sans-serif",
+                              fontSize: 11, fontWeight: 700,
+                              letterSpacing: "0.08em", textTransform: "uppercase",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 12, color: "var(--ink-soft)" }}>
+                      <input type="checkbox" checked={fields.qrLogo} onChange={(e) => update("qrLogo", e.target.checked)} />
+                      Embed brand logo in QR center (uses high error-correction)
+                    </label>
+                  </div>
                   <QrControls
                     label="Front QR"
                     value={fields.front}
