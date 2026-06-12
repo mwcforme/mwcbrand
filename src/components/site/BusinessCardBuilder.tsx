@@ -657,17 +657,17 @@ function CardPreview({
                 </div>
               </div>
               <div style={{
-                position: "absolute", right: 14, bottom: 14,
-                background: CREAM.hex, padding: 6, borderRadius: 2,
-                width: 64, height: 64,
+                position: "absolute", right: 10, bottom: 18,
+                borderRadius: 3, overflow: "hidden",
+                width: 95, height: 95,
               }}
                 dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
               />
               <div style={{
-                position: "absolute", right: 14, bottom: 0,
-                width: 64, textAlign: "center",
-                fontSize: 6, fontWeight: 700, letterSpacing: "0.12em",
-                color: CREAM.hex, textTransform: "uppercase", paddingBottom: 2,
+                position: "absolute", right: 10, bottom: 2,
+                width: 95, textAlign: "center",
+                fontSize: 7, fontWeight: 700, letterSpacing: "0.12em",
+                color: ORANGE.hex, textTransform: "uppercase",
               }}>
                 {(fields.front.caption || defaultCaptionFor(fields.front.type))}
               </div>
