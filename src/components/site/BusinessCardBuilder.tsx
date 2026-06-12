@@ -189,7 +189,6 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
       size: fs,
       font: helvBold,
       color: rgbHex(ORANGE_TEXT_HEX),
-      characterSpacing: 1.6,
     });
   }
 
@@ -212,7 +211,6 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
       size: 5.5,
       font: helvBold,
       color: rgbHex(CREAM.hex),
-      characterSpacing: 1.2,
     });
   }
 
@@ -241,12 +239,10 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   cursorY -= 0.18 * IN;
   back.drawText(f.title.toUpperCase(), {
     x: innerX, y: cursorY, size: 7, font: helvBold,
-    color: rgbHex(ORANGE_TEXT_HEX), characterSpacing: 1.4,
   });
   cursorY -= 0.14 * IN;
   back.drawText(`MEN'S WELLNESS CENTERS  ·  ${f.center.toUpperCase()}`, {
     x: innerX, y: cursorY, size: 6.5, font: helvBold,
-    color: rgbHex(NAVY.hex), characterSpacing: 1,
   });
 
   // Hairline divider
@@ -266,7 +262,6 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   for (const [label, val] of rows) {
     back.drawText(label, {
       x: innerX, y: cursorY, size: 6, font: helvBold,
-      color: rgbHex(CAPTION_HEX), characterSpacing: 1.2,
     });
     back.drawText(val, {
       x: innerX + 0.46 * IN, y: cursorY, size: 7.5, font: helv, color: rgbHex(NAVY.hex),
@@ -309,7 +304,6 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
       size: 5.5,
       font: helvBold,
       color: rgbHex(CAPTION_HEX),
-      characterSpacing: 1.2,
     });
   }
 
