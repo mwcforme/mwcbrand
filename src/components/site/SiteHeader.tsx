@@ -13,6 +13,7 @@ const NAV = [
   { to: "/accessibility", label: "A11y" },
   { to: "/prompts", label: "Prompts" },
   { to: "/email-signature", label: "Email" },
+  { to: "/business-card", label: "Card" },
   { to: "/lead-forms", label: "Lead Forms" },
   { to: "/downloads", label: "Downloads" },
 ];

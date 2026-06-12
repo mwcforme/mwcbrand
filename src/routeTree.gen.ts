@@ -18,6 +18,7 @@ import { Route as LeadFormsRouteImport } from './routes/lead-forms'
 import { Route as EmailSignatureRouteImport } from './routes/email-signature'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ColorRouteImport } from './routes/color'
+import { Route as BusinessCardRouteImport } from './routes/business-card'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
@@ -67,6 +68,11 @@ const ColorRoute = ColorRouteImport.update({
   path: '/color',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusinessCardRoute = BusinessCardRouteImport.update({
+  id: '/business-card',
+  path: '/business-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplicationsRoute = ApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/business-card': typeof BusinessCardRoute
   '/color': typeof ColorRoute
   '/downloads': typeof DownloadsRoute
   '/email-signature': typeof EmailSignatureRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/business-card': typeof BusinessCardRoute
   '/color': typeof ColorRoute
   '/downloads': typeof DownloadsRoute
   '/email-signature': typeof EmailSignatureRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/business-card': typeof BusinessCardRoute
   '/color': typeof ColorRoute
   '/downloads': typeof DownloadsRoute
   '/email-signature': typeof EmailSignatureRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/business-card'
     | '/color'
     | '/downloads'
     | '/email-signature'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/business-card'
     | '/color'
     | '/downloads'
     | '/email-signature'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/business-card'
     | '/color'
     | '/downloads'
     | '/email-signature'
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessibilityRoute: typeof AccessibilityRoute
   ApplicationsRoute: typeof ApplicationsRoute
+  BusinessCardRoute: typeof BusinessCardRoute
   ColorRoute: typeof ColorRoute
   DownloadsRoute: typeof DownloadsRoute
   EmailSignatureRoute: typeof EmailSignatureRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ColorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/business-card': {
+      id: '/business-card'
+      path: '/business-card'
+      fullPath: '/business-card'
+      preLoaderRoute: typeof BusinessCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/applications': {
       id: '/applications'
       path: '/applications'
@@ -279,6 +299,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
   ApplicationsRoute: ApplicationsRoute,
+  BusinessCardRoute: BusinessCardRoute,
   ColorRoute: ColorRoute,
   DownloadsRoute: DownloadsRoute,
   EmailSignatureRoute: EmailSignatureRoute,
@@ -292,3 +313,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
