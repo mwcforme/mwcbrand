@@ -298,21 +298,21 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   const frontVal = resolveQrValue(f.sameQr ? f.front : f.front, f);
   const backVal  = resolveQrValue(f.sameQr ? f.front : f.back,  f);
 
-  // Front: dark modules on cream tile → use cream-on-navy logo
+  // Front: orange modules on cream background
   const frontQr = await pdf.embedPng(
     await prettyQrPngBytes(frontVal, {
-      dark: NAVY.hex, light: CREAM.hex,
+      dark: ORANGE.hex, light: CREAM.hex,
       style: f.qrStyle,
       logoUrl: f.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     }, 900),
   );
-  // Back: cream modules on navy background → use white wordmark
+  // Back: orange modules on navy background
   const backQr = await pdf.embedPng(
     await prettyQrPngBytes(backVal, {
-      dark: NAVY.hex, light: CREAM.hex,
+      dark: ORANGE.hex, light: NAVY.hex,
       style: f.qrStyle,
-      logoUrl: f.qrLogo ? QR_MARK_URL : null,
+      logoUrl: null,
       logoScale: 0.22,
     }, 1000),
   );
@@ -343,25 +343,22 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     });
   }
 
-  // QR bottom-right on cream tile
+  // QR bottom-right
   {
-    const qrSize = 0.7 * IN;
-    const pad = 0.06 * IN;
-    const tileSize = qrSize + pad * 2;
-    const x = PAGE_W - BLEED - 0.18 * IN - tileSize;
-    const y = BLEED + 0.18 * IN;
-    front.drawRectangle({ x, y, width: tileSize, height: tileSize, color: rgbHex(CREAM.hex) });
-    front.drawImage(frontQr, { x: x + pad, y: y + pad, width: qrSize, height: qrSize });
+    const qrSize = 0.95 * IN;
+    const x = PAGE_W - BLEED - 0.16 * IN - qrSize;
+    const y = BLEED + 0.16 * IN;
+    front.drawImage(frontQr, { x, y, width: qrSize, height: qrSize });
 
     const cap = (f.sameQr ? f.front.caption : f.front.caption) || defaultCaptionFor(f.front.type);
     const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 5.5);
+    const cw = helvBold.widthOfTextAtSize(capU, 6);
     front.drawText(capU, {
-      x: x + (tileSize - cw) / 2,
-      y: y - 0.13 * IN,
-      size: 5.5,
+      x: x + (qrSize - cw) / 2,
+      y: y - 0.14 * IN,
+      size: 6,
       font: helvBold,
-      color: rgbHex(CREAM.hex),
+      color: rgbHex(ORANGE.hex),
     });
   }
 
@@ -421,40 +418,40 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   }
 
   // Vertical orange rule
-  const ruleX = BLEED + 2.3 * IN;
+  const ruleX = BLEED + 1.9 * IN;
   back.drawRectangle({
-    x: ruleX, y: BLEED + 0.18 * IN, width: 1.5, height: TRIM_H - 0.36 * IN,
+    x: ruleX, y: BLEED + 0.16 * IN, width: 2.5, height: TRIM_H - 0.32 * IN,
     color: rgbHex(ORANGE.hex),
   });
 
   // Right column: small wordmark + QR + caption
   {
-    const rightX = ruleX + 0.2 * IN;
-    const rightW = PAGE_W - BLEED - 0.22 * IN - rightX;
+    const rightX = ruleX + 0.16 * IN;
+    const rightW = PAGE_W - BLEED - 0.18 * IN - rightX;
 
     // Small wordmark top-right
-    const wmW = Math.min(0.85 * IN, rightW);
+    const wmW = Math.min(0.78 * IN, rightW);
     const wmH = wmW * (wordmarkNavyPng.height / wordmarkNavyPng.width);
     back.drawImage(wordmarkNavyPng, {
       x: rightX + (rightW - wmW) / 2,
-      y: PAGE_H - BLEED - 0.28 * IN - wmH,
+      y: PAGE_H - BLEED - 0.24 * IN - wmH,
       width: wmW, height: wmH,
     });
 
-    const qrSize = Math.min(0.85 * IN, rightW);
+    const qrSize = Math.min(0.92 * IN, rightW);
     const qx = rightX + (rightW - qrSize) / 2;
-    const qy = BLEED + 0.32 * IN;
+    const qy = BLEED + 0.28 * IN;
     back.drawImage(backQr, { x: qx, y: qy, width: qrSize, height: qrSize });
 
     const cap = (f.sameQr ? f.front.caption : f.back.caption) || defaultCaptionFor(f.back.type);
     const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 5.5);
+    const cw = helvBold.widthOfTextAtSize(capU, 6);
     back.drawText(capU, {
       x: qx + (qrSize - cw) / 2,
-      y: qy - 0.13 * IN,
-      size: 5.5,
+      y: qy - 0.14 * IN,
+      size: 6,
       font: helvBold,
-      color: rgbHex(CAPTION_HEX),
+      color: rgbHex(ORANGE.hex),
     });
   }
 
@@ -600,11 +597,12 @@ function CardPreview({
   const [svg, setSvg] = useState<string>("");
 
   useEffect(() => {
+    const isFront = side === "front";
     const s = prettyQrSvg(qrValue, {
-      dark: NAVY.hex,
-      light: CREAM.hex,
+      dark: ORANGE.hex,
+      light: isFront ? CREAM.hex : NAVY.hex,
       style: fields.qrStyle,
-      logoUrl: fields.qrLogo ? QR_MARK_URL : null,
+      logoUrl: isFront && fields.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     });
     setSvg(s);
@@ -659,17 +657,17 @@ function CardPreview({
                 </div>
               </div>
               <div style={{
-                position: "absolute", right: 14, bottom: 14,
-                background: CREAM.hex, padding: 6, borderRadius: 2,
-                width: 64, height: 64,
+                position: "absolute", right: 10, bottom: 18,
+                borderRadius: 3, overflow: "hidden",
+                width: 95, height: 95,
               }}
                 dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
               />
               <div style={{
-                position: "absolute", right: 14, bottom: 0,
-                width: 64, textAlign: "center",
-                fontSize: 6, fontWeight: 700, letterSpacing: "0.12em",
-                color: CREAM.hex, textTransform: "uppercase", paddingBottom: 2,
+                position: "absolute", right: 10, bottom: 2,
+                width: 95, textAlign: "center",
+                fontSize: 7, fontWeight: 700, letterSpacing: "0.12em",
+                color: ORANGE.hex, textTransform: "uppercase",
               }}>
                 {(fields.front.caption || defaultCaptionFor(fields.front.type))}
               </div>
@@ -679,7 +677,7 @@ function CardPreview({
               }} />
             </>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 96px", height: "100%", padding: 16, gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5px 120px", height: "100%", padding: 16, gap: 12 }}>
               <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
                 <div style={{ fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 16, color: NAVY.hex, lineHeight: 1.1 }}>
                   {fullName || "—"}
@@ -698,14 +696,14 @@ function CardPreview({
                 {fields.email && <Row label="Email" value={fields.email} />}
                 <Row label="Web" value="menswellnesscenters.com" />
               </div>
-              <div style={{ background: ORANGE.hex, width: 1.5 }} />
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ background: ORANGE.hex, width: 2.5, borderRadius: 1 }} />
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, justifyContent: "center" }}>
                 <img src={WORDMARK_NAVY_URL} alt="" style={{ height: 14, width: "auto" }} />
                 <div
-                  style={{ width: 72, height: 72 }}
+                  style={{ width: 90, height: 90, borderRadius: 3, overflow: "hidden" }}
                   dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
                 />
-                <div style={{ fontSize: 6, fontWeight: 700, letterSpacing: "0.14em", color: CAPTION_HEX, textTransform: "uppercase", textAlign: "center" }}>
+                <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: "0.14em", color: ORANGE.hex, textTransform: "uppercase", textAlign: "center" }}>
                   {((fields.sameQr ? fields.front.caption : fields.back.caption)) || defaultCaptionFor(qrCfg.type)}
                 </div>
               </div>
