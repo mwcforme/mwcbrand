@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import assetMap from "@/data/asset-map.json";
@@ -9,120 +9,38 @@ const ABS = (path: string) => (path?.startsWith("/") ? ORIGIN + path : path);
 
 const WORDMARK_WHITE_URL = ABS(A["assets/logos/png/print_wordmark_white_on_trans_4000x920.png"]);
 const WORDMARK_NAVY_URL  = ABS(A["assets/logos/png/print_wordmark_navy_on_trans_4000x920.png"]);
-// Square "M" monogram — reads cleanly inside a QR center where the wordmark would squish.
-const QR_MARK_URL        = ABS(A["assets/logos/png/m_1024_navy_on_transparent.png"]);
 
 // Brand colors
-const NAVY   = { r: 0x0b / 255, g: 0x10 / 255, b: 0x29 / 255, hex: "#0B1029" };
-const CREAM  = { r: 0xf5 / 255, g: 0xf3 / 255, b: 0xf0 / 255, hex: "#F5F3F0" };
-const ORANGE = { r: 0xe8 / 255, g: 0x67 / 255, b: 0x0a / 255, hex: "#E8670A" };
-const ORANGE_DARK_HEX = "#B84A08";
+const NAVY   = { hex: "#0B1029" };
+const CREAM  = { hex: "#F5F3F0" };
+const ORANGE = { hex: "#E8670A" };
 const ORANGE_TEXT_HEX = "#A04108";
-const RULE_HEX = "#D4D2CE";
-const CAPTION_HEX = "#4F555C";
-
-type QrType = "booking" | "profile" | "referral" | "custom" | "vcard";
-type QrConfig = { type: QrType; url: string; caption: string };
+const BLACK = "#000000";
+const WHITE = "#FFFFFF";
 
 type Fields = {
-  firstName: string;
-  lastName: string;
-  credentials: string;
-  title: string;
-  center: string;
-  directPhone: string;
-  includeDirect: boolean;
-  centerPhone: string;
-  email: string;
-  profileSlug: string;
-  front: QrConfig;
-  back: QrConfig;
-  sameQr: boolean;
+  headline: string;
+  subhead: string;
+  offer: string;
+  referralUrl: string;
+  caption: string;
   qrStyle: QrStyle;
-  qrLogo: boolean;
 };
 
 const DEFAULTS: Fields = {
-  firstName: "Michael",
-  lastName: "Sample",
-  credentials: "",
-  title: "Center Director",
-  center: "Glen Allen, VA",
-  directPhone: "(804) 555-0123",
-  includeDirect: true,
-  centerPhone: "(804) 555-1000",
-  email: "michael.sample@menswellnesscenters.com",
-  profileSlug: "michael-sample",
-  front: { type: "profile", url: "", caption: "Scan to connect" },
-  back:  { type: "booking", url: "https://book.menswellnesscenters.com", caption: "Scan to book" },
-  sameQr: false,
+  headline: "Refer a friend.",
+  subhead: "Know someone who'd benefit from feeling like themselves again?",
+  offer: "You both get $100 off your next visit.",
+  referralUrl: "https://go.menswellnesscenters.com/refer",
+  caption: "Scan to refer",
   qrStyle: "rounded",
-  qrLogo: true,
 };
 
-function digits(s: string) { return s.replace(/\D+/g, ""); }
-
-function buildVCard(f: Fields): string {
-  const phones: string[] = [];
-  if (f.includeDirect && f.directPhone) phones.push(`TEL;TYPE=WORK,VOICE:+1${digits(f.directPhone)}`);
-  if (f.centerPhone) phones.push(`TEL;TYPE=WORK,MAIN:+1${digits(f.centerPhone)}`);
-  return [
-    "BEGIN:VCARD",
-    "VERSION:3.0",
-    `N:${f.lastName};${f.firstName};;;${f.credentials}`,
-    `FN:${f.firstName} ${f.lastName}${f.credentials ? ", " + f.credentials : ""}`,
-    "ORG:Men's Wellness Centers",
-    `TITLE:${f.title}`,
-    ...phones,
-    `EMAIL;TYPE=WORK:${f.email}`,
-    "URL:https://menswellnesscenters.com",
-    `ADR;TYPE=WORK:;;;${f.center};;;`,
-    "END:VCARD",
-  ].join("\n");
-}
-
-function resolveQrValue(side: QrConfig, f: Fields): string {
-  switch (side.type) {
-    case "booking":  return side.url || "https://book.menswellnesscenters.com";
-    case "profile":  return side.url || `https://menswellnesscenters.com/team/${f.profileSlug || "team"}`;
-    case "referral": return side.url || "https://go.menswellnesscenters.com/refer";
-    case "custom":   return side.url || "https://menswellnesscenters.com";
-    case "vcard":    return buildVCard(f);
-  }
-}
-
-function defaultUrlFor(type: QrType, f: Fields): string {
-  switch (type) {
-    case "booking":  return "https://book.menswellnesscenters.com";
-    case "profile":  return `https://menswellnesscenters.com/team/${f.profileSlug || "team"}`;
-    case "referral": return "https://go.menswellnesscenters.com/refer";
-    case "custom":   return "";
-    case "vcard":    return "";
-  }
-}
-function defaultCaptionFor(type: QrType): string {
-  switch (type) {
-    case "booking":  return "Scan to book";
-    case "profile":  return "Scan to connect";
-    case "referral": return "Refer a friend";
-    case "custom":   return "Scan to learn more";
-    case "vcard":    return "Save contact";
-  }
-}
-
-/* ---------------------------- QR rendering ---------------------------- */
+/* ---------------------------- QR rendering (B&W) ---------------------------- */
 
 export type QrStyle = "classic" | "dots" | "rounded";
-export type QrRenderOpts = {
-  dark: string;
-  light: string;
-  style: QrStyle;
-  logoUrl?: string | null;
-  /** size of the logo cutout as fraction of the QR (0.18–0.26 is safe with EC=H) */
-  logoScale?: number;
-};
+export type QrRenderOpts = { dark: string; light: string; style: QrStyle };
 
-/** Returns true if module (r,c) lies inside any of the 3 finder-eye 7x7 blocks. */
 function isFinder(r: number, c: number, n: number) {
   const inBlock = (br: number, bc: number) =>
     r >= br && r < br + 7 && c >= bc && c < bc + 7;
@@ -130,110 +48,50 @@ function isFinder(r: number, c: number, n: number) {
 }
 
 function prettyQrSvg(value: string, opts: QrRenderOpts): string {
-  const ec = opts.logoUrl ? "H" : "M";
-  const qr = QRCode.create(value || " ", { errorCorrectionLevel: ec });
+  const qr = QRCode.create(value || " ", { errorCorrectionLevel: "M" });
   const n: number = qr.modules.size;
   const data: Uint8Array = qr.modules.data as unknown as Uint8Array;
   const get = (r: number, c: number) =>
     r >= 0 && c >= 0 && r < n && c < n ? data[r * n + c] === 1 : false;
 
   const { dark, light, style } = opts;
-  const logoScale = opts.logoScale ?? 0.22;
-  const logoBox = opts.logoUrl
-    ? { x: (n - n * logoScale) / 2, y: (n - n * logoScale) / 2, s: n * logoScale }
-    : null;
-  const inLogo = (r: number, c: number) => {
-    if (!logoBox) return false;
-    // include a 1-module safety padding around cutout
-    const pad = 0.6;
-    return (
-      c + 1 > logoBox.x - pad &&
-      c < logoBox.x + logoBox.s + pad &&
-      r + 1 > logoBox.y - pad &&
-      r < logoBox.y + logoBox.s + pad
-    );
-  };
-
   const parts: string[] = [];
   parts.push(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="geometricPrecision">`,
   );
   parts.push(`<rect width="${n}" height="${n}" fill="${light}"/>`);
 
-  // Modules (skip finder eyes, draw separately)
   for (let r = 0; r < n; r++) {
     for (let c = 0; c < n; c++) {
       if (!get(r, c)) continue;
       if (isFinder(r, c, n)) continue;
-      if (inLogo(r, c)) continue;
       if (style === "dots") {
-        parts.push(
-          `<circle cx="${c + 0.5}" cy="${r + 0.5}" r="0.42" fill="${dark}"/>`,
-        );
+        parts.push(`<circle cx="${c + 0.5}" cy="${r + 0.5}" r="0.42" fill="${dark}"/>`);
       } else if (style === "rounded") {
-        parts.push(
-          `<rect x="${c + 0.06}" y="${r + 0.06}" width="0.88" height="0.88" rx="0.32" ry="0.32" fill="${dark}"/>`,
-        );
+        parts.push(`<rect x="${c + 0.06}" y="${r + 0.06}" width="0.88" height="0.88" rx="0.32" ry="0.32" fill="${dark}"/>`);
       } else {
         parts.push(`<rect x="${c}" y="${r}" width="1" height="1" fill="${dark}"/>`);
       }
     }
   }
 
-  // Stylized finder eyes
-  const eyes = [
-    { x: 0, y: 0 },
-    { x: n - 7, y: 0 },
-    { x: 0, y: n - 7 },
-  ];
+  const eyes = [{ x: 0, y: 0 }, { x: n - 7, y: 0 }, { x: 0, y: n - 7 }];
   const outerRx = style === "classic" ? 0.6 : 1.8;
   const innerRx = style === "classic" ? 0.3 : 1.0;
   for (const e of eyes) {
-    // Outer rounded square ring (7x7 with 1-module thick stroke = inner 5x5 hole)
     parts.push(
       `<rect x="${e.x + 0.5}" y="${e.y + 0.5}" width="6" height="6" rx="${outerRx}" ry="${outerRx}" fill="none" stroke="${dark}" stroke-width="1"/>`,
     );
-    // Inner solid 3x3
     parts.push(
       `<rect x="${e.x + 2}" y="${e.y + 2}" width="3" height="3" rx="${innerRx}" ry="${innerRx}" fill="${dark}"/>`,
     );
   }
-
-  // Logo plate + image
-  if (logoBox && opts.logoUrl) {
-    const padPx = 0.6;
-    parts.push(
-      `<rect x="${logoBox.x - padPx}" y="${logoBox.y - padPx}" width="${logoBox.s + padPx * 2}" height="${logoBox.s + padPx * 2}" rx="0.8" ry="0.8" fill="${light}"/>`,
-    );
-    parts.push(
-      `<image href="${opts.logoUrl}" x="${logoBox.x}" y="${logoBox.y}" width="${logoBox.s}" height="${logoBox.s}" preserveAspectRatio="xMidYMid meet"/>`,
-    );
-  }
-
   parts.push(`</svg>`);
   return parts.join("");
 }
 
-/** Rasterize a styled QR SVG to PNG bytes for pdf-lib embed. */
-async function prettyQrPngBytes(
-  value: string,
-  opts: QrRenderOpts,
-  pxSize = 900,
-): Promise<Uint8Array> {
-  // Inline the logo as a data URI so the SVG renders in an <img> without CORS issues.
-  let inlineOpts = opts;
-  if (opts.logoUrl) {
-    try {
-      const res = await fetch(opts.logoUrl);
-      const buf = await res.arrayBuffer();
-      const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-      const ct = res.headers.get("content-type") || "image/png";
-      inlineOpts = { ...opts, logoUrl: `data:${ct};base64,${b64}` };
-    } catch {
-      inlineOpts = { ...opts, logoUrl: null };
-    }
-  }
-  const svg = prettyQrSvg(value, inlineOpts);
+async function prettyQrPngBytes(value: string, opts: QrRenderOpts, pxSize = 900): Promise<Uint8Array> {
+  const svg = prettyQrSvg(value, opts);
   const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
   const url = URL.createObjectURL(svgBlob);
   try {
@@ -265,12 +123,12 @@ async function prettyQrPngBytes(
 
 /* ---------------------------- PDF builder ---------------------------- */
 
-const IN = 72; // points per inch
+const IN = 72;
 const TRIM_W = 3.5 * IN;
 const TRIM_H = 2.0 * IN;
 const BLEED  = 0.125 * IN;
-const PAGE_W = TRIM_W + BLEED * 2; // 3.75 in
-const PAGE_H = TRIM_H + BLEED * 2; // 2.25 in
+const PAGE_W = TRIM_W + BLEED * 2;
+const PAGE_H = TRIM_H + BLEED * 2;
 
 function rgbHex(hex: string) {
   const h = hex.replace("#", "");
@@ -287,176 +145,157 @@ async function fetchPngBytes(url: string): Promise<Uint8Array> {
   return new Uint8Array(buf);
 }
 
+// Naive word-wrap for pdf-lib drawText
+function wrapText(text: string, font: import("pdf-lib").PDFFont, size: number, maxWidth: number): string[] {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let cur = "";
+  for (const w of words) {
+    const test = cur ? cur + " " + w : w;
+    if (font.widthOfTextAtSize(test, size) <= maxWidth) cur = test;
+    else { if (cur) lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
 async function buildPdf(f: Fields): Promise<Uint8Array> {
   const pdf = await PDFDocument.create();
-  const helv      = await pdf.embedFont(StandardFonts.Helvetica);
-  const helvBold  = await pdf.embedFont(StandardFonts.HelveticaBold);
+  const helv     = await pdf.embedFont(StandardFonts.Helvetica);
+  const helvBold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
   const wordmarkWhitePng = await pdf.embedPng(await fetchPngBytes(WORDMARK_WHITE_URL));
   const wordmarkNavyPng  = await pdf.embedPng(await fetchPngBytes(WORDMARK_NAVY_URL));
 
-  const frontVal = resolveQrValue(f.sameQr ? f.front : f.front, f);
-  const backVal  = resolveQrValue(f.sameQr ? f.front : f.back,  f);
-
-  // Front: orange modules on cream background
+  // QR — pure B&W. Front (on cream) = black on white. Back (on navy) = white on black tile.
   const frontQr = await pdf.embedPng(
-    await prettyQrPngBytes(frontVal, {
-      dark: ORANGE.hex, light: CREAM.hex,
-      style: f.qrStyle,
-      logoUrl: f.qrLogo ? QR_MARK_URL : null,
-      logoScale: 0.22,
-    }, 900),
+    await prettyQrPngBytes(f.referralUrl, { dark: BLACK, light: WHITE, style: f.qrStyle }, 900),
   );
-  // Back: orange modules on navy background
   const backQr = await pdf.embedPng(
-    await prettyQrPngBytes(backVal, {
-      dark: ORANGE.hex, light: NAVY.hex,
-      style: f.qrStyle,
-      logoUrl: null,
-      logoScale: 0.22,
-    }, 1000),
+    await prettyQrPngBytes(f.referralUrl, { dark: BLACK, light: WHITE, style: f.qrStyle }, 900),
   );
 
-  /* ---------------- FRONT PAGE ---------------- */
+  /* ---------------- FRONT — brand promo ---------------- */
   const front = pdf.addPage([PAGE_W, PAGE_H]);
-  // Full-bleed navy
   front.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(NAVY.hex) });
 
-  // Wordmark — centered upper area
+  // Big wordmark centered upper
   {
-    const wmW = 1.9 * IN;
+    const wmW = 2.1 * IN;
     const wmH = wmW * (wordmarkWhitePng.height / wordmarkWhitePng.width);
     const wmX = (PAGE_W - wmW) / 2;
-    const wmY = PAGE_H - BLEED - 0.35 * IN - wmH;
+    const wmY = PAGE_H - BLEED - 0.42 * IN - wmH;
     front.drawImage(wordmarkWhitePng, { x: wmX, y: wmY, width: wmW, height: wmH });
 
-    // Tagline
     const tag = "FIND YOUR EDGE OVER AGE.";
-    const fs = 7;
+    const fs = 8;
     const tw = helvBold.widthOfTextAtSize(tag, fs);
     front.drawText(tag, {
       x: (PAGE_W - tw) / 2,
-      y: wmY - 0.18 * IN,
+      y: wmY - 0.22 * IN,
       size: fs,
-      font: helvBold,
-      color: rgbHex(ORANGE_TEXT_HEX),
-    });
-  }
-
-  // QR bottom-right
-  {
-    const qrSize = 0.95 * IN;
-    const x = PAGE_W - BLEED - 0.16 * IN - qrSize;
-    const y = BLEED + 0.16 * IN;
-    front.drawImage(frontQr, { x, y, width: qrSize, height: qrSize });
-
-    const cap = (f.sameQr ? f.front.caption : f.front.caption) || defaultCaptionFor(f.front.type);
-    const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 6);
-    front.drawText(capU, {
-      x: x + (qrSize - cw) / 2,
-      y: y - 0.14 * IN,
-      size: 6,
       font: helvBold,
       color: rgbHex(ORANGE.hex),
     });
   }
 
-  // Bottom orange rule (inside trim)
-  front.drawRectangle({
-    x: BLEED, y: BLEED, width: TRIM_W, height: 1.5, color: rgbHex(ORANGE.hex),
-  });
+  // Promo block bottom
+  {
+    const headline = f.headline.toUpperCase();
+    const hsize = 14;
+    const hw = helvBold.widthOfTextAtSize(headline, hsize);
+    const hx = (PAGE_W - hw) / 2;
+    const hy = BLEED + 0.42 * IN;
+    front.drawText(headline, { x: hx, y: hy, size: hsize, font: helvBold, color: rgbHex(CREAM.hex) });
+
+    const offer = f.offer;
+    const osize = 8;
+    const ow = helv.widthOfTextAtSize(offer, osize);
+    front.drawText(offer, {
+      x: (PAGE_W - ow) / 2,
+      y: hy - 0.18 * IN,
+      size: osize,
+      font: helv,
+      color: rgbHex(CREAM.hex),
+    });
+  }
+
+  // Bottom orange rule
+  front.drawRectangle({ x: BLEED, y: BLEED, width: TRIM_W, height: 2, color: rgbHex(ORANGE.hex) });
 
   drawCropMarks(front);
 
-  /* ---------------- BACK PAGE ---------------- */
+  /* ---------------- BACK — QR + how it works ---------------- */
   const back = pdf.addPage([PAGE_W, PAGE_H]);
   back.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(CREAM.hex) });
 
-  // Left column content
-  const innerX = BLEED + 0.22 * IN;
-  const innerY = BLEED + 0.22 * IN;
+  // Left column: explainer text
+  const innerX = BLEED + 0.24 * IN;
   const colW = 2.0 * IN;
+  let cursorY = PAGE_H - BLEED - 0.34 * IN;
 
-  const fullName = `${f.firstName} ${f.lastName}${f.credentials ? ", " + f.credentials : ""}`.trim();
+  // Small navy wordmark
+  {
+    const wmW = 1.0 * IN;
+    const wmH = wmW * (wordmarkNavyPng.height / wordmarkNavyPng.width);
+    back.drawImage(wordmarkNavyPng, { x: innerX, y: cursorY - wmH, width: wmW, height: wmH });
+    cursorY -= wmH + 0.14 * IN;
+  }
 
-  let cursorY = PAGE_H - BLEED - 0.32 * IN;
-  back.drawText(fullName, {
-    x: innerX, y: cursorY, size: 13, font: helvBold, color: rgbHex(NAVY.hex),
+  // Headline
+  back.drawText(f.headline.toUpperCase(), {
+    x: innerX, y: cursorY, size: 12, font: helvBold, color: rgbHex(NAVY.hex),
   });
   cursorY -= 0.18 * IN;
-  back.drawText(f.title.toUpperCase(), {
-    x: innerX, y: cursorY, size: 7, font: helvBold,
-  });
-  cursorY -= 0.14 * IN;
-  back.drawText(`MEN'S WELLNESS CENTERS  ·  ${f.center.toUpperCase()}`, {
-    x: innerX, y: cursorY, size: 6.5, font: helvBold,
-  });
 
-  // Hairline divider
-  cursorY -= 0.14 * IN;
-  back.drawRectangle({
-    x: innerX, y: cursorY, width: colW, height: 0.5, color: rgbHex(RULE_HEX),
-  });
-  cursorY -= 0.14 * IN;
+  // Subhead (wrapped)
+  const subLines = wrapText(f.subhead, helv, 7.5, colW);
+  for (const line of subLines) {
+    back.drawText(line, { x: innerX, y: cursorY, size: 7.5, font: helv, color: rgbHex(NAVY.hex) });
+    cursorY -= 0.13 * IN;
+  }
+  cursorY -= 0.04 * IN;
 
-  // Contact rows
-  const rows: Array<[string, string]> = [];
-  if (f.includeDirect && f.directPhone) rows.push(["DIRECT", f.directPhone]);
-  if (f.centerPhone) rows.push(["CENTER", f.centerPhone]);
-  if (f.email) rows.push(["EMAIL", f.email]);
-  rows.push(["WEB", "menswellnesscenters.com"]);
-
-  for (const [label, val] of rows) {
-    back.drawText(label, {
-      x: innerX, y: cursorY, size: 6, font: helvBold,
-    });
-    back.drawText(val, {
-      x: innerX + 0.46 * IN, y: cursorY, size: 7.5, font: helv, color: rgbHex(NAVY.hex),
-    });
+  // Offer in orange
+  const offerLines = wrapText(f.offer, helvBold, 8, colW);
+  for (const line of offerLines) {
+    back.drawText(line, { x: innerX, y: cursorY, size: 8, font: helvBold, color: rgbHex(ORANGE_TEXT_HEX) });
     cursorY -= 0.14 * IN;
   }
 
   // Vertical orange rule
-  const ruleX = BLEED + 1.9 * IN;
+  const ruleX = BLEED + 2.05 * IN;
   back.drawRectangle({
-    x: ruleX, y: BLEED + 0.16 * IN, width: 2.5, height: TRIM_H - 0.32 * IN,
+    x: ruleX, y: BLEED + 0.18 * IN, width: 2.5, height: TRIM_H - 0.36 * IN,
     color: rgbHex(ORANGE.hex),
   });
 
-  // Right column: small wordmark + QR + caption
+  // Right column: QR + caption
   {
     const rightX = ruleX + 0.16 * IN;
     const rightW = PAGE_W - BLEED - 0.18 * IN - rightX;
-
-    // Small wordmark top-right
-    const wmW = Math.min(0.78 * IN, rightW);
-    const wmH = wmW * (wordmarkNavyPng.height / wordmarkNavyPng.width);
-    back.drawImage(wordmarkNavyPng, {
-      x: rightX + (rightW - wmW) / 2,
-      y: PAGE_H - BLEED - 0.24 * IN - wmH,
-      width: wmW, height: wmH,
-    });
-
-    const qrSize = Math.min(0.92 * IN, rightW);
+    const qrSize = Math.min(1.15 * IN, rightW);
     const qx = rightX + (rightW - qrSize) / 2;
-    const qy = BLEED + 0.28 * IN;
+    const qy = (PAGE_H - qrSize) / 2 + 0.05 * IN;
+
+    // White plate behind QR for clean B&W contrast on cream
+    back.drawRectangle({
+      x: qx - 4, y: qy - 4, width: qrSize + 8, height: qrSize + 8, color: rgbHex(WHITE),
+    });
     back.drawImage(backQr, { x: qx, y: qy, width: qrSize, height: qrSize });
 
-    const cap = (f.sameQr ? f.front.caption : f.back.caption) || defaultCaptionFor(f.back.type);
-    const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 6);
+    const capU = (f.caption || "Scan to refer").toUpperCase();
+    const cw = helvBold.widthOfTextAtSize(capU, 7);
     back.drawText(capU, {
-      x: qx + (qrSize - cw) / 2,
-      y: qy - 0.14 * IN,
-      size: 6,
+      x: rightX + (rightW - cw) / 2,
+      y: qy - 0.20 * IN,
+      size: 7,
       font: helvBold,
-      color: rgbHex(ORANGE.hex),
+      color: rgbHex(NAVY.hex),
     });
   }
 
   drawCropMarks(back);
-
   return pdf.save();
 }
 
@@ -472,10 +311,8 @@ function drawCropMarks(page: ReturnType<PDFDocument["addPage"]>) {
     { x: PAGE_W - BLEED, y: PAGE_H - BLEED },
   ];
   for (const c of corners) {
-    // horizontal tick (toward outside)
     const hx = c.x === BLEED ? c.x - off - len : c.x + off;
     page.drawRectangle({ x: hx, y: c.y - t / 2, width: len, height: t, color: col });
-    // vertical tick (toward outside)
     const vy = c.y === BLEED ? c.y - off - len : c.y + off;
     page.drawRectangle({ x: c.x - t / 2, y: vy, width: t, height: len, color: col });
   }
@@ -505,84 +342,6 @@ const labelStyle: React.CSSProperties = {
   marginBottom: 6,
 };
 
-function QrControls({
-  label,
-  value,
-  onChange,
-  fields,
-}: {
-  label: string;
-  value: QrConfig;
-  onChange: (v: QrConfig) => void;
-  fields: Fields;
-}) {
-  const types: { key: QrType; label: string }[] = [
-    { key: "booking",  label: "Booking" },
-    { key: "profile",  label: "Profile" },
-    { key: "referral", label: "Referral" },
-    { key: "vcard",    label: "vCard" },
-    { key: "custom",   label: "Custom" },
-  ];
-  return (
-    <div>
-      <label style={labelStyle}>{label}</label>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 10 }}>
-        {types.map((t) => {
-          const active = value.type === t.key;
-          return (
-            <button
-              key={t.key}
-              type="button"
-              onClick={() =>
-                onChange({
-                  ...value,
-                  type: t.key,
-                  url: defaultUrlFor(t.key, fields),
-                  caption: defaultCaptionFor(t.key),
-                })
-              }
-              style={{
-                padding: "6px 10px",
-                borderRadius: 4,
-                border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
-                background: active ? "var(--orange)" : "var(--cream)",
-                color: active ? "var(--cream)" : "var(--ink)",
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-              }}
-            >
-              {t.label}
-            </button>
-          );
-        })}
-      </div>
-      {value.type !== "vcard" && (
-        <input
-          style={{ ...inputStyle, marginBottom: 8 }}
-          placeholder="https://..."
-          value={value.url}
-          onChange={(e) => onChange({ ...value, url: e.target.value })}
-        />
-      )}
-      {value.type === "vcard" && (
-        <p style={{ fontSize: 12, color: "var(--ink-soft)", marginBottom: 8 }}>
-          QR will encode this employee's contact card — scanning saves it to phone contacts.
-        </p>
-      )}
-      <input
-        style={inputStyle}
-        placeholder="Caption (e.g. Scan to book)"
-        value={value.caption}
-        onChange={(e) => onChange({ ...value, caption: e.target.value })}
-      />
-    </div>
-  );
-}
-
 function CardPreview({
   side,
   fields,
@@ -592,28 +351,14 @@ function CardPreview({
   fields: Fields;
   showGuides: boolean;
 }) {
-  const qrCfg = side === "front" ? fields.front : (fields.sameQr ? fields.front : fields.back);
-  const qrValue = resolveQrValue(qrCfg, fields);
   const [svg, setSvg] = useState<string>("");
 
   useEffect(() => {
-    const isFront = side === "front";
-    const s = prettyQrSvg(qrValue, {
-      dark: ORANGE.hex,
-      light: isFront ? CREAM.hex : NAVY.hex,
-      style: fields.qrStyle,
-      logoUrl: isFront && fields.qrLogo ? QR_MARK_URL : null,
-      logoScale: 0.22,
-    });
-    setSvg(s);
-  }, [qrValue, side, fields.qrStyle, fields.qrLogo]);
+    setSvg(prettyQrSvg(fields.referralUrl, { dark: BLACK, light: WHITE, style: fields.qrStyle }));
+  }, [fields.referralUrl, fields.qrStyle]);
 
-  // Card displayed at 350×200 px (1:1 aspect with trim), with bleed visualized outside
   const W = 350, H = 200;
-  const bleedPx = (0.125 / 3.5) * W; // ~12.5
-
-  const fullName = `${fields.firstName} ${fields.lastName}${fields.credentials ? ", " + fields.credentials : ""}`.trim();
-
+  const bleedPx = (0.125 / 3.5) * W;
   const isFront = side === "front";
 
   return (
@@ -645,66 +390,66 @@ function CardPreview({
           {isFront ? (
             <>
               <div style={{
-                position: "absolute", top: 24, left: 0, right: 0,
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
+                position: "absolute", top: 22, left: 0, right: 0,
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
               }}>
-                <img src={WORDMARK_WHITE_URL} alt="" style={{ height: 28, width: "auto" }} />
+                <img src={WORDMARK_WHITE_URL} alt="" style={{ height: 30, width: "auto" }} />
                 <div style={{
-                  fontSize: 8, fontWeight: 700, letterSpacing: "0.18em",
-                  color: ORANGE_TEXT_HEX, textTransform: "uppercase",
+                  fontSize: 9, fontWeight: 700, letterSpacing: "0.22em",
+                  color: ORANGE.hex, textTransform: "uppercase",
                 }}>
                   Find Your Edge Over Age.
                 </div>
               </div>
               <div style={{
-                position: "absolute", right: 10, bottom: 18,
-                borderRadius: 3, overflow: "hidden",
-                width: 95, height: 95,
-              }}
-                dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
-              />
-              <div style={{
-                position: "absolute", right: 10, bottom: 2,
-                width: 95, textAlign: "center",
-                fontSize: 7, fontWeight: 700, letterSpacing: "0.12em",
-                color: ORANGE.hex, textTransform: "uppercase",
+                position: "absolute", left: 0, right: 0, bottom: 26,
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "0 18px",
               }}>
-                {(fields.front.caption || defaultCaptionFor(fields.front.type))}
+                <div style={{
+                  fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 18,
+                  letterSpacing: "0.06em", color: CREAM.hex, textTransform: "uppercase", textAlign: "center",
+                }}>
+                  {fields.headline}
+                </div>
+                <div style={{ fontSize: 9, color: CREAM.hex, textAlign: "center", opacity: 0.9 }}>
+                  {fields.offer}
+                </div>
               </div>
               <div style={{
-                position: "absolute", left: 12, right: 12, bottom: 6, height: 1,
+                position: "absolute", left: 12, right: 12, bottom: 6, height: 2,
                 background: ORANGE.hex,
               }} />
             </>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5px 120px", height: "100%", padding: 16, gap: 12 }}>
-              <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
-                <div style={{ fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 16, color: NAVY.hex, lineHeight: 1.1 }}>
-                  {fullName || "—"}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5px 130px", height: "100%", padding: 16, gap: 12 }}>
+              <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+                <img src={WORDMARK_NAVY_URL} alt="" style={{ height: 18, width: "auto", alignSelf: "flex-start" }} />
+                <div style={{
+                  fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 15,
+                  letterSpacing: "0.04em", color: NAVY.hex, textTransform: "uppercase", lineHeight: 1.1,
+                }}>
+                  {fields.headline}
                 </div>
-                <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: "0.16em", color: ORANGE_TEXT_HEX, textTransform: "uppercase" }}>
-                  {fields.title}
+                <div style={{ fontSize: 8.5, color: NAVY.hex, lineHeight: 1.4 }}>
+                  {fields.subhead}
                 </div>
-                <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: "0.1em", color: NAVY.hex, textTransform: "uppercase", marginBottom: 6 }}>
-                  Men's Wellness Centers · {fields.center}
+                <div style={{
+                  fontSize: 9.5, fontWeight: 700, color: ORANGE_TEXT_HEX, lineHeight: 1.3, marginTop: 2,
+                }}>
+                  {fields.offer}
                 </div>
-                <div style={{ height: 1, background: RULE_HEX, margin: "2px 0 6px" }} />
-                {fields.includeDirect && fields.directPhone && (
-                  <Row label="Direct" value={fields.directPhone} />
-                )}
-                {fields.centerPhone && <Row label="Center" value={fields.centerPhone} />}
-                {fields.email && <Row label="Email" value={fields.email} />}
-                <Row label="Web" value="menswellnesscenters.com" />
               </div>
               <div style={{ background: ORANGE.hex, width: 2.5, borderRadius: 1 }} />
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, justifyContent: "center" }}>
-                <img src={WORDMARK_NAVY_URL} alt="" style={{ height: 14, width: "auto" }} />
                 <div
-                  style={{ width: 90, height: 90, borderRadius: 3, overflow: "hidden" }}
+                  style={{ width: 110, height: 110, background: WHITE, padding: 4, borderRadius: 3 }}
                   dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
                 />
-                <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: "0.14em", color: ORANGE.hex, textTransform: "uppercase", textAlign: "center" }}>
-                  {((fields.sameQr ? fields.front.caption : fields.back.caption)) || defaultCaptionFor(qrCfg.type)}
+                <div style={{
+                  fontSize: 8, fontWeight: 700, letterSpacing: "0.14em",
+                  color: NAVY.hex, textTransform: "uppercase", textAlign: "center",
+                }}>
+                  {fields.caption || "Scan to refer"}
                 </div>
               </div>
             </div>
@@ -729,39 +474,12 @@ function CardPreview({
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "44px 1fr", gap: 6, alignItems: "baseline", margin: "1px 0" }}>
-      <div style={{ fontSize: 6.5, fontWeight: 700, letterSpacing: "0.14em", color: CAPTION_HEX, textTransform: "uppercase" }}>
-        {label}
-      </div>
-      <div style={{ fontSize: 8, color: NAVY.hex, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-        {value}
-      </div>
-    </div>
-  );
-}
-
 export function BusinessCardBuilder() {
   const [fields, setFields] = useState<Fields>(DEFAULTS);
   const [showGuides, setShowGuides] = useState(true);
   const [status, setStatus] = useState<{ kind: "ok" | "error"; msg: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const lastObjectUrl = useRef<string | null>(null);
-
-  // Sync defaults when identity changes that drive defaults (profile slug → profile URL)
-  useEffect(() => {
-    setFields((f) => {
-      const next = { ...f };
-      if (f.front.type === "profile" && (!f.front.url || f.front.url.startsWith("https://menswellnesscenters.com/team/"))) {
-        next.front = { ...f.front, url: defaultUrlFor("profile", f) };
-      }
-      if (f.back.type === "profile" && (!f.back.url || f.back.url.startsWith("https://menswellnesscenters.com/team/"))) {
-        next.back = { ...f.back, url: defaultUrlFor("profile", f) };
-      }
-      return next;
-    });
-  }, [fields.profileSlug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function update<K extends keyof Fields>(k: K, v: Fields[K]) {
     setFields((f) => ({ ...f, [k]: v }));
@@ -771,7 +489,6 @@ export function BusinessCardBuilder() {
     try {
       setBusy(true);
       const bytes = await buildPdf(fields);
-      // Copy into a fresh ArrayBuffer so the Blob constructor gets a clean BlobPart
       const ab = new ArrayBuffer(bytes.byteLength);
       new Uint8Array(ab).set(bytes);
       const blob = new Blob([ab], { type: "application/pdf" });
@@ -780,23 +497,14 @@ export function BusinessCardBuilder() {
       lastObjectUrl.current = url;
       const a = document.createElement("a");
       a.href = url;
-      a.download = `mwc-card-${(fields.firstName + "-" + fields.lastName).toLowerCase().replace(/[^a-z0-9-]/g, "")}.pdf`;
+      a.download = `mwc-referral-card.pdf`;
       document.body.appendChild(a); a.click(); a.remove();
-      setStatus({ kind: "ok", msg: "Print-ready PDF downloaded (3.75 × 2.25 in with bleed + crop marks)." });
+      setStatus({ kind: "ok", msg: "Print-ready referral card downloaded (3.75 × 2.25 in with bleed + crop marks)." });
     } catch (e) {
       console.error(e);
       setStatus({ kind: "error", msg: "PDF export failed. Check the console for details." });
     } finally {
       setBusy(false);
-    }
-  }
-
-  async function copyVCard() {
-    try {
-      await navigator.clipboard.writeText(buildVCard(fields));
-      setStatus({ kind: "ok", msg: "vCard copied to clipboard." });
-    } catch {
-      setStatus({ kind: "error", msg: "Couldn't copy. Try again." });
     }
   }
 
@@ -807,11 +515,12 @@ export function BusinessCardBuilder() {
       <section className="page-hero">
         <div className="container">
           <p className="eyebrow">Brand Applications</p>
-          <h1>Business Card.</h1>
+          <h1>Referral Card.</h1>
           <p>
-            Fill in your details, choose a QR destination for each side, and download a
-            print-ready PDF (3.5 × 2 in landscape, 0.125 in bleed, crop marks). The card uses
-            the same brand color, type, and lockup as the rest of the system.
+            A promo handout — not a personal business card. Front carries the brand and the
+            offer; back explains how to refer and pairs a clean black-and-white QR with the
+            referral URL. Edit the copy, then download a print-ready PDF
+            (3.5 × 2 in landscape, 0.125 in bleed, crop marks).
           </p>
         </div>
       </section>
@@ -838,111 +547,65 @@ export function BusinessCardBuilder() {
               maxHeight: "calc(100vh - 120px)",
               overflowY: "auto",
             }}>
-              <p className="eyebrow" style={{ marginBottom: 8 }}>Your Details</p>
-              <h3 style={{ marginBottom: 20, fontSize: 22 }}>Edit card.</h3>
+              <p className="eyebrow" style={{ marginBottom: 8 }}>Card Copy</p>
+              <h3 style={{ marginBottom: 20, fontSize: 22 }}>Edit promo.</h3>
 
               <div style={{ display: "grid", gap: 14 }}>
-                <div style={{ display: "grid", gap: 14, gridTemplateColumns: "1fr 1fr" }}>
-                  <div>
-                    <label style={labelStyle}>First name</label>
-                    <input style={inputStyle} value={fields.firstName} onChange={(e) => update("firstName", e.target.value)} />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Last name</label>
-                    <input style={inputStyle} value={fields.lastName} onChange={(e) => update("lastName", e.target.value)} />
-                  </div>
+                <div>
+                  <label style={labelStyle}>Headline</label>
+                  <input style={inputStyle} value={fields.headline} onChange={(e) => update("headline", e.target.value)} />
                 </div>
                 <div>
-                  <label style={labelStyle}>Credentials (optional)</label>
-                  <input style={inputStyle} placeholder="MD, NP, PA-C" value={fields.credentials} onChange={(e) => update("credentials", e.target.value)} />
+                  <label style={labelStyle}>Subhead (back only)</label>
+                  <textarea
+                    style={{ ...inputStyle, minHeight: 64, resize: "vertical", fontFamily: "Montserrat, sans-serif" }}
+                    value={fields.subhead}
+                    onChange={(e) => update("subhead", e.target.value)}
+                  />
                 </div>
                 <div>
-                  <label style={labelStyle}>Title</label>
-                  <input style={inputStyle} value={fields.title} onChange={(e) => update("title", e.target.value)} />
+                  <label style={labelStyle}>Offer</label>
+                  <input style={inputStyle} value={fields.offer} onChange={(e) => update("offer", e.target.value)} />
                 </div>
                 <div>
-                  <label style={labelStyle}>Primary center</label>
-                  <input style={inputStyle} placeholder="City, ST" value={fields.center} onChange={(e) => update("center", e.target.value)} />
+                  <label style={labelStyle}>Referral URL</label>
+                  <input style={inputStyle} value={fields.referralUrl} onChange={(e) => update("referralUrl", e.target.value)} />
                 </div>
                 <div>
-                  <label style={labelStyle}>Direct phone</label>
-                  <input style={inputStyle} value={fields.directPhone} onChange={(e) => update("directPhone", e.target.value)} disabled={!fields.includeDirect} />
-                  <label style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8, fontSize: 12, color: "var(--ink-soft)" }}>
-                    <input type="checkbox" checked={fields.includeDirect} onChange={(e) => update("includeDirect", e.target.checked)} />
-                    Include direct line
-                  </label>
-                </div>
-                <div>
-                  <label style={labelStyle}>Center phone</label>
-                  <input style={inputStyle} value={fields.centerPhone} onChange={(e) => update("centerPhone", e.target.value)} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Email</label>
-                  <input style={inputStyle} type="email" value={fields.email} onChange={(e) => update("email", e.target.value)} />
-                </div>
-                <div>
-                  <label style={labelStyle}>Profile slug</label>
-                  <input style={inputStyle} placeholder="firstname-lastname" value={fields.profileSlug} onChange={(e) => update("profileSlug", e.target.value)} />
-                  <p style={{ fontSize: 11, color: "var(--ink-soft)", marginTop: 4 }}>
-                    Used to build menswellnesscenters.com/team/{fields.profileSlug || "…"}
-                  </p>
+                  <label style={labelStyle}>QR caption</label>
+                  <input style={inputStyle} value={fields.caption} onChange={(e) => update("caption", e.target.value)} />
                 </div>
 
                 <div style={{
                   marginTop: 6, paddingTop: 16,
                   borderTop: "1px solid var(--cream-deep)",
-                  display: "grid", gap: 16,
                 }}>
-                  <div>
-                    <label style={labelStyle}>QR style</label>
-                    <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-                      {(["rounded", "dots", "classic"] as QrStyle[]).map((s) => {
-                        const active = fields.qrStyle === s;
-                        return (
-                          <button
-                            key={s}
-                            type="button"
-                            onClick={() => update("qrStyle", s)}
-                            style={{
-                              padding: "6px 10px",
-                              borderRadius: 4,
-                              border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
-                              background: active ? "var(--orange)" : "var(--cream)",
-                              color: active ? "var(--cream)" : "var(--ink)",
-                              fontFamily: "Montserrat, sans-serif",
-                              fontSize: 11, fontWeight: 700,
-                              letterSpacing: "0.08em", textTransform: "uppercase",
-                              cursor: "pointer",
-                            }}
-                          >
-                            {s}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 12, color: "var(--ink-soft)" }}>
-                      <input type="checkbox" checked={fields.qrLogo} onChange={(e) => update("qrLogo", e.target.checked)} />
-                      Embed brand logo in QR center (uses high error-correction)
-                    </label>
+                  <label style={labelStyle}>QR style (always black &amp; white)</label>
+                  <div style={{ display: "flex", gap: 6 }}>
+                    {(["rounded", "dots", "classic"] as QrStyle[]).map((s) => {
+                      const active = fields.qrStyle === s;
+                      return (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => update("qrStyle", s)}
+                          style={{
+                            padding: "6px 10px",
+                            borderRadius: 4,
+                            border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
+                            background: active ? "var(--orange)" : "var(--cream)",
+                            color: active ? "var(--cream)" : "var(--ink)",
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: 11, fontWeight: 700,
+                            letterSpacing: "0.08em", textTransform: "uppercase",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {s}
+                        </button>
+                      );
+                    })}
                   </div>
-                  <QrControls
-                    label="Front QR"
-                    value={fields.front}
-                    onChange={(v) => update("front", v)}
-                    fields={fields}
-                  />
-                  <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 12, color: "var(--ink-soft)" }}>
-                    <input type="checkbox" checked={fields.sameQr} onChange={(e) => update("sameQr", e.target.checked)} />
-                    Use the same QR on both sides
-                  </label>
-                  {!fields.sameQr && (
-                    <QrControls
-                      label="Back QR"
-                      value={fields.back}
-                      onChange={(v) => update("back", v)}
-                      fields={fields}
-                    />
-                  )}
                 </div>
 
                 <button
@@ -993,9 +656,6 @@ export function BusinessCardBuilder() {
                 <button type="button" className="btn btn-primary" onClick={downloadPdf} disabled={busy}>
                   {busy ? "Building PDF…" : "Download Print-Ready PDF"}
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={copyVCard}>
-                  Copy vCard
-                </button>
                 {status && (
                   <span role="status" style={{
                     fontFamily: "Montserrat, sans-serif", fontSize: 13, fontWeight: 600,
@@ -1008,7 +668,7 @@ export function BusinessCardBuilder() {
 
               <p style={{ fontSize: 12, color: "var(--ink-soft)", lineHeight: 1.6 }}>
                 Output is RGB at 3.75 × 2.25 in (trim 3.5 × 2 in, 0.125 in bleed) with crop marks at each corner.
-                Brand fonts (Oswald / Montserrat) fall back to Helvetica in the PDF for v1 — visual proportions stay correct.
+                QR codes are pure black-and-white for maximum scan reliability across lighting conditions.
               </p>
             </div>
           </div>
@@ -1018,22 +678,22 @@ export function BusinessCardBuilder() {
       <section className="section-alt">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">Print</p>
+            <p className="eyebrow">Hand it out</p>
             <h2>Three ways to use it.</h2>
-            <p>The PDF is print-shop ready. Pick the path that fits your situation.</p>
+            <p>Same card, multiple drop points. Keep a stack at every front desk.</p>
           </div>
           <div className="grid grid-3">
             <div className="card"><div className="card-body">
-              <h3>1. Local print shop</h3>
-              <p>Email the PDF. Ask for 3.5 × 2 in landscape, 16 pt cover, matte. The crop marks tell them where to cut.</p>
+              <h3>1. At the counter</h3>
+              <p>Tuck one into every checkout folder. Patients leave feeling great — give them something to share.</p>
             </div></div>
             <div className="card"><div className="card-body">
-              <h3>2. Online (Moo / Vistaprint)</h3>
-              <p>Upload as a 2-sided design. Most online printers strip crop marks automatically — the bleed is already baked in.</p>
+              <h3>2. In welcome kits</h3>
+              <p>Drop a card into every new-patient packet so they have a referral on hand from day one.</p>
             </div></div>
             <div className="card"><div className="card-body">
-              <h3>3. Share digitally</h3>
-              <p>Use <strong>Copy vCard</strong> to send your contact card in chat or email. The back QR does the same thing in person.</p>
+              <h3>3. At local events</h3>
+              <p>Bring a stack to community sponsorships, gym partnerships, and provider mixers. Same QR every time.</p>
             </div></div>
           </div>
         </div>
