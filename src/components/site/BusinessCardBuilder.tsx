@@ -552,7 +552,7 @@ function CardPreview({
                   dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
                 />
                 <div style={{ fontSize: 6, fontWeight: 700, letterSpacing: "0.14em", color: CAPTION_HEX, textTransform: "uppercase", textAlign: "center" }}>
-                  {(side === "front" ? fields.front.caption : (fields.sameQr ? fields.front.caption : fields.back.caption)) || defaultCaptionFor(qrCfg.type)}
+                  {((fields.sameQr ? fields.front.caption : fields.back.caption)) || defaultCaptionFor(qrCfg.type)}
                 </div>
               </div>
             </div>
