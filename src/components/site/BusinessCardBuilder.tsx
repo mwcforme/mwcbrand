@@ -598,12 +598,15 @@ function CardPreview({
   const [svg, setSvg] = useState<string>("");
 
   useEffect(() => {
-    let cancelled = false;
-    const dark  = side === "front" ? NAVY.hex  : NAVY.hex;
-    const light = side === "front" ? CREAM.hex : CREAM.hex;
-    qrSvg(qrValue, dark, light).then((s) => { if (!cancelled) setSvg(s); });
-    return () => { cancelled = true; };
-  }, [qrValue, side]);
+    const s = prettyQrSvg(qrValue, {
+      dark: NAVY.hex,
+      light: CREAM.hex,
+      style: fields.qrStyle,
+      logoUrl: fields.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    });
+    setSvg(s);
+  }, [qrValue, side, fields.qrStyle, fields.qrLogo]);
 
   // Card displayed at 350×200 px (1:1 aspect with trim), with bleed visualized outside
   const W = 350, H = 200;
