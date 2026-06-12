@@ -296,8 +296,24 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   const frontVal = resolveQrValue(f.sameQr ? f.front : f.front, f);
   const backVal  = resolveQrValue(f.sameQr ? f.front : f.back,  f);
 
-  const frontQr = await pdf.embedPng(await qrPngBytes(frontVal, CREAM.hex, NAVY.hex, 700));
-  const backQr  = await pdf.embedPng(await qrPngBytes(backVal,  NAVY.hex,  CREAM.hex, 900));
+  // Front: dark modules on cream tile → use cream-on-navy logo
+  const frontQr = await pdf.embedPng(
+    await prettyQrPngBytes(frontVal, {
+      dark: NAVY.hex, light: CREAM.hex,
+      style: f.qrStyle,
+      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    }, 900),
+  );
+  // Back: cream modules on navy background → use white wordmark
+  const backQr = await pdf.embedPng(
+    await prettyQrPngBytes(backVal, {
+      dark: NAVY.hex, light: CREAM.hex,
+      style: f.qrStyle,
+      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoScale: 0.22,
+    }, 1000),
+  );
 
   /* ---------------- FRONT PAGE ---------------- */
   const front = pdf.addPage([PAGE_W, PAGE_H]);
