@@ -36,6 +36,8 @@ type Fields = {
   front: QrConfig;
   back: QrConfig;
   sameQr: boolean;
+  qrStyle: QrStyle;
+  qrLogo: boolean;
 };
 
 const DEFAULTS: Fields = {
@@ -52,6 +54,8 @@ const DEFAULTS: Fields = {
   front: { type: "profile", url: "", caption: "Scan to connect" },
   back:  { type: "booking", url: "https://book.menswellnesscenters.com", caption: "Scan to book" },
   sameQr: false,
+  qrStyle: "rounded",
+  qrLogo: true,
 };
 
 function digits(s: string) { return s.replace(/\D+/g, ""); }
