@@ -303,7 +303,7 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     await prettyQrPngBytes(frontVal, {
       dark: NAVY.hex, light: CREAM.hex,
       style: f.qrStyle,
-      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoUrl: f.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     }, 900),
   );
@@ -312,7 +312,7 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     await prettyQrPngBytes(backVal, {
       dark: NAVY.hex, light: CREAM.hex,
       style: f.qrStyle,
-      logoUrl: f.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoUrl: f.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     }, 1000),
   );
@@ -604,7 +604,7 @@ function CardPreview({
       dark: NAVY.hex,
       light: CREAM.hex,
       style: fields.qrStyle,
-      logoUrl: fields.qrLogo ? WORDMARK_NAVY_URL : null,
+      logoUrl: fields.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     });
     setSvg(s);
