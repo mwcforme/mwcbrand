@@ -343,25 +343,22 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     });
   }
 
-  // QR bottom-right on cream tile
+  // QR bottom-right
   {
-    const qrSize = 0.7 * IN;
-    const pad = 0.06 * IN;
-    const tileSize = qrSize + pad * 2;
-    const x = PAGE_W - BLEED - 0.18 * IN - tileSize;
-    const y = BLEED + 0.18 * IN;
-    front.drawRectangle({ x, y, width: tileSize, height: tileSize, color: rgbHex(CREAM.hex) });
-    front.drawImage(frontQr, { x: x + pad, y: y + pad, width: qrSize, height: qrSize });
+    const qrSize = 0.95 * IN;
+    const x = PAGE_W - BLEED - 0.16 * IN - qrSize;
+    const y = BLEED + 0.16 * IN;
+    front.drawImage(frontQr, { x, y, width: qrSize, height: qrSize });
 
     const cap = (f.sameQr ? f.front.caption : f.front.caption) || defaultCaptionFor(f.front.type);
     const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 5.5);
+    const cw = helvBold.widthOfTextAtSize(capU, 6);
     front.drawText(capU, {
-      x: x + (tileSize - cw) / 2,
-      y: y - 0.13 * IN,
-      size: 5.5,
+      x: x + (qrSize - cw) / 2,
+      y: y - 0.14 * IN,
+      size: 6,
       font: helvBold,
-      color: rgbHex(CREAM.hex),
+      color: rgbHex(ORANGE.hex),
     });
   }
 
