@@ -418,40 +418,40 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   }
 
   // Vertical orange rule
-  const ruleX = BLEED + 2.3 * IN;
+  const ruleX = BLEED + 1.9 * IN;
   back.drawRectangle({
-    x: ruleX, y: BLEED + 0.18 * IN, width: 1.5, height: TRIM_H - 0.36 * IN,
+    x: ruleX, y: BLEED + 0.16 * IN, width: 2.5, height: TRIM_H - 0.32 * IN,
     color: rgbHex(ORANGE.hex),
   });
 
   // Right column: small wordmark + QR + caption
   {
-    const rightX = ruleX + 0.2 * IN;
-    const rightW = PAGE_W - BLEED - 0.22 * IN - rightX;
+    const rightX = ruleX + 0.16 * IN;
+    const rightW = PAGE_W - BLEED - 0.18 * IN - rightX;
 
     // Small wordmark top-right
-    const wmW = Math.min(0.85 * IN, rightW);
+    const wmW = Math.min(0.78 * IN, rightW);
     const wmH = wmW * (wordmarkNavyPng.height / wordmarkNavyPng.width);
     back.drawImage(wordmarkNavyPng, {
       x: rightX + (rightW - wmW) / 2,
-      y: PAGE_H - BLEED - 0.28 * IN - wmH,
+      y: PAGE_H - BLEED - 0.24 * IN - wmH,
       width: wmW, height: wmH,
     });
 
-    const qrSize = Math.min(0.85 * IN, rightW);
+    const qrSize = Math.min(0.92 * IN, rightW);
     const qx = rightX + (rightW - qrSize) / 2;
-    const qy = BLEED + 0.32 * IN;
+    const qy = BLEED + 0.28 * IN;
     back.drawImage(backQr, { x: qx, y: qy, width: qrSize, height: qrSize });
 
     const cap = (f.sameQr ? f.front.caption : f.back.caption) || defaultCaptionFor(f.back.type);
     const capU = cap.toUpperCase();
-    const cw = helvBold.widthOfTextAtSize(capU, 5.5);
+    const cw = helvBold.widthOfTextAtSize(capU, 6);
     back.drawText(capU, {
       x: qx + (qrSize - cw) / 2,
-      y: qy - 0.13 * IN,
-      size: 5.5,
+      y: qy - 0.14 * IN,
+      size: 6,
       font: helvBold,
-      color: rgbHex(CAPTION_HEX),
+      color: rgbHex(ORANGE.hex),
     });
   }
 
