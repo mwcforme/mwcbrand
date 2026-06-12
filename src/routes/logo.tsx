@@ -2,18 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageBody } from "@/components/site/PageBody";
 import { pageBodies } from "@/lib/mwc/page-bodies";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/logo")({
   head: () => ({
     meta: [
-      { title: "Brand System · Men's Wellness Centers Brand" },
+      { title: "Logo · Men's Wellness Centers Brand" },
       { name: "description", content: "" },
-      { property: "og:title", content: "Brand System · Men's Wellness Centers Brand" },
+      { property: "og:title", content: "Logo · Men's Wellness Centers Brand" },
       { property: "og:description", content: "" },
     ],
   }),
-  component: PageIndex,
+  component: PageLogo,
 });
 
-function PageIndex() {
-  return <PageBody html={pageBodies["index"]} />;
+function PageLogo() {
+  return <PageBody html={pageBodies["logo"]} />;
 }

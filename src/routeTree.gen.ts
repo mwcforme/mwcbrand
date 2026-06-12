@@ -9,8 +9,74 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VoiceRouteImport } from './routes/voice'
+import { Route as TypographyRouteImport } from './routes/typography'
+import { Route as PromptsRouteImport } from './routes/prompts'
+import { Route as LogoLibraryRouteImport } from './routes/logo-library'
+import { Route as LogoRouteImport } from './routes/logo'
+import { Route as LeadFormsRouteImport } from './routes/lead-forms'
+import { Route as EmailSignatureRouteImport } from './routes/email-signature'
+import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as ColorRouteImport } from './routes/color'
+import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TypographyRoute = TypographyRouteImport.update({
+  id: '/typography',
+  path: '/typography',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromptsRoute = PromptsRouteImport.update({
+  id: '/prompts',
+  path: '/prompts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogoLibraryRoute = LogoLibraryRouteImport.update({
+  id: '/logo-library',
+  path: '/logo-library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogoRoute = LogoRouteImport.update({
+  id: '/logo',
+  path: '/logo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadFormsRoute = LeadFormsRouteImport.update({
+  id: '/lead-forms',
+  path: '/lead-forms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailSignatureRoute = EmailSignatureRouteImport.update({
+  id: '/email-signature',
+  path: '/email-signature',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ColorRoute = ColorRouteImport.update({
+  id: '/color',
+  path: '/color',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsRoute = ApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +85,186 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/applications': typeof ApplicationsRoute
+  '/color': typeof ColorRoute
+  '/downloads': typeof DownloadsRoute
+  '/email-signature': typeof EmailSignatureRoute
+  '/lead-forms': typeof LeadFormsRoute
+  '/logo': typeof LogoRoute
+  '/logo-library': typeof LogoLibraryRoute
+  '/prompts': typeof PromptsRoute
+  '/typography': typeof TypographyRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/applications': typeof ApplicationsRoute
+  '/color': typeof ColorRoute
+  '/downloads': typeof DownloadsRoute
+  '/email-signature': typeof EmailSignatureRoute
+  '/lead-forms': typeof LeadFormsRoute
+  '/logo': typeof LogoRoute
+  '/logo-library': typeof LogoLibraryRoute
+  '/prompts': typeof PromptsRoute
+  '/typography': typeof TypographyRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/applications': typeof ApplicationsRoute
+  '/color': typeof ColorRoute
+  '/downloads': typeof DownloadsRoute
+  '/email-signature': typeof EmailSignatureRoute
+  '/lead-forms': typeof LeadFormsRoute
+  '/logo': typeof LogoRoute
+  '/logo-library': typeof LogoLibraryRoute
+  '/prompts': typeof PromptsRoute
+  '/typography': typeof TypographyRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/accessibility'
+    | '/applications'
+    | '/color'
+    | '/downloads'
+    | '/email-signature'
+    | '/lead-forms'
+    | '/logo'
+    | '/logo-library'
+    | '/prompts'
+    | '/typography'
+    | '/voice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/accessibility'
+    | '/applications'
+    | '/color'
+    | '/downloads'
+    | '/email-signature'
+    | '/lead-forms'
+    | '/logo'
+    | '/logo-library'
+    | '/prompts'
+    | '/typography'
+    | '/voice'
+  id:
+    | '__root__'
+    | '/'
+    | '/accessibility'
+    | '/applications'
+    | '/color'
+    | '/downloads'
+    | '/email-signature'
+    | '/lead-forms'
+    | '/logo'
+    | '/logo-library'
+    | '/prompts'
+    | '/typography'
+    | '/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessibilityRoute: typeof AccessibilityRoute
+  ApplicationsRoute: typeof ApplicationsRoute
+  ColorRoute: typeof ColorRoute
+  DownloadsRoute: typeof DownloadsRoute
+  EmailSignatureRoute: typeof EmailSignatureRoute
+  LeadFormsRoute: typeof LeadFormsRoute
+  LogoRoute: typeof LogoRoute
+  LogoLibraryRoute: typeof LogoLibraryRoute
+  PromptsRoute: typeof PromptsRoute
+  TypographyRoute: typeof TypographyRoute
+  VoiceRoute: typeof VoiceRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/typography': {
+      id: '/typography'
+      path: '/typography'
+      fullPath: '/typography'
+      preLoaderRoute: typeof TypographyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prompts': {
+      id: '/prompts'
+      path: '/prompts'
+      fullPath: '/prompts'
+      preLoaderRoute: typeof PromptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logo-library': {
+      id: '/logo-library'
+      path: '/logo-library'
+      fullPath: '/logo-library'
+      preLoaderRoute: typeof LogoLibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logo': {
+      id: '/logo'
+      path: '/logo'
+      fullPath: '/logo'
+      preLoaderRoute: typeof LogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lead-forms': {
+      id: '/lead-forms'
+      path: '/lead-forms'
+      fullPath: '/lead-forms'
+      preLoaderRoute: typeof LeadFormsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email-signature': {
+      id: '/email-signature'
+      path: '/email-signature'
+      fullPath: '/email-signature'
+      preLoaderRoute: typeof EmailSignatureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/color': {
+      id: '/color'
+      path: '/color'
+      fullPath: '/color'
+      preLoaderRoute: typeof ColorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications': {
+      id: '/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof ApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +277,28 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessibilityRoute: AccessibilityRoute,
+  ApplicationsRoute: ApplicationsRoute,
+  ColorRoute: ColorRoute,
+  DownloadsRoute: DownloadsRoute,
+  EmailSignatureRoute: EmailSignatureRoute,
+  LeadFormsRoute: LeadFormsRoute,
+  LogoRoute: LogoRoute,
+  LogoLibraryRoute: LogoLibraryRoute,
+  PromptsRoute: PromptsRoute,
+  TypographyRoute: TypographyRoute,
+  VoiceRoute: VoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
