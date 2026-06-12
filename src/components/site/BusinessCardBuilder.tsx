@@ -298,21 +298,21 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   const frontVal = resolveQrValue(f.sameQr ? f.front : f.front, f);
   const backVal  = resolveQrValue(f.sameQr ? f.front : f.back,  f);
 
-  // Front: dark modules on cream tile → use cream-on-navy logo
+  // Front: orange modules on cream background
   const frontQr = await pdf.embedPng(
     await prettyQrPngBytes(frontVal, {
-      dark: NAVY.hex, light: CREAM.hex,
+      dark: ORANGE.hex, light: CREAM.hex,
       style: f.qrStyle,
       logoUrl: f.qrLogo ? QR_MARK_URL : null,
       logoScale: 0.22,
     }, 900),
   );
-  // Back: cream modules on navy background → use white wordmark
+  // Back: orange modules on navy background
   const backQr = await pdf.embedPng(
     await prettyQrPngBytes(backVal, {
-      dark: NAVY.hex, light: CREAM.hex,
+      dark: ORANGE.hex, light: NAVY.hex,
       style: f.qrStyle,
-      logoUrl: f.qrLogo ? QR_MARK_URL : null,
+      logoUrl: null,
       logoScale: 0.22,
     }, 1000),
   );
