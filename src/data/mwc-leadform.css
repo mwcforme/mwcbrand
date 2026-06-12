@@ -1,0 +1,371 @@
+/* =========================================================
+   MWC Lead Form Pattern v2026.06
+   Copy this whole file into any landing page, GHL form HTML
+   block, or WordPress page. Class names are namespaced with
+   .mwc- so they will not collide with host theme styles.
+   ========================================================= */
+
+/* ---- Container ---------------------------------------- */
+.mwc-form {
+  background: #0B1029;
+  color: #F5F3F0;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  max-width: 520px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.mwc-form *,
+.mwc-form *::before,
+.mwc-form *::after { box-sizing: border-box; }
+
+/* ---- Headline + subhead ------------------------------ */
+.mwc-form__headline {
+  font-family: 'Oswald', Impact, sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 5vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin: 0 0 10px;
+}
+.mwc-form__sub {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #B0ADA8;
+  margin: 0 0 24px;
+}
+
+/* ---- Field group ------------------------------------- */
+.mwc-field {
+  margin-bottom: 18px;
+  position: relative;
+}
+.mwc-field__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #9CA3AF;
+  margin-bottom: 8px;
+}
+
+/* ---- Input + select ---------------------------------- */
+.mwc-input,
+.mwc-select {
+  width: 100%;
+  background: #FFFFFF;
+  color: #0B1029;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px; /* iOS will not zoom on focus when >= 16 */
+  font-weight: 500;
+  padding: 14px 16px 14px 46px;
+  line-height: 1.3;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.mwc-input:focus,
+.mwc-select:focus {
+  outline: none;
+  border-color: #E8670A;
+  box-shadow: 0 0 0 4px rgba(232,103,10,0.22);
+}
+.mwc-input::placeholder { color: #4F555C; }
+
+/* ---- Field icon (left) ------------------------------- */
+.mwc-field__icon {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  width: 22px;
+  height: 22px;
+  color: #4F555C;
+  pointer-events: none;
+}
+
+/* ---- Validation status (right) ----------------------- */
+.mwc-field__status {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  width: 22px;
+  height: 22px;
+  display: none;
+  pointer-events: none;
+}
+.mwc-field.is-valid .mwc-field__status--ok { display: block; color: #10B981; }
+.mwc-field.is-error .mwc-field__status--err { display: block; color: #EF4444; }
+
+/* ---- Error message ----------------------------------- */
+.mwc-field__error {
+  display: none;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #FCA5A5;
+  padding-left: 26px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EF4444'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/></svg>") left center no-repeat;
+  background-size: 18px 18px;
+}
+.mwc-field.is-error .mwc-input,
+.mwc-field.is-error .mwc-select { border-color: #EF4444; }
+.mwc-field.is-error .mwc-field__error { display: block; }
+
+/* ---- Center selector (radio chips) ------------------- */
+.mwc-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.mwc-locations__label {
+  font-size: 13px;
+  color: #B0ADA8;
+  margin-bottom: 4px;
+}
+.mwc-loc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 2px solid #1E244A;
+  background: #161B3A;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+.mwc-loc input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.mwc-loc__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 15px;
+}
+.mwc-loc__pin {
+  width: 20px;
+  height: 20px;
+  color: #FFFFFF;
+}
+.mwc-loc__check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #4A5070;
+  position: relative;
+  flex-shrink: 0;
+}
+.mwc-loc:has(input:checked),
+.mwc-loc.is-selected {
+  border-color: #E8670A;
+  background: rgba(232,103,10,0.10);
+}
+.mwc-loc:has(input:checked) .mwc-loc__pin,
+.mwc-loc.is-selected .mwc-loc__pin { color: #E8670A; }
+.mwc-loc:has(input:checked) .mwc-loc__check,
+.mwc-loc.is-selected .mwc-loc__check {
+  background: #E8670A;
+  border-color: #E8670A;
+}
+.mwc-loc:has(input:checked) .mwc-loc__check::after,
+.mwc-loc.is-selected .mwc-loc__check::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: #FFFFFF;
+  border-radius: 50%;
+}
+
+/* ---- Consent block ----------------------------------- */
+.mwc-consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 6px 0 24px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #B0ADA8;
+}
+.mwc-consent input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: 2px solid #4A5070;
+  border-radius: 4px;
+  background: #161B3A;
+  cursor: pointer;
+  position: relative;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.mwc-consent input[type="checkbox"]:checked {
+  background: #E8670A;
+  border-color: #E8670A;
+}
+.mwc-consent input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.mwc-consent a { color: #E8670A; text-decoration: none; }
+.mwc-consent a:hover { text-decoration: underline; }
+
+/* ---- Primary submit button (glow + arrow) ------------ */
+.mwc-submit {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #E8670A;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 10px;
+  padding: 18px 24px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(232,103,10,0.0),
+              0 12px 32px rgba(232,103,10,0.35),
+              0 0 28px rgba(232,103,10,0.45);
+  transition: box-shadow 200ms ease, transform 100ms ease, background 140ms ease;
+}
+.mwc-submit:hover {
+  background: #B84A08;
+  box-shadow: 0 16px 40px rgba(232,103,10,0.50),
+              0 0 44px rgba(232,103,10,0.65);
+}
+.mwc-submit:active { transform: translateY(1px); }
+.mwc-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px #FFFFFF,
+              0 0 0 8px #E8670A;
+}
+.mwc-submit[disabled] {
+  background: #4A5070;
+  color: #9CA3AF;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.mwc-submit__arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 200ms ease;
+}
+.mwc-submit:hover .mwc-submit__arrow { transform: translateX(4px); }
+
+/* ---- Form-wide error banner -------------------------- */
+.mwc-form__error-banner {
+  display: none;
+  margin: 0 0 16px;
+  padding: 12px 14px 12px 42px;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.35);
+  border-radius: 8px;
+  color: #FCA5A5;
+  font-size: 13px;
+  line-height: 1.45;
+  position: relative;
+}
+.mwc-form.has-error .mwc-form__error-banner { display: block; }
+.mwc-form__error-banner::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 22px;
+  height: 22px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EF4444'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/></svg>") center/22px no-repeat;
+}
+
+/* ---- Success state ----------------------------------- */
+.mwc-form__success {
+  display: none;
+  padding: 12px 0;
+  text-align: center;
+}
+.mwc-form.is-success .mwc-form__success { display: block; }
+.mwc-form.is-success .mwc-form__body { display: none; }
+.mwc-form__success-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10B981;
+}
+.mwc-form__success-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+}
+.mwc-form__success-body {
+  font-size: 14px;
+  color: #B0ADA8;
+  line-height: 1.5;
+}
+
+/* ---- Loading state ----------------------------------- */
+.mwc-form.is-submitting .mwc-submit { color: transparent; pointer-events: none; }
+.mwc-form.is-submitting .mwc-submit::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: mwc-spin 700ms linear infinite;
+}
+@keyframes mwc-spin { to { transform: rotate(360deg); } }
+.mwc-submit { position: relative; }
+
+/* ---- Mobile breakpoints ------------------------------ */
+@media (max-width: 480px) {
+  .mwc-form { padding: 24px 18px; border-radius: 12px; }
+  .mwc-form__headline { font-size: 22px; }
+  .mwc-input, .mwc-select { padding: 12px 14px 12px 42px; font-size: 16px; }
+  .mwc-field__icon { left: 14px; bottom: 12px; }
+  .mwc-field__status { right: 14px; bottom: 12px; }
+  .mwc-submit { padding: 16px 20px; font-size: 15px; }
+}
+
+/* ---- Reduced motion / contrast ----------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .mwc-input, .mwc-select, .mwc-submit, .mwc-submit__arrow, .mwc-loc, .mwc-consent input[type="checkbox"] {
+    transition: none;
+  }
+  .mwc-form.is-submitting .mwc-submit::after { animation: none; }
+}
+@media (prefers-contrast: more) {
+  .mwc-input, .mwc-select { border-color: #FFFFFF; }
+}
