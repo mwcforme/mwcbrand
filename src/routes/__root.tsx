@@ -10,7 +10,12 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import assetMap from "@/data/asset-map.json";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const A = assetMap as Record<string, string>;
 
 function NotFoundComponent() {
   return (
@@ -77,19 +82,50 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Brand System · Men's Wellness Centers" },
+      {
+        name: "description",
+        content:
+          "Men's Wellness Centers brand system: logo, color, typography, voice, applications, and downloadable assets.",
+      },
+      { name: "author", content: "Men's Wellness Centers" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:title", content: "Brand System · Men's Wellness Centers" },
+      {
+        property: "og:description",
+        content:
+          "Men's Wellness Centers brand system: logo, color, typography, voice, applications, and downloadable assets.",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: A["assets/favicon/favicon-32.png"] },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: A["assets/favicon/favicon-192.png"] },
+      { rel: "apple-touch-icon", href: A["assets/favicon/apple-touch-icon.png"] },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Montserrat:wght@400;500;600;700&family=Inter:wght@400&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Men's Wellness Centers",
+          alternateName: "MWC",
+          url: "https://menswellnesscenters.com",
+          slogan: "Find Your Edge Over Age.",
+          address: {
+            "@type": "PostalAddress",
+            addressRegion: "VA",
+            addressCountry: "US",
+          },
+        }),
       },
     ],
   }),
@@ -115,11 +151,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <SiteHeader />
       <Outlet />
+      <SiteFooter />
     </QueryClientProvider>
   );
 }

@@ -1,0 +1,2631 @@
+{
+  "version": "2026.06",
+  "categories": [
+    {
+      "id": "web",
+      "label": "Web & Digital",
+      "group": "Core",
+      "count": 10
+    },
+    {
+      "id": "print",
+      "label": "Print",
+      "group": "Core",
+      "count": 4
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "group": "Core",
+      "count": 6
+    },
+    {
+      "id": "favicon",
+      "label": "Favicons & App Icons",
+      "group": "Core",
+      "count": 11
+    },
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "group": "Social",
+      "count": 18
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "group": "Social",
+      "count": 0
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "group": "Social",
+      "count": 22
+    },
+    {
+      "id": "x",
+      "label": "X / Twitter",
+      "group": "Social",
+      "count": 2
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "group": "Social",
+      "count": 4
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "group": "Social",
+      "count": 10
+    },
+    {
+      "id": "threads",
+      "label": "Threads",
+      "group": "Social",
+      "count": 1
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "group": "Tech",
+      "count": 6
+    },
+    {
+      "id": "gbp",
+      "label": "Google Business Profile",
+      "group": "Listings",
+      "count": 3
+    },
+    {
+      "id": "og",
+      "label": "Open Graph / Link Preview",
+      "group": "Social",
+      "count": 2
+    },
+    {
+      "id": "universal",
+      "label": "Universal Social Posts",
+      "group": "Social",
+      "count": 2
+    },
+    {
+      "id": "wordmark",
+      "label": "Wordmark Library",
+      "group": "Library",
+      "count": 35
+    },
+    {
+      "id": "m_bug",
+      "label": "M Bug (Standalone Mark)",
+      "group": "Library",
+      "count": 56
+    },
+    {
+      "id": "two_color",
+      "label": "Two-Color Lockup",
+      "group": "Library",
+      "count": 4
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/favicon/favicon-32.png",
+      "category": "favicon",
+      "label": "Favicon 32x32",
+      "use_for": "Browser tab favicon",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        32,
+        32
+      ],
+      "size_bytes": 656,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-48.png",
+      "category": "favicon",
+      "label": "Favicon 48x48",
+      "use_for": "Windows site tile and high-DPI tab",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        48,
+        48
+      ],
+      "size_bytes": 788,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-96.png",
+      "category": "favicon",
+      "label": "Favicon 96x96",
+      "use_for": "Google TV and high-DPI browser tab",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        96,
+        96
+      ],
+      "size_bytes": 1330,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-180.png",
+      "category": "favicon",
+      "label": "Favicon 180x180",
+      "use_for": "Apple touch icon for older devices",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 2662,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-192.png",
+      "category": "favicon",
+      "label": "Favicon 192x192",
+      "use_for": "Android home screen icon",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        192,
+        192
+      ],
+      "size_bytes": 2848,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-256.png",
+      "category": "favicon",
+      "label": "Favicon 256x256",
+      "use_for": "Windows tile and PWA icon",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "size_bytes": 4115,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon-512.png",
+      "category": "favicon",
+      "label": "Favicon 512x512",
+      "use_for": "PWA install icon and Android splash",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 10149,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/apple-touch-icon.png",
+      "category": "favicon",
+      "label": "Apple Touch Icon",
+      "use_for": "iOS home screen and Safari bookmarks",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 9489,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/apple-touch-icon-180.png",
+      "category": "favicon",
+      "label": "Apple Touch Icon 180",
+      "use_for": "iOS home screen (modern devices)",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 3366,
+      "ext": "png"
+    },
+    {
+      "path": "assets/favicon/favicon.ico",
+      "category": "favicon",
+      "label": "Favicon .ico",
+      "use_for": "Legacy multi-resolution favicon for IE/older browsers",
+      "platform_spec": "Web/PWA",
+      "dimensions": null,
+      "size_bytes": 367,
+      "ext": "ico"
+    },
+    {
+      "path": "assets/favicon/maskable-icon-512x512.png",
+      "category": "favicon",
+      "label": "Maskable Icon 512",
+      "use_for": "PWA maskable icon for Android adaptive icons",
+      "platform_spec": "Web/PWA",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 7762,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_320x320_navy_on_white.png",
+      "category": "facebook",
+      "label": "Profile Picture 320 (Navy on White)",
+      "use_for": "Facebook profile photo, light background",
+      "platform_spec": "320 x 320",
+      "dimensions": [
+        320,
+        320
+      ],
+      "size_bytes": 4340,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_320x320_white_on_navy.png",
+      "category": "facebook",
+      "label": "Profile Picture 320 (White on Navy)",
+      "use_for": "Facebook profile photo, navy background",
+      "platform_spec": "320 x 320",
+      "dimensions": [
+        320,
+        320
+      ],
+      "size_bytes": 4752,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_851x315_light.png",
+      "category": "facebook",
+      "label": "Page Cover 851 (Light)",
+      "use_for": "Facebook Page cover (legacy size, light)",
+      "platform_spec": "851 x 315",
+      "dimensions": [
+        851,
+        315
+      ],
+      "size_bytes": 19283,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_851x315_navy.png",
+      "category": "facebook",
+      "label": "Page Cover 851 (Navy)",
+      "use_for": "Facebook Page cover (legacy size, navy)",
+      "platform_spec": "851 x 315",
+      "dimensions": [
+        851,
+        315
+      ],
+      "size_bytes": 19096,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_1640x924_light.png",
+      "category": "facebook",
+      "label": "Page Cover 1640 (Light)",
+      "use_for": "Facebook Page cover (recommended HD, light)",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        1640,
+        924
+      ],
+      "size_bytes": 51839,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_1640x924_navy.png",
+      "category": "facebook",
+      "label": "Page Cover 1640 (Navy)",
+      "use_for": "Facebook Page cover (recommended HD, navy)",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        1640,
+        924
+      ],
+      "size_bytes": 52574,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_1_editorial_navy.png",
+      "category": "facebook",
+      "label": "Editorial Cover #1",
+      "use_for": "Facebook cover variation, editorial composition",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        851,
+        315
+      ],
+      "size_bytes": 48928,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_1_editorial_navy_hd.png",
+      "category": "facebook",
+      "label": "Editorial Cover #1 HD",
+      "use_for": "Facebook cover variation, editorial composition, HD",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        1640,
+        608
+      ],
+      "size_bytes": 188348,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_2_warm_minimal.png",
+      "category": "facebook",
+      "label": "Warm Minimal Cover #2",
+      "use_for": "Facebook cover variation, warm minimal",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        851,
+        315
+      ],
+      "size_bytes": 41456,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_2_warm_minimal_hd.png",
+      "category": "facebook",
+      "label": "Warm Minimal Cover #2 HD",
+      "use_for": "Facebook cover variation, warm minimal, HD",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        1640,
+        608
+      ],
+      "size_bytes": 153897,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_3_dark_cinematic.png",
+      "category": "facebook",
+      "label": "Dark Cinematic Cover #3",
+      "use_for": "Facebook cover variation, dark cinematic",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        851,
+        315
+      ],
+      "size_bytes": 56028,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_cover_3_dark_cinematic_hd.png",
+      "category": "facebook",
+      "label": "Dark Cinematic Cover #3 HD",
+      "use_for": "Facebook cover variation, dark cinematic, HD",
+      "platform_spec": "1640 x 924",
+      "dimensions": [
+        1640,
+        608
+      ],
+      "size_bytes": 186875,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_instagram_square_1440x1440_light.png",
+      "category": "facebook",
+      "label": "Square Post (Light)",
+      "use_for": "Facebook/Instagram square feed post, cream",
+      "platform_spec": "1440 x 1440",
+      "dimensions": [
+        1440,
+        1440
+      ],
+      "size_bytes": 62239,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_instagram_square_1440x1440_navy.png",
+      "category": "facebook",
+      "label": "Square Post (Navy)",
+      "use_for": "Facebook/Instagram square feed post, navy",
+      "platform_spec": "1440 x 1440",
+      "dimensions": [
+        1440,
+        1440
+      ],
+      "size_bytes": 63177,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_instagram_portrait_1440x1800_light.png",
+      "category": "facebook",
+      "label": "Portrait Post (Light)",
+      "use_for": "Facebook/Instagram 4:5 portrait feed post, cream",
+      "platform_spec": "1440 x 1800",
+      "dimensions": [
+        1440,
+        1800
+      ],
+      "size_bytes": 64432,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_instagram_portrait_1440x1800_navy.png",
+      "category": "facebook",
+      "label": "Portrait Post (Navy)",
+      "use_for": "Facebook/Instagram 4:5 portrait feed post, navy",
+      "platform_spec": "1440 x 1800",
+      "dimensions": [
+        1440,
+        1800
+      ],
+      "size_bytes": 65459,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_story_ad_1440x2560_light.png",
+      "category": "facebook",
+      "label": "Story / Reel Ad (Light)",
+      "use_for": "Facebook/Instagram Stories 9:16, cream",
+      "platform_spec": "1440 x 2560",
+      "dimensions": [
+        1440,
+        2560
+      ],
+      "size_bytes": 68949,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/facebook_story_ad_1440x2560_navy.png",
+      "category": "facebook",
+      "label": "Story / Reel Ad (Navy)",
+      "use_for": "Facebook/Instagram Stories 9:16, navy",
+      "platform_spec": "1440 x 2560",
+      "dimensions": [
+        1440,
+        2560
+      ],
+      "size_bytes": 69801,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_logo_300x300_navy_on_white.png",
+      "category": "linkedin",
+      "label": "Company Logo 300 (Navy on White)",
+      "use_for": "LinkedIn company page logo, light background",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 3770,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_logo_300x300_white_on_navy.png",
+      "category": "linkedin",
+      "label": "Company Logo 300 (White on Navy)",
+      "use_for": "LinkedIn company page logo, navy background",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 4090,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_square_60x60_navy_on_white.png",
+      "category": "linkedin",
+      "label": "Company Square 60 (Navy on White)",
+      "use_for": "LinkedIn company square thumbnail, light",
+      "platform_spec": "60 x 60",
+      "dimensions": [
+        60,
+        60
+      ],
+      "size_bytes": 843,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_square_60x60_white_on_navy.png",
+      "category": "linkedin",
+      "label": "Company Square 60 (White on Navy)",
+      "use_for": "LinkedIn company square thumbnail, navy",
+      "platform_spec": "60 x 60",
+      "dimensions": [
+        60,
+        60
+      ],
+      "size_bytes": 854,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_400x400_navy_on_white.png",
+      "category": "linkedin",
+      "label": "Profile Photo 400 (Navy on White)",
+      "use_for": "LinkedIn profile photo (universal)",
+      "platform_spec": "400 x 400",
+      "dimensions": [
+        400,
+        400
+      ],
+      "size_bytes": 5948,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_400x400_white_on_navy.png",
+      "category": "linkedin",
+      "label": "Profile Photo 400 (White on Navy)",
+      "use_for": "LinkedIn profile photo (universal)",
+      "platform_spec": "400 x 400",
+      "dimensions": [
+        400,
+        400
+      ],
+      "size_bytes": 6373,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_400x400_navy_on_white.png",
+      "category": "linkedin",
+      "label": "Personal Profile 400 (Navy on White)",
+      "use_for": "Personal LinkedIn profile photo",
+      "platform_spec": "400 x 400",
+      "dimensions": [
+        400,
+        400
+      ],
+      "size_bytes": 5506,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_400x400_white_on_navy.png",
+      "category": "linkedin",
+      "label": "Personal Profile 400 (White on Navy)",
+      "use_for": "Personal LinkedIn profile photo",
+      "platform_spec": "400 x 400",
+      "dimensions": [
+        400,
+        400
+      ],
+      "size_bytes": 5996,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_1128x191_light.png",
+      "category": "linkedin",
+      "label": "Company Cover 1128 (Light)",
+      "use_for": "LinkedIn company page cover, cream",
+      "platform_spec": "1128 x 191",
+      "dimensions": [
+        1128,
+        191
+      ],
+      "size_bytes": 26717,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_1128x191_navy.png",
+      "category": "linkedin",
+      "label": "Company Cover 1128 (Navy)",
+      "use_for": "LinkedIn company page cover, navy",
+      "platform_spec": "1128 x 191",
+      "dimensions": [
+        1128,
+        191
+      ],
+      "size_bytes": 26772,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_cover_1128x191_light.png",
+      "category": "linkedin",
+      "label": "Company Cover 1128 alt (Light)",
+      "use_for": "LinkedIn company page cover, alt comp, cream",
+      "platform_spec": "1128 x 191",
+      "dimensions": [
+        1128,
+        191
+      ],
+      "size_bytes": 20598,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_company_cover_1128x191_navy.png",
+      "category": "linkedin",
+      "label": "Company Cover 1128 alt (Navy)",
+      "use_for": "LinkedIn company page cover, alt comp, navy",
+      "platform_spec": "1128 x 191",
+      "dimensions": [
+        1128,
+        191
+      ],
+      "size_bytes": 20665,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_1584x396_light.png",
+      "category": "linkedin",
+      "label": "Personal Cover 1584 (Light)",
+      "use_for": "LinkedIn personal background banner, cream",
+      "platform_spec": "1584 x 396",
+      "dimensions": [
+        1584,
+        396
+      ],
+      "size_bytes": 44146,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_1584x396_navy.png",
+      "category": "linkedin",
+      "label": "Personal Cover 1584 (Navy)",
+      "use_for": "LinkedIn personal background banner, navy",
+      "platform_spec": "1584 x 396",
+      "dimensions": [
+        1584,
+        396
+      ],
+      "size_bytes": 44946,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_banner_1584x396_light.png",
+      "category": "linkedin",
+      "label": "Personal Banner 1584 alt (Light)",
+      "use_for": "LinkedIn personal background banner, alt comp, cream",
+      "platform_spec": "1584 x 396",
+      "dimensions": [
+        1584,
+        396
+      ],
+      "size_bytes": 38081,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_personal_banner_1584x396_navy.png",
+      "category": "linkedin",
+      "label": "Personal Banner 1584 alt (Navy)",
+      "use_for": "LinkedIn personal background banner, alt comp, navy",
+      "platform_spec": "1584 x 396",
+      "dimensions": [
+        1584,
+        396
+      ],
+      "size_bytes": 38970,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_life_tab_1128x376_light.png",
+      "category": "linkedin",
+      "label": "Life Tab 1128 (Light)",
+      "use_for": "LinkedIn company Life tab hero image, cream",
+      "platform_spec": "1128 x 376",
+      "dimensions": [
+        1128,
+        376
+      ],
+      "size_bytes": 25716,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_life_tab_1128x376_navy.png",
+      "category": "linkedin",
+      "label": "Life Tab 1128 (Navy)",
+      "use_for": "LinkedIn company Life tab hero image, navy",
+      "platform_spec": "1128 x 376",
+      "dimensions": [
+        1128,
+        376
+      ],
+      "size_bytes": 26221,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_sponsored_1200x628_light.png",
+      "category": "linkedin",
+      "label": "Sponsored Ad 1200 (Light)",
+      "use_for": "LinkedIn sponsored content/ad creative, cream",
+      "platform_spec": "1200 x 628",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "size_bytes": 38667,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_sponsored_1200x628_navy.png",
+      "category": "linkedin",
+      "label": "Sponsored Ad 1200 (Navy)",
+      "use_for": "LinkedIn sponsored content/ad creative, navy",
+      "platform_spec": "1200 x 628",
+      "dimensions": [
+        1200,
+        628
+      ],
+      "size_bytes": 39239,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_square_1200x1200_light.png",
+      "category": "linkedin",
+      "label": "Square Post 1200 (Light)",
+      "use_for": "LinkedIn square feed post, cream",
+      "platform_spec": "1200 x 1200",
+      "dimensions": [
+        1200,
+        1200
+      ],
+      "size_bytes": 47433,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/linkedin_square_1200x1200_navy.png",
+      "category": "linkedin",
+      "label": "Square Post 1200 (Navy)",
+      "use_for": "LinkedIn square feed post, navy",
+      "platform_spec": "1200 x 1200",
+      "dimensions": [
+        1200,
+        1200
+      ],
+      "size_bytes": 48236,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/x_twitter_header_1500x500_light.png",
+      "category": "x",
+      "label": "X / Twitter Header (Light)",
+      "use_for": "X (Twitter) profile header banner, cream",
+      "platform_spec": "1500 x 500",
+      "dimensions": [
+        1500,
+        500
+      ],
+      "size_bytes": 41812,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/x_twitter_header_1500x500_navy.png",
+      "category": "x",
+      "label": "X / Twitter Header (Navy)",
+      "use_for": "X (Twitter) profile header banner, navy",
+      "platform_spec": "1500 x 500",
+      "dimensions": [
+        1500,
+        500
+      ],
+      "size_bytes": 42757,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/youtube_800x800_navy_on_white.png",
+      "category": "youtube",
+      "label": "YouTube Channel Avatar 800 (Navy on White)",
+      "use_for": "YouTube channel profile photo",
+      "platform_spec": "800 x 800",
+      "dimensions": [
+        800,
+        800
+      ],
+      "size_bytes": 14344,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/youtube_800x800_white_on_navy.png",
+      "category": "youtube",
+      "label": "YouTube Channel Avatar 800 (White on Navy)",
+      "use_for": "YouTube channel profile photo",
+      "platform_spec": "800 x 800",
+      "dimensions": [
+        800,
+        800
+      ],
+      "size_bytes": 15426,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/youtube_banner_2560x1440_light.png",
+      "category": "youtube",
+      "label": "YouTube Banner 2560 (Light)",
+      "use_for": "YouTube channel banner, cream",
+      "platform_spec": "2560 x 1440",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "size_bytes": 95945,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/youtube_banner_2560x1440_navy.png",
+      "category": "youtube",
+      "label": "YouTube Banner 2560 (Navy)",
+      "use_for": "YouTube channel banner, navy",
+      "platform_spec": "2560 x 1440",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "size_bytes": 97286,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_200x200_navy_on_white.png",
+      "category": "tiktok",
+      "label": "TikTok Avatar 200 (Navy on White)",
+      "use_for": "TikTok profile photo (legacy size)",
+      "platform_spec": "200 x 200",
+      "dimensions": [
+        200,
+        200
+      ],
+      "size_bytes": 2462,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_200x200_white_on_navy.png",
+      "category": "tiktok",
+      "label": "TikTok Avatar 200 (White on Navy)",
+      "use_for": "TikTok profile photo (legacy size)",
+      "platform_spec": "200 x 200",
+      "dimensions": [
+        200,
+        200
+      ],
+      "size_bytes": 2613,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_200x200_navy_on_white.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 200 (Navy on White)",
+      "use_for": "TikTok profile photo, small",
+      "platform_spec": "200 x 200",
+      "dimensions": [
+        200,
+        200
+      ],
+      "size_bytes": 2315,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_200x200_white_on_navy.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 200 (White on Navy)",
+      "use_for": "TikTok profile photo, small",
+      "platform_spec": "200 x 200",
+      "dimensions": [
+        200,
+        200
+      ],
+      "size_bytes": 2468,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_720x720_navy_on_white.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 720 (Navy on White)",
+      "use_for": "TikTok profile photo, recommended",
+      "platform_spec": "720 x 720",
+      "dimensions": [
+        720,
+        720
+      ],
+      "size_bytes": 12241,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_720x720_white_on_navy.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 720 (White on Navy)",
+      "use_for": "TikTok profile photo, recommended",
+      "platform_spec": "720 x 720",
+      "dimensions": [
+        720,
+        720
+      ],
+      "size_bytes": 13392,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_1080x1080_navy_on_white.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 1080 (Navy on White)",
+      "use_for": "TikTok profile photo, HD",
+      "platform_spec": "1080 x 1080",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "size_bytes": 22253,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_profile_1080x1080_white_on_navy.png",
+      "category": "tiktok",
+      "label": "TikTok Profile 1080 (White on Navy)",
+      "use_for": "TikTok profile photo, HD",
+      "platform_spec": "1080 x 1080",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "size_bytes": 23851,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_vertical_1080x1920_light.png",
+      "category": "tiktok",
+      "label": "TikTok Vertical 9:16 (Light)",
+      "use_for": "TikTok / Reels / Shorts vertical post, cream",
+      "platform_spec": "1080 x 1920",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "size_bytes": 45613,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/tiktok_vertical_1080x1920_navy.png",
+      "category": "tiktok",
+      "label": "TikTok Vertical 9:16 (Navy)",
+      "use_for": "TikTok / Reels / Shorts vertical post, navy",
+      "platform_spec": "1080 x 1920",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "size_bytes": 46056,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_avatar_260x260_navy_on_white.png",
+      "category": "github",
+      "label": "GitHub Avatar 260 (Navy on White)",
+      "use_for": "GitHub organization or user avatar",
+      "platform_spec": "260 x 260",
+      "dimensions": [
+        260,
+        260
+      ],
+      "size_bytes": 3207,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_avatar_260x260_white_on_navy.png",
+      "category": "github",
+      "label": "GitHub Avatar 260 (White on Navy)",
+      "use_for": "GitHub organization or user avatar",
+      "platform_spec": "260 x 260",
+      "dimensions": [
+        260,
+        260
+      ],
+      "size_bytes": 3393,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_profile_500x500_navy_on_white.png",
+      "category": "github",
+      "label": "GitHub Profile 500 (Navy on White)",
+      "use_for": "GitHub larger profile image",
+      "platform_spec": "500 x 500",
+      "dimensions": [
+        500,
+        500
+      ],
+      "size_bytes": 7237,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_profile_500x500_white_on_navy.png",
+      "category": "github",
+      "label": "GitHub Profile 500 (White on Navy)",
+      "use_for": "GitHub larger profile image",
+      "platform_spec": "500 x 500",
+      "dimensions": [
+        500,
+        500
+      ],
+      "size_bytes": 7997,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_social_preview_1280x640_light.png",
+      "category": "github",
+      "label": "GitHub Social Preview (Light)",
+      "use_for": "GitHub repo social card preview, cream",
+      "platform_spec": "1280 x 640",
+      "dimensions": [
+        1280,
+        640
+      ],
+      "size_bytes": 34110,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/github_social_preview_1280x640_navy.png",
+      "category": "github",
+      "label": "GitHub Social Preview (Navy)",
+      "use_for": "GitHub repo social card preview, navy",
+      "platform_spec": "1280 x 640",
+      "dimensions": [
+        1280,
+        640
+      ],
+      "size_bytes": 34818,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/gbp_profile_250x250.png",
+      "category": "gbp",
+      "label": "GBP Profile 250",
+      "use_for": "Google Business Profile logo/profile photo",
+      "platform_spec": "250 x 250",
+      "dimensions": [
+        250,
+        250
+      ],
+      "size_bytes": 3787,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/gbp_logo_720x720.png",
+      "category": "gbp",
+      "label": "GBP Logo 720",
+      "use_for": "Google Business Profile logo (recommended)",
+      "platform_spec": "720 x 720",
+      "dimensions": [
+        720,
+        720
+      ],
+      "size_bytes": 15372,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/gbp_cover_1080x608.png",
+      "category": "gbp",
+      "label": "GBP Cover 1080",
+      "use_for": "Google Business Profile cover image",
+      "platform_spec": "1080 x 608",
+      "dimensions": [
+        1080,
+        608
+      ],
+      "size_bytes": 35150,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/og_image_1200x630.png",
+      "category": "og",
+      "label": "OG Image (Navy)",
+      "use_for": "Default Open Graph link preview image for any URL",
+      "platform_spec": "1200 x 630",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "size_bytes": 43493,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/og_image_1200x630_light.png",
+      "category": "og",
+      "label": "OG Image (Light)",
+      "use_for": "Alternate Open Graph link preview, cream variant",
+      "platform_spec": "1200 x 630",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "size_bytes": 45025,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/threads_link_preview_1200x600.png",
+      "category": "threads",
+      "label": "Threads Link Preview",
+      "use_for": "Threads link preview image (slightly different aspect than OG)",
+      "platform_spec": "1200 x 600",
+      "dimensions": [
+        1200,
+        600
+      ],
+      "size_bytes": 28461,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/universal_1080x1080_navy_on_white.png",
+      "category": "universal",
+      "label": "Universal Square 1080 (Navy on White)",
+      "use_for": "Cross-posting square post, cream background",
+      "platform_spec": "1080 x 1080",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "size_bytes": 23389,
+      "ext": "png"
+    },
+    {
+      "path": "assets/social/universal_1080x1080_white_on_navy.png",
+      "category": "universal",
+      "label": "Universal Square 1080 (White on Navy)",
+      "use_for": "Cross-posting square post, navy background",
+      "platform_spec": "1080 x 1080",
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "size_bytes": 24832,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_70x16.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 70px",
+      "use_for": "Tiny size, e.g. compact navs or footer mark",
+      "platform_spec": "70 x 16",
+      "dimensions": [
+        70,
+        16
+      ],
+      "size_bytes": 1550,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_122x28.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 122px",
+      "use_for": "Small size, e.g. mobile nav",
+      "platform_spec": "122 x 28",
+      "dimensions": [
+        122,
+        28
+      ],
+      "size_bytes": 2962,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_209x48.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 209px",
+      "use_for": "Standard nav size on light backgrounds",
+      "platform_spec": "209 x 48",
+      "dimensions": [
+        209,
+        48
+      ],
+      "size_bytes": 5271,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_348x80.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 348px",
+      "use_for": "Hero size on light backgrounds",
+      "platform_spec": "348 x 80",
+      "dimensions": [
+        348,
+        80
+      ],
+      "size_bytes": 9408,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_522x120.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 522px",
+      "use_for": "Large hero or document header",
+      "platform_spec": "522 x 120",
+      "dimensions": [
+        522,
+        120
+      ],
+      "size_bytes": 16073,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_870x200.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 870px",
+      "use_for": "Print or slide deck header",
+      "platform_spec": "870 x 200",
+      "dimensions": [
+        870,
+        200
+      ],
+      "size_bytes": 32282,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_1304x300.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 1304px",
+      "use_for": "High-DPI display or printed handout",
+      "platform_spec": "1304 x 300",
+      "dimensions": [
+        1304,
+        300
+      ],
+      "size_bytes": 59242,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_2174x500.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 2174px",
+      "use_for": "Large-format print, signage, retina hero",
+      "platform_spec": "2174 x 500",
+      "dimensions": [
+        2174,
+        500
+      ],
+      "size_bytes": 124349,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/Navy_on_Transparent__wordmark_4348x1000.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy on Transparent 4348px",
+      "use_for": "Billboard / signage / very large print",
+      "platform_spec": "4348 x 1000",
+      "dimensions": [
+        4348,
+        1000
+      ],
+      "size_bytes": 324436,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_70x16.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 70px",
+      "use_for": "Tiny size, dark backgrounds",
+      "platform_spec": "70 x 16",
+      "dimensions": [
+        70,
+        16
+      ],
+      "size_bytes": 1829,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_122x28.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 122px",
+      "use_for": "Small size, dark backgrounds",
+      "platform_spec": "122 x 28",
+      "dimensions": [
+        122,
+        28
+      ],
+      "size_bytes": 3571,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_209x48.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 209px",
+      "use_for": "Standard nav size on dark backgrounds",
+      "platform_spec": "209 x 48",
+      "dimensions": [
+        209,
+        48
+      ],
+      "size_bytes": 6335,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_348x80.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 348px",
+      "use_for": "Hero size on dark backgrounds",
+      "platform_spec": "348 x 80",
+      "dimensions": [
+        348,
+        80
+      ],
+      "size_bytes": 11170,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_522x120.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 522px",
+      "use_for": "Large hero on dark backgrounds",
+      "platform_spec": "522 x 120",
+      "dimensions": [
+        522,
+        120
+      ],
+      "size_bytes": 18854,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_870x200.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 870px",
+      "use_for": "Print or slide deck on dark backgrounds",
+      "platform_spec": "870 x 200",
+      "dimensions": [
+        870,
+        200
+      ],
+      "size_bytes": 37925,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_1304x300.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 1304px",
+      "use_for": "High-DPI dark backgrounds",
+      "platform_spec": "1304 x 300",
+      "dimensions": [
+        1304,
+        300
+      ],
+      "size_bytes": 68996,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_2174x500.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 2174px",
+      "use_for": "Large-format print on dark backgrounds",
+      "platform_spec": "2174 x 500",
+      "dimensions": [
+        2174,
+        500
+      ],
+      "size_bytes": 144322,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Navy__wordmark_4348x1000.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Navy 4348px",
+      "use_for": "Signage on dark backgrounds",
+      "platform_spec": "4348 x 1000",
+      "dimensions": [
+        4348,
+        1000
+      ],
+      "size_bytes": 361602,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_70x16.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 70px",
+      "use_for": "Video overlay or watermark, tiny",
+      "platform_spec": "70 x 16",
+      "dimensions": [
+        70,
+        16
+      ],
+      "size_bytes": 2084,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_122x28.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 122px",
+      "use_for": "Video lower-third small",
+      "platform_spec": "122 x 28",
+      "dimensions": [
+        122,
+        28
+      ],
+      "size_bytes": 4124,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_209x48.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 209px",
+      "use_for": "Video overlay standard",
+      "platform_spec": "209 x 48",
+      "dimensions": [
+        209,
+        48
+      ],
+      "size_bytes": 7279,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_348x80.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 348px",
+      "use_for": "Video end card or social overlay",
+      "platform_spec": "348 x 80",
+      "dimensions": [
+        348,
+        80
+      ],
+      "size_bytes": 12661,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_522x120.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 522px",
+      "use_for": "Video end card large",
+      "platform_spec": "522 x 120",
+      "dimensions": [
+        522,
+        120
+      ],
+      "size_bytes": 21499,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_870x200.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 870px",
+      "use_for": "Video end card / cinematic title",
+      "platform_spec": "870 x 200",
+      "dimensions": [
+        870,
+        200
+      ],
+      "size_bytes": 43334,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_1304x300.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 1304px",
+      "use_for": "High-DPI video overlay",
+      "platform_spec": "1304 x 300",
+      "dimensions": [
+        1304,
+        300
+      ],
+      "size_bytes": 78371,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_2174x500.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 2174px",
+      "use_for": "Video master overlay",
+      "platform_spec": "2174 x 500",
+      "dimensions": [
+        2174,
+        500
+      ],
+      "size_bytes": 160685,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/White_on_Transparent__wordmark_4348x1000.png",
+      "category": "wordmark",
+      "label": "Wordmark White on Transparent 4348px",
+      "use_for": "Master file for video / large composites",
+      "platform_spec": "4348 x 1000",
+      "dimensions": [
+        4348,
+        1000
+      ],
+      "size_bytes": 388541,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (Navy on Transparent)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 345,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (Navy on White)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 409,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (White on Navy)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 420,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (White on Transparent)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 432,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_32_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 32px (Navy on Transparent)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "32 x 32",
+      "dimensions": [
+        32,
+        32
+      ],
+      "size_bytes": 556,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_32_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 32px (Navy on White)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "32 x 32",
+      "dimensions": [
+        32,
+        32
+      ],
+      "size_bytes": 666,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_32_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 32px (White on Navy)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "32 x 32",
+      "dimensions": [
+        32,
+        32
+      ],
+      "size_bytes": 656,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_32_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 32px (White on Transparent)",
+      "use_for": "Favicon/tab/app icon. Pair with the favicon set.",
+      "platform_spec": "32 x 32",
+      "dimensions": [
+        32,
+        32
+      ],
+      "size_bytes": 730,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_48_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 48px (Navy on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "48 x 48",
+      "dimensions": [
+        48,
+        48
+      ],
+      "size_bytes": 652,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_48_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 48px (Navy on White)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "48 x 48",
+      "dimensions": [
+        48,
+        48
+      ],
+      "size_bytes": 780,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_48_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 48px (White on Navy)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "48 x 48",
+      "dimensions": [
+        48,
+        48
+      ],
+      "size_bytes": 788,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_48_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 48px (White on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "48 x 48",
+      "dimensions": [
+        48,
+        48
+      ],
+      "size_bytes": 819,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_64_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 64px (Navy on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "64 x 64",
+      "dimensions": [
+        64,
+        64
+      ],
+      "size_bytes": 756,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_64_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 64px (Navy on White)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "64 x 64",
+      "dimensions": [
+        64,
+        64
+      ],
+      "size_bytes": 985,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_64_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 64px (White on Navy)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "64 x 64",
+      "dimensions": [
+        64,
+        64
+      ],
+      "size_bytes": 969,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_64_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 64px (White on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "64 x 64",
+      "dimensions": [
+        64,
+        64
+      ],
+      "size_bytes": 999,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_96_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 96px (Navy on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "96 x 96",
+      "dimensions": [
+        96,
+        96
+      ],
+      "size_bytes": 1070,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_96_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 96px (Navy on White)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "96 x 96",
+      "dimensions": [
+        96,
+        96
+      ],
+      "size_bytes": 1348,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_96_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 96px (White on Navy)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "96 x 96",
+      "dimensions": [
+        96,
+        96
+      ],
+      "size_bytes": 1330,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_96_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 96px (White on Transparent)",
+      "use_for": "Small UI mark, mobile nav, button icon, or social avatar thumbnail.",
+      "platform_spec": "96 x 96",
+      "dimensions": [
+        96,
+        96
+      ],
+      "size_bytes": 1342,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_128_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 128px (Navy on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "128 x 128",
+      "dimensions": [
+        128,
+        128
+      ],
+      "size_bytes": 1360,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_128_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 128px (Navy on White)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "128 x 128",
+      "dimensions": [
+        128,
+        128
+      ],
+      "size_bytes": 1733,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_128_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 128px (White on Navy)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "128 x 128",
+      "dimensions": [
+        128,
+        128
+      ],
+      "size_bytes": 1685,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_128_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 128px (White on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "128 x 128",
+      "dimensions": [
+        128,
+        128
+      ],
+      "size_bytes": 1700,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_180_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 180px (Navy on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "180 x 180",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 2098,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_180_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 180px (Navy on White)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "180 x 180",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 2688,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_180_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 180px (White on Navy)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "180 x 180",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 2662,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_180_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 180px (White on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "180 x 180",
+      "dimensions": [
+        180,
+        180
+      ],
+      "size_bytes": 2598,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_192_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 192px (Navy on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "192 x 192",
+      "dimensions": [
+        192,
+        192
+      ],
+      "size_bytes": 2236,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_192_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 192px (Navy on White)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "192 x 192",
+      "dimensions": [
+        192,
+        192
+      ],
+      "size_bytes": 2879,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_192_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 192px (White on Navy)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "192 x 192",
+      "dimensions": [
+        192,
+        192
+      ],
+      "size_bytes": 2848,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_192_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 192px (White on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "192 x 192",
+      "dimensions": [
+        192,
+        192
+      ],
+      "size_bytes": 2786,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_256_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 256px (Navy on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "256 x 256",
+      "dimensions": [
+        256,
+        256
+      ],
+      "size_bytes": 3284,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_256_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 256px (Navy on White)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "256 x 256",
+      "dimensions": [
+        256,
+        256
+      ],
+      "size_bytes": 4181,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_256_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 256px (White on Navy)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "256 x 256",
+      "dimensions": [
+        256,
+        256
+      ],
+      "size_bytes": 4115,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_256_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 256px (White on Transparent)",
+      "use_for": "Standard app icon, social avatar, or in-line UI mark.",
+      "platform_spec": "256 x 256",
+      "dimensions": [
+        256,
+        256
+      ],
+      "size_bytes": 4136,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (Navy on Transparent)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 4092,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (Navy on White)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 5200,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (White on Navy)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 5100,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (White on Transparent)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 5029,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_512_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 512px (Navy on Transparent)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "512 x 512",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 8252,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_512_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 512px (Navy on White)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "512 x 512",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 10412,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_512_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 512px (White on Navy)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "512 x 512",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 10149,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_512_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 512px (White on Transparent)",
+      "use_for": "App icon master, social avatar HD, or print sticker.",
+      "platform_spec": "512 x 512",
+      "dimensions": [
+        512,
+        512
+      ],
+      "size_bytes": 10248,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_1024_navy_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 1024px (Navy on Transparent)",
+      "use_for": "Master / print at scale. Use this size to export anything smaller.",
+      "platform_spec": "1024 x 1024",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "size_bytes": 20869,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_1024_navy_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 1024px (Navy on White)",
+      "use_for": "Master / print at scale. Use this size to export anything smaller.",
+      "platform_spec": "1024 x 1024",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "size_bytes": 25332,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_1024_white_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 1024px (White on Navy)",
+      "use_for": "Master / print at scale. Use this size to export anything smaller.",
+      "platform_spec": "1024 x 1024",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "size_bytes": 24935,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_1024_white_on_transparent.png",
+      "category": "m_bug",
+      "label": "M Bug 1024px (White on Transparent)",
+      "use_for": "Master / print at scale. Use this size to export anything smaller.",
+      "platform_spec": "1024 x 1024",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "size_bytes": 24646,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_navy_on_orange.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (Navy on Orange)",
+      "use_for": "Tiny accent badge on orange surface",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 368,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_orange_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (Orange on Navy)",
+      "use_for": "Tiny accent badge on navy surface",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 374,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_orange_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (Orange on White)",
+      "use_for": "Tiny accent badge on light surface",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 372,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_16_white_on_orange.png",
+      "category": "m_bug",
+      "label": "M Bug 16px (White on Orange)",
+      "use_for": "Tiny accent badge on orange surface",
+      "platform_spec": "16 x 16",
+      "dimensions": [
+        16,
+        16
+      ],
+      "size_bytes": 383,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_navy_on_orange.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (Navy on Orange)",
+      "use_for": "Hero badge or sticker, orange surface",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 4912,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_orange_on_navy.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (Orange on Navy)",
+      "use_for": "Hero badge on navy surface",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 4923,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_orange_on_white.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (Orange on White)",
+      "use_for": "Hero badge on light surface",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 5077,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/m_300_white_on_orange.png",
+      "category": "m_bug",
+      "label": "M Bug 300px (White on Orange)",
+      "use_for": "Hero badge on orange surface",
+      "platform_spec": "300 x 300",
+      "dimensions": [
+        300,
+        300
+      ],
+      "size_bytes": 4868,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/01_all_navy_0B1029.png",
+      "category": "two_color",
+      "label": "All-Navy Wordmark (Navy Background)",
+      "use_for": "Primary lockup on navy surfaces",
+      "platform_spec": "Master",
+      "dimensions": [
+        2000,
+        460
+      ],
+      "size_bytes": 202082,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/01_all_navy_transparent.png",
+      "category": "two_color",
+      "label": "All-Navy Wordmark (Transparent)",
+      "use_for": "Primary lockup, transparent",
+      "platform_spec": "Master",
+      "dimensions": [
+        2000,
+        460
+      ],
+      "size_bytes": 109991,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/02_navy_top_orange_bottom.png",
+      "category": "two_color",
+      "label": "Two-Color Lockup (Navy + Orange)",
+      "use_for": "Limited-use two-color variation",
+      "platform_spec": "Master",
+      "dimensions": [
+        2000,
+        460
+      ],
+      "size_bytes": 189413,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/02_navy_top_orange_bottom_transparent.png",
+      "category": "two_color",
+      "label": "Two-Color Lockup Transparent",
+      "use_for": "Two-color variation, transparent",
+      "platform_spec": "Master",
+      "dimensions": [
+        2000,
+        460
+      ],
+      "size_bytes": 110001,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_navy_240x55_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy 240px H",
+      "use_for": "Web nav on light backgrounds, retina source 1920",
+      "platform_spec": "240 x 55",
+      "dimensions": [
+        240,
+        55
+      ],
+      "size_bytes": 7339,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_navy_300x69_vertical_1080.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy 300px V",
+      "use_for": "Vertical layouts on light backgrounds",
+      "platform_spec": "300 x 69",
+      "dimensions": [
+        300,
+        69
+      ],
+      "size_bytes": 9487,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_navy_360x83_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy 360px H",
+      "use_for": "Standard web hero on light backgrounds",
+      "platform_spec": "360 x 83",
+      "dimensions": [
+        360,
+        83
+      ],
+      "size_bytes": 11455,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_navy_480x110_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark Navy 480px H",
+      "use_for": "Large web hero on light backgrounds",
+      "platform_spec": "480 x 110",
+      "dimensions": [
+        480,
+        110
+      ],
+      "size_bytes": 17218,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_white_240x55_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark White 240px H",
+      "use_for": "Web nav on dark backgrounds",
+      "platform_spec": "240 x 55",
+      "dimensions": [
+        240,
+        55
+      ],
+      "size_bytes": 8581,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_white_300x69_vertical_1080.png",
+      "category": "wordmark",
+      "label": "Wordmark White 300px V",
+      "use_for": "Vertical layouts on dark backgrounds",
+      "platform_spec": "300 x 69",
+      "dimensions": [
+        300,
+        69
+      ],
+      "size_bytes": 11388,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_white_360x83_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark White 360px H",
+      "use_for": "Standard web hero on dark backgrounds",
+      "platform_spec": "360 x 83",
+      "dimensions": [
+        360,
+        83
+      ],
+      "size_bytes": 14056,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_white_480x110_horizontal_1920.png",
+      "category": "wordmark",
+      "label": "Wordmark White 480px H",
+      "use_for": "Large web hero on dark backgrounds",
+      "platform_spec": "480 x 110",
+      "dimensions": [
+        480,
+        110
+      ],
+      "size_bytes": 20606,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/print_wordmark_navy_on_white_4000x920.png",
+      "category": "print",
+      "label": "Print Wordmark Navy on White 4000px",
+      "use_for": "Print master, navy ink on white paper",
+      "platform_spec": "4000 x 920",
+      "dimensions": [
+        4000,
+        920
+      ],
+      "size_bytes": 381381,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/print_wordmark_navy_on_trans_4000x920.png",
+      "category": "print",
+      "label": "Print Wordmark Navy Transparent 4000px",
+      "use_for": "Print master, navy on any paper",
+      "platform_spec": "4000 x 920",
+      "dimensions": [
+        4000,
+        920
+      ],
+      "size_bytes": 336954,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/print_wordmark_white_on_navy_4000x920.png",
+      "category": "print",
+      "label": "Print Wordmark White on Navy 4000px",
+      "use_for": "Print master, white ink on navy stock",
+      "platform_spec": "4000 x 920",
+      "dimensions": [
+        4000,
+        920
+      ],
+      "size_bytes": 371789,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/print_wordmark_white_on_trans_4000x920.png",
+      "category": "print",
+      "label": "Print Wordmark White Transparent 4000px",
+      "use_for": "Print master, white on dark paper",
+      "platform_spec": "4000 x 920",
+      "dimensions": [
+        4000,
+        920
+      ],
+      "size_bytes": 401825,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_navy_bg_360x95.png",
+      "category": "email",
+      "label": "Padded Wordmark Navy BG 360",
+      "use_for": "Email header or button with built-in padding (navy)",
+      "platform_spec": "360 x 95",
+      "dimensions": [
+        360,
+        95
+      ],
+      "size_bytes": 12499,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_navy_bg_600x159.png",
+      "category": "email",
+      "label": "Padded Wordmark Navy BG 600",
+      "use_for": "Email header retina (navy)",
+      "platform_spec": "600 x 159",
+      "dimensions": [
+        600,
+        159
+      ],
+      "size_bytes": 24586,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_navy_bg_960x256.png",
+      "category": "email",
+      "label": "Padded Wordmark Navy BG 960",
+      "use_for": "Large email header (navy)",
+      "platform_spec": "960 x 256",
+      "dimensions": [
+        960,
+        256
+      ],
+      "size_bytes": 47887,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_transparent_360x95.png",
+      "category": "email",
+      "label": "Padded Wordmark Transparent 360",
+      "use_for": "Email header with built-in padding (transparent)",
+      "platform_spec": "360 x 95",
+      "dimensions": [
+        360,
+        95
+      ],
+      "size_bytes": 8509,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_transparent_600x159.png",
+      "category": "email",
+      "label": "Padded Wordmark Transparent 600",
+      "use_for": "Email header retina (transparent)",
+      "platform_spec": "600 x 159",
+      "dimensions": [
+        600,
+        159
+      ],
+      "size_bytes": 17142,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/png/wordmark_padded_transparent_960x256.png",
+      "category": "email",
+      "label": "Padded Wordmark Transparent 960",
+      "use_for": "Large email header (transparent)",
+      "platform_spec": "960 x 256",
+      "dimensions": [
+        960,
+        256
+      ],
+      "size_bytes": 33852,
+      "ext": "png"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_navy.svg",
+      "category": "web",
+      "label": "Wordmark Navy (SVG)",
+      "use_for": "Primary web logo, infinite scale. Use on light backgrounds.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_white.svg",
+      "category": "web",
+      "label": "Wordmark White (SVG)",
+      "use_for": "Primary web logo for dark backgrounds, infinite scale.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_black.svg",
+      "category": "web",
+      "label": "Wordmark Black (SVG)",
+      "use_for": "Single-color black variant for print or grayscale contexts.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_navy.svg",
+      "category": "web",
+      "label": "M Icon Navy (SVG)",
+      "use_for": "Standalone m bug, navy. Use for app icons and favicons.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_white.svg",
+      "category": "web",
+      "label": "M Icon White (SVG)",
+      "use_for": "Standalone m bug, white. Use for dark surfaces.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_black.svg",
+      "category": "web",
+      "label": "M Icon Black (SVG)",
+      "use_for": "Single-color black m bug. Print or grayscale.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_navy_bg_rounded.svg",
+      "category": "web",
+      "label": "M Icon Navy on Rounded BG (SVG)",
+      "use_for": "App icon with built-in rounded background, navy.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 416,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_white_bg_rounded.svg",
+      "category": "web",
+      "label": "M Icon White on Rounded BG (SVG)",
+      "use_for": "App icon with built-in rounded background, white.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 416,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/favicon_icon_darkmode.svg",
+      "category": "web",
+      "label": "Favicon Dark Mode (SVG)",
+      "use_for": "Modern browser favicon that adapts to dark mode.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 466,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/icon.svg",
+      "category": "web",
+      "label": "Icon Master (SVG)",
+      "use_for": "Generic icon master for additional sizing or recoloring.",
+      "platform_spec": "SVG (any size)",
+      "dimensions": null,
+      "size_bytes": 531,
+      "ext": "svg"
+    }
+  ],
+  "total_assets": 196
+}

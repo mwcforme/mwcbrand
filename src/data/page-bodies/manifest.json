@@ -1,0 +1,62 @@
+{
+  "index": {
+    "title": "Brand System \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "index.html"
+  },
+  "logo": {
+    "title": "Logo \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "logo.html"
+  },
+  "logo-library": {
+    "title": "Logo Library \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "logo-library.html"
+  },
+  "color": {
+    "title": "Color \u00b7 Men's Wellness Centers Brand",
+    "description": "Color tokens: Midnight Navy, Accent Orange, Cream, and supporting palette. WCAG 2.2 AA compliant.",
+    "file": "color.html"
+  },
+  "typography": {
+    "title": "Typography \u00b7 Men's Wellness Centers Brand",
+    "description": "Typography system: Oswald for display, Montserrat for body, Inter for data and code. Editorial spacing and uppercase headlines.",
+    "file": "typography.html"
+  },
+  "voice": {
+    "title": "Voice & Messaging \u00b7 Men's Wellness Centers Brand",
+    "description": "Brand voice, terminology, tagline, and approved phrases. Members not patients. No clinic. No free. No em-dashes.",
+    "file": "voice.html"
+  },
+  "applications": {
+    "title": "Applications \u00b7 Men's Wellness Centers Brand",
+    "description": "Brand applications: web, social, signage, stationery, and ads. The system in the wild.",
+    "file": "applications.html"
+  },
+  "accessibility": {
+    "title": "Accessibility \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "accessibility.html"
+  },
+  "prompts": {
+    "title": "Prompt Library \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "prompts.html"
+  },
+  "email-signature": {
+    "title": "Email Signature \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "email-signature.html"
+  },
+  "lead-forms": {
+    "title": "Lead Forms \u00b7 Men's Wellness Centers Brand",
+    "description": "",
+    "file": "lead-forms.html"
+  },
+  "downloads": {
+    "title": "Downloads \u00b7 Men's Wellness Centers Brand",
+    "description": "Downloadable brand assets: full pack, SVG logos, PNG logos, PDF logos, favicons, and social avatars.",
+    "file": "downloads.html"
+  }
+}

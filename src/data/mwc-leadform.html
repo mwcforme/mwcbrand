@@ -1,0 +1,104 @@
+<!-- =========================================================
+     MWC Lead Form Pattern v2026.06
+     Drop into any landing page, GHL HTML block, or WordPress
+     Custom HTML widget. Pair with mwc-leadform.css and
+     mwc-leadform.js. Replace ACTION_URL with your endpoint.
+     ========================================================= -->
+<form class="mwc-form" id="mwc-leadform" novalidate aria-labelledby="mwc-form-headline">
+  <div class="mwc-form__body">
+    <h2 class="mwc-form__headline" id="mwc-form-headline">Start feeling like yourself again.</h2>
+    <p class="mwc-form__sub">No-cost 60-minute in-person appointment. Same-day labs. No insurance needed.</p>
+
+    <!-- Form-wide error banner -->
+    <div class="mwc-form__error-banner" role="alert" aria-live="polite" id="mwc-form-banner">
+      Please correct the highlighted fields and try again.
+    </div>
+
+    <!-- NAME -->
+    <div class="mwc-field" data-field="name">
+      <label class="mwc-field__label" for="mwc-name">Name</label>
+      <svg class="mwc-field__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <input class="mwc-input" type="text" id="mwc-name" name="name" autocomplete="name" required minlength="2" placeholder="Your full name" aria-describedby="err-name">
+      <svg class="mwc-field__status mwc-field__status--ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <svg class="mwc-field__status mwc-field__status--err" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <p class="mwc-field__error" id="err-name" role="alert"></p>
+    </div>
+
+    <!-- PHONE -->
+    <div class="mwc-field" data-field="phone">
+      <label class="mwc-field__label" for="mwc-phone">Phone</label>
+      <svg class="mwc-field__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+      <input class="mwc-input" type="tel" id="mwc-phone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="(555) 555-5555" aria-describedby="err-phone">
+      <svg class="mwc-field__status mwc-field__status--ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      <svg class="mwc-field__status mwc-field__status--err" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <p class="mwc-field__error" id="err-phone" role="alert"></p>
+    </div>
+
+    <!-- LOCATIONS -->
+    <div class="mwc-locations" role="radiogroup" aria-labelledby="loc-label" data-field="location">
+      <p class="mwc-locations__label" id="loc-label">Choose your nearest center.</p>
+      <label class="mwc-loc">
+        <span class="mwc-loc__left">
+          <svg class="mwc-loc__pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Glen Allen
+        </span>
+        <span class="mwc-loc__check"></span>
+        <input type="radio" name="location" value="glen-allen" required>
+      </label>
+      <label class="mwc-loc">
+        <span class="mwc-loc__left">
+          <svg class="mwc-loc__pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Richmond
+        </span>
+        <span class="mwc-loc__check"></span>
+        <input type="radio" name="location" value="richmond" required>
+      </label>
+      <label class="mwc-loc">
+        <span class="mwc-loc__left">
+          <svg class="mwc-loc__pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Mechanicsville
+        </span>
+        <span class="mwc-loc__check"></span>
+        <input type="radio" name="location" value="mechanicsville" required>
+      </label>
+      <label class="mwc-loc">
+        <span class="mwc-loc__left">
+          <svg class="mwc-loc__pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Newport News
+        </span>
+        <span class="mwc-loc__check"></span>
+        <input type="radio" name="location" value="newport-news" required>
+      </label>
+      <label class="mwc-loc">
+        <span class="mwc-loc__left">
+          <svg class="mwc-loc__pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Virginia Beach
+        </span>
+        <span class="mwc-loc__check"></span>
+        <input type="radio" name="location" value="virginia-beach" required>
+      </label>
+      <p class="mwc-field__error" id="err-location" role="alert"></p>
+    </div>
+
+    <!-- CONSENT -->
+    <label class="mwc-consent">
+      <input type="checkbox" name="consent" required>
+      <span>I agree to receive SMS/calls and texts from Men's Wellness Centers. Msg &amp; data rates may apply. Reply STOP to opt out. Not a condition of service. HIPAA compliant. <a href="https://menswellnesscenters.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></span>
+    </label>
+
+    <!-- SUBMIT -->
+    <button type="submit" class="mwc-submit">
+      <span class="mwc-submit__text">Book My Appointment</span>
+      <svg class="mwc-submit__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="mwc-form__success" role="status" aria-live="polite">
+    <div class="mwc-form__success-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    </div>
+    <h3 class="mwc-form__success-title">Got it. We will call you shortly.</h3>
+    <p class="mwc-form__success-body">A Men's Wellness Centers team member will call you within one business hour to schedule your 60-minute in-person appointment.</p>
+  </div>
+</form>
