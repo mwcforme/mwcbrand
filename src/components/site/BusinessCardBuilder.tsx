@@ -677,7 +677,7 @@ function CardPreview({
               }} />
             </>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 96px", height: "100%", padding: 16, gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5px 120px", height: "100%", padding: 16, gap: 12 }}>
               <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
                 <div style={{ fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 16, color: NAVY.hex, lineHeight: 1.1 }}>
                   {fullName || "—"}
@@ -696,14 +696,14 @@ function CardPreview({
                 {fields.email && <Row label="Email" value={fields.email} />}
                 <Row label="Web" value="menswellnesscenters.com" />
               </div>
-              <div style={{ background: ORANGE.hex, width: 1.5 }} />
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ background: ORANGE.hex, width: 2.5, borderRadius: 1 }} />
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, justifyContent: "center" }}>
                 <img src={WORDMARK_NAVY_URL} alt="" style={{ height: 14, width: "auto" }} />
                 <div
-                  style={{ width: 72, height: 72 }}
+                  style={{ width: 90, height: 90, borderRadius: 3, overflow: "hidden" }}
                   dangerouslySetInnerHTML={{ __html: svg.replace(/<svg /, '<svg style="width:100%;height:100%;display:block;" ') }}
                 />
-                <div style={{ fontSize: 6, fontWeight: 700, letterSpacing: "0.14em", color: CAPTION_HEX, textTransform: "uppercase", textAlign: "center" }}>
+                <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: "0.14em", color: ORANGE.hex, textTransform: "uppercase", textAlign: "center" }}>
                   {((fields.sameQr ? fields.front.caption : fields.back.caption)) || defaultCaptionFor(qrCfg.type)}
                 </div>
               </div>
