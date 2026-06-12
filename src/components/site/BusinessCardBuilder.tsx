@@ -9,6 +9,8 @@ const ABS = (path: string) => (path?.startsWith("/") ? ORIGIN + path : path);
 
 const WORDMARK_WHITE_URL = ABS(A["assets/logos/png/print_wordmark_white_on_trans_4000x920.png"]);
 const WORDMARK_NAVY_URL  = ABS(A["assets/logos/png/print_wordmark_navy_on_trans_4000x920.png"]);
+// Square "M" monogram — reads cleanly inside a QR center where the wordmark would squish.
+const QR_MARK_URL        = ABS(A["assets/logos/png/m_1024_navy_on_transparent.png"]);
 
 // Brand colors
 const NAVY   = { r: 0x0b / 255, g: 0x10 / 255, b: 0x29 / 255, hex: "#0B1029" };
