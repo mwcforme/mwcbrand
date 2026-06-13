@@ -97,6 +97,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Men's Wellness Centers brand system: logo, color, typography, voice, applications, and downloadable assets.",
       },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Brand System · Men's Wellness Centers" },
+      { name: "description", content: "Rebuild & Refine is a web application for creating and iterating on digital assets like business cards and email signatures." },
+      { property: "og:description", content: "Rebuild & Refine is a web application for creating and iterating on digital assets like business cards and email signatures." },
+      { name: "twitter:description", content: "Rebuild & Refine is a web application for creating and iterating on digital assets like business cards and email signatures." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/94fdba8f-0136-408d-9596-035fb67e44e7/id-preview-f6a35dbb--e34db6b0-0bf1-4c65-882f-eaad75911473.lovable.app-1781308339152.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/94fdba8f-0136-408d-9596-035fb67e44e7/id-preview-f6a35dbb--e34db6b0-0bf1-4c65-882f-eaad75911473.lovable.app-1781308339152.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
