@@ -18,6 +18,55 @@ const ORANGE_TEXT_HEX = "#A04108";
 const BLACK = "#000000";
 const WHITE = "#FFFFFF";
 
+/* ----------------------- Design options (brand-safe) ----------------------- */
+
+export type CardBg = "navy" | "cream" | "white" | "orange";
+export type CardTextChoice = "auto" | "navy" | "cream" | "white" | "orange";
+export type TextPos = "top" | "middle" | "bottom";
+export type TextAlign = "left" | "center" | "right";
+
+const BG_HEX: Record<CardBg, string> = {
+  navy: NAVY.hex, cream: CREAM.hex, white: WHITE, orange: ORANGE.hex,
+};
+const isDarkBg = (bg: CardBg) => bg === "navy";
+
+// Resolve a text choice against a background. "auto" picks the brand pairing
+// with the best contrast; "orange" on light backgrounds maps to the accessible
+// text orange (#A04108) per the brand accessibility audit.
+function textHex(choice: CardTextChoice, bg: CardBg): string {
+  if (choice === "auto") return isDarkBg(bg) ? CREAM.hex : NAVY.hex;
+  if (choice === "orange") return isDarkBg(bg) ? ORANGE.hex : ORANGE_TEXT_HEX;
+  if (choice === "navy") return NAVY.hex;
+  if (choice === "cream") return CREAM.hex;
+  return WHITE;
+}
+
+// Accent for the tagline and rules — orange except on the orange background.
+function accentHex(bg: CardBg): string {
+  return bg === "orange" ? NAVY.hex : ORANGE.hex;
+}
+
+// Accent for the back offer line.
+function offerAccentHex(bg: CardBg): string {
+  if (bg === "navy") return ORANGE.hex;
+  if (bg === "orange") return NAVY.hex;
+  return ORANGE_TEXT_HEX;
+}
+
+// WCAG relative-luminance contrast, for the soft warning in the form.
+function relLum(hex: string) {
+  const h = hex.replace("#", "");
+  const f = (i: number) => {
+    const c = parseInt(h.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * f(0) + 0.7152 * f(2) + 0.0722 * f(4);
+}
+function contrastRatio(a: string, b: string) {
+  const [l1, l2] = [relLum(a), relLum(b)].sort((x, y) => y - x);
+  return (l1 + 0.05) / (l2 + 0.05);
+}
+
 type Fields = {
   headline: string;
   subhead: string;
@@ -25,6 +74,12 @@ type Fields = {
   referralUrl: string;
   caption: string;
   qrStyle: QrStyle;
+  frontBg: CardBg;
+  backBg: CardBg;
+  headlineColor: CardTextChoice;
+  bodyColor: CardTextChoice;
+  textPos: TextPos;
+  textAlign: TextAlign;
 };
 
 const DEFAULTS: Fields = {
@@ -34,6 +89,12 @@ const DEFAULTS: Fields = {
   referralUrl: "https://go.menswellnesscenters.com/refer",
   caption: "Scan to refer",
   qrStyle: "rounded",
+  frontBg: "navy",
+  backBg: "cream",
+  headlineColor: "auto",
+  bodyColor: "auto",
+  textPos: "bottom",
+  textAlign: "center",
 };
 
 /* ---------------------------- QR rendering (B&W) ---------------------------- */
@@ -197,98 +258,122 @@ async function buildPdf(f: Fields, opts: PdfOpts): Promise<Uint8Array> {
   /* ---------------- FRONT — brand promo ---------------- */
   const front = pdf.addPage([PAGE_W, PAGE_H]);
   setPrintBoxes(front);
-  front.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(NAVY.hex) });
+  front.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(BG_HEX[f.frontBg]) });
 
-  // Big wordmark centered upper
+  const frontWordmark = isDarkBg(f.frontBg) ? wordmarkWhitePng : wordmarkNavyPng;
+  const fHeadHex = textHex(f.headlineColor, f.frontBg);
+  const fBodyHex = textHex(f.bodyColor, f.frontBg);
+  const fAccentHex = accentHex(f.frontBg);
+
   {
-    const wmW = 2.1 * IN;
-    const wmH = wmW * (wordmarkWhitePng.height / wordmarkWhitePng.width);
-    const wmX = (PAGE_W - wmW) / 2;
-    const wmY = PAGE_H - BLEED - 0.42 * IN - wmH;
-    front.drawImage(wordmarkWhitePng, { x: wmX, y: wmY, width: wmW, height: wmH });
-
-    const tag = "FIND YOUR EDGE OVER AGE.";
-    const fs = 8;
-    const tw = helvBold.widthOfTextAtSize(tag, fs);
-    front.drawText(tag, {
-      x: (PAGE_W - tw) / 2,
-      y: wmY - 0.22 * IN,
-      size: fs,
-      font: helvBold,
-      color: rgbHex(ORANGE.hex),
-    });
-  }
-
-  // Promo block bottom — wrapped so long copy stays inside the trim, matching the preview
-  {
+    // Wrapped copy + measurements first, so position math knows the block size
     const maxW = TRIM_W - 0.5 * IN;
-    const hsize = 14;
+    const hsize = 14, osize = 8;
+    const headGap = 0.21 * IN, offerGap = 0.12 * IN, headOfferGap = 0.18 * IN;
     const hLines = wrapText(f.headline.toUpperCase(), helvBold, hsize, maxW);
-    let hy = BLEED + 0.42 * IN + (hLines.length - 1) * 0.21 * IN;
-    for (const line of hLines) {
-      const hw = helvBold.widthOfTextAtSize(line, hsize);
-      front.drawText(line, { x: (PAGE_W - hw) / 2, y: hy, size: hsize, font: helvBold, color: rgbHex(CREAM.hex) });
-      hy -= 0.21 * IN;
+    const oLines = wrapText(f.offer, helv, osize, maxW);
+    // first headline baseline → last offer baseline
+    const blockH = (hLines.length - 1) * headGap + headOfferGap + (oLines.length - 1) * offerGap;
+
+    const wmW = 2.1 * IN;
+    const wmH = wmW * (frontWordmark.height / frontWordmark.width);
+
+    // Vertical placement: the promo block moves; the wordmark lockup takes the
+    // opposite end (or stays top when the block is centered).
+    let promoTop: number; // baseline of the first headline line
+    let wmY: number;      // bottom edge of the wordmark image
+    if (f.textPos === "top") {
+      promoTop = PAGE_H - BLEED - 0.45 * IN;
+      wmY = BLEED + 0.50 * IN;
+    } else if (f.textPos === "middle") {
+      promoTop = (PAGE_H + blockH) / 2 - 0.05 * IN;
+      wmY = PAGE_H - BLEED - 0.42 * IN - wmH;
+    } else {
+      promoTop = BLEED + 0.42 * IN + (hLines.length - 1) * headGap;
+      wmY = PAGE_H - BLEED - 0.42 * IN - wmH;
     }
 
-    const osize = 8;
-    let oy = BLEED + 0.42 * IN - 0.18 * IN;
-    for (const line of wrapText(f.offer, helv, osize, maxW)) {
-      const ow = helv.widthOfTextAtSize(line, osize);
-      front.drawText(line, { x: (PAGE_W - ow) / 2, y: oy, size: osize, font: helv, color: rgbHex(CREAM.hex) });
-      oy -= 0.12 * IN;
+    const alignX = (w: number) =>
+      f.textAlign === "left" ? BLEED + 0.25 * IN :
+      f.textAlign === "right" ? PAGE_W - BLEED - 0.25 * IN - w :
+      (PAGE_W - w) / 2;
+
+    // Wordmark lockup (always centered) + tagline in the accent color
+    front.drawImage(frontWordmark, { x: (PAGE_W - wmW) / 2, y: wmY, width: wmW, height: wmH });
+    const tag = "FIND YOUR EDGE OVER AGE.";
+    const tw = helvBold.widthOfTextAtSize(tag, 8);
+    front.drawText(tag, {
+      x: (PAGE_W - tw) / 2, y: wmY - 0.22 * IN, size: 8, font: helvBold, color: rgbHex(fAccentHex),
+    });
+
+    // Promo block
+    let y = promoTop;
+    for (const line of hLines) {
+      front.drawText(line, { x: alignX(helvBold.widthOfTextAtSize(line, hsize)), y, size: hsize, font: helvBold, color: rgbHex(fHeadHex) });
+      y -= headGap;
+    }
+    y = promoTop - (hLines.length - 1) * headGap - headOfferGap;
+    for (const line of oLines) {
+      front.drawText(line, { x: alignX(helv.widthOfTextAtSize(line, osize)), y, size: osize, font: helv, color: rgbHex(fBodyHex) });
+      y -= offerGap;
     }
   }
 
-  // Bottom orange rule
-  front.drawRectangle({ x: BLEED, y: BLEED, width: TRIM_W, height: 2, color: rgbHex(ORANGE.hex) });
+  // Bottom accent rule
+  front.drawRectangle({ x: BLEED, y: BLEED, width: TRIM_W, height: 2, color: rgbHex(fAccentHex) });
 
   if (opts.cropMarks) drawCropMarks(front, BLEED, PAGE_W, PAGE_H);
 
   /* ---------------- BACK — QR + how it works ---------------- */
   const back = pdf.addPage([PAGE_W, PAGE_H]);
   setPrintBoxes(back);
-  back.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(CREAM.hex) });
+  back.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(BG_HEX[f.backBg]) });
+
+  const backWordmark = isDarkBg(f.backBg) ? wordmarkWhitePng : wordmarkNavyPng;
+  const bHeadHex = textHex(f.headlineColor, f.backBg);
+  const bBodyHex = textHex(f.bodyColor, f.backBg);
+  const bOfferHex = offerAccentHex(f.backBg);
+  const bAccentHex = accentHex(f.backBg);
 
   // Left column: explainer text — width stops short of the vertical rule at 2.05 in
   const innerX = BLEED + 0.24 * IN;
   const colW = 1.66 * IN;
   let cursorY = PAGE_H - BLEED - 0.34 * IN;
 
-  // Small navy wordmark
+  // Small wordmark
   {
     const wmW = 1.0 * IN;
-    const wmH = wmW * (wordmarkNavyPng.height / wordmarkNavyPng.width);
-    back.drawImage(wordmarkNavyPng, { x: innerX, y: cursorY - wmH, width: wmW, height: wmH });
+    const wmH = wmW * (backWordmark.height / backWordmark.width);
+    back.drawImage(backWordmark, { x: innerX, y: cursorY - wmH, width: wmW, height: wmH });
     cursorY -= wmH + 0.14 * IN;
   }
 
   // Headline (wrapped)
   for (const line of wrapText(f.headline.toUpperCase(), helvBold, 12, colW)) {
-    back.drawText(line, { x: innerX, y: cursorY, size: 12, font: helvBold, color: rgbHex(NAVY.hex) });
+    back.drawText(line, { x: innerX, y: cursorY, size: 12, font: helvBold, color: rgbHex(bHeadHex) });
     cursorY -= 0.18 * IN;
   }
 
   // Subhead (wrapped)
   const subLines = wrapText(f.subhead, helv, 7.5, colW);
   for (const line of subLines) {
-    back.drawText(line, { x: innerX, y: cursorY, size: 7.5, font: helv, color: rgbHex(NAVY.hex) });
+    back.drawText(line, { x: innerX, y: cursorY, size: 7.5, font: helv, color: rgbHex(bBodyHex) });
     cursorY -= 0.13 * IN;
   }
   cursorY -= 0.04 * IN;
 
-  // Offer in orange
+  // Offer in the accent that reads on this background
   const offerLines = wrapText(f.offer, helvBold, 8, colW);
   for (const line of offerLines) {
-    back.drawText(line, { x: innerX, y: cursorY, size: 8, font: helvBold, color: rgbHex(ORANGE_TEXT_HEX) });
+    back.drawText(line, { x: innerX, y: cursorY, size: 8, font: helvBold, color: rgbHex(bOfferHex) });
     cursorY -= 0.14 * IN;
   }
 
-  // Vertical orange rule
+  // Vertical accent rule
   const ruleX = BLEED + 2.05 * IN;
   back.drawRectangle({
     x: ruleX, y: BLEED + 0.18 * IN, width: 2.5, height: TRIM_H - 0.36 * IN,
-    color: rgbHex(ORANGE.hex),
+    color: rgbHex(bAccentHex),
   });
 
   // Right column: QR + caption
@@ -312,7 +397,7 @@ async function buildPdf(f: Fields, opts: PdfOpts): Promise<Uint8Array> {
       y: qy - 0.20 * IN,
       size: 7,
       font: helvBold,
-      color: rgbHex(NAVY.hex),
+      color: rgbHex(textHex("auto", f.backBg)),
     });
   }
 
@@ -401,8 +486,7 @@ function CardPreview({
           style={{
             width: W,
             height: H,
-            background: isFront ? NAVY.hex : CREAM.hex,
-            color: isFront ? CREAM.hex : NAVY.hex,
+            background: BG_HEX[isFront ? fields.frontBg : fields.backBg],
             position: "relative",
             overflow: "hidden",
             borderRadius: 2,
@@ -410,59 +494,83 @@ function CardPreview({
             fontFamily: "Montserrat, sans-serif",
           }}
         >
-          {isFront ? (
-            <>
-              <div style={{
-                position: "absolute", top: 22, left: 0, right: 0,
+          {isFront ? (() => {
+            const bg = fields.frontBg;
+            const wordmark = isDarkBg(bg) ? WORDMARK_WHITE_URL : WORDMARK_NAVY_URL;
+            const alignItems =
+              fields.textAlign === "left" ? "flex-start" :
+              fields.textAlign === "right" ? "flex-end" : "center";
+            const promo = (
+              <div key="promo" style={{
+                display: "flex", flexDirection: "column", gap: 4,
+                alignItems, textAlign: fields.textAlign, padding: "0 18px",
+              }}>
+                <div style={{
+                  fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 18,
+                  letterSpacing: "0.06em", color: textHex(fields.headlineColor, bg), textTransform: "uppercase",
+                }}>
+                  {fields.headline}
+                </div>
+                <div style={{ fontSize: 9, color: textHex(fields.bodyColor, bg) }}>
+                  {fields.offer}
+                </div>
+              </div>
+            );
+            const lockup = (
+              <div key="lockup" style={{
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
               }}>
-                <img src={WORDMARK_WHITE_URL} alt="" style={{ height: 30, width: "auto" }} />
+                <img src={wordmark} alt="" style={{ height: 30, width: "auto" }} />
                 <div style={{
                   fontSize: 9, fontWeight: 700, letterSpacing: "0.22em",
-                  color: ORANGE.hex, textTransform: "uppercase",
+                  color: accentHex(bg), textTransform: "uppercase",
                 }}>
                   Find Your Edge Over Age.
                 </div>
               </div>
-              <div style={{
-                position: "absolute", left: 0, right: 0, bottom: 26,
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "0 18px",
-              }}>
+            );
+            const spacer = <div key="spacer" style={{ flex: 1 }} />;
+            const order =
+              fields.textPos === "top" ? [promo, spacer, lockup] :
+              fields.textPos === "middle" ? [lockup, spacer, promo, <div key="spacer2" style={{ flex: 1 }} />] :
+              [lockup, spacer, promo];
+            return (
+              <>
                 <div style={{
-                  fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 18,
-                  letterSpacing: "0.06em", color: CREAM.hex, textTransform: "uppercase", textAlign: "center",
+                  position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+                  padding: "22px 0 26px",
                 }}>
-                  {fields.headline}
+                  {order}
                 </div>
-                <div style={{ fontSize: 9, color: CREAM.hex, textAlign: "center", opacity: 0.9 }}>
-                  {fields.offer}
-                </div>
-              </div>
-              <div style={{
-                position: "absolute", left: 12, right: 12, bottom: 6, height: 2,
-                background: ORANGE.hex,
-              }} />
-            </>
-          ) : (
+                <div style={{
+                  position: "absolute", left: 12, right: 12, bottom: 6, height: 2,
+                  background: accentHex(bg),
+                }} />
+              </>
+            );
+          })() : (() => {
+            const bg = fields.backBg;
+            const wordmark = isDarkBg(bg) ? WORDMARK_WHITE_URL : WORDMARK_NAVY_URL;
+            return (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5px 130px", height: "100%", padding: 16, gap: 12 }}>
               <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 6 }}>
-                <img src={WORDMARK_NAVY_URL} alt="" style={{ height: 18, width: "auto", alignSelf: "flex-start" }} />
+                <img src={wordmark} alt="" style={{ height: 18, width: "auto", alignSelf: "flex-start" }} />
                 <div style={{
                   fontFamily: "Oswald, sans-serif", fontWeight: 700, fontSize: 15,
-                  letterSpacing: "0.04em", color: NAVY.hex, textTransform: "uppercase", lineHeight: 1.1,
+                  letterSpacing: "0.04em", color: textHex(fields.headlineColor, bg), textTransform: "uppercase", lineHeight: 1.1,
                 }}>
                   {fields.headline}
                 </div>
-                <div style={{ fontSize: 8.5, color: NAVY.hex, lineHeight: 1.4 }}>
+                <div style={{ fontSize: 8.5, color: textHex(fields.bodyColor, bg), lineHeight: 1.4 }}>
                   {fields.subhead}
                 </div>
                 <div style={{
-                  fontSize: 9.5, fontWeight: 700, color: ORANGE_TEXT_HEX, lineHeight: 1.3, marginTop: 2,
+                  fontSize: 9.5, fontWeight: 700, color: offerAccentHex(bg), lineHeight: 1.3, marginTop: 2,
                 }}>
                   {fields.offer}
                 </div>
               </div>
-              <div style={{ background: ORANGE.hex, width: 2.5, borderRadius: 1 }} />
+              <div style={{ background: accentHex(bg), width: 2.5, borderRadius: 1 }} />
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, justifyContent: "center" }}>
                 <div
                   style={{ width: 110, height: 110, background: WHITE, padding: 4, borderRadius: 3 }}
@@ -470,13 +578,14 @@ function CardPreview({
                 />
                 <div style={{
                   fontSize: 8, fontWeight: 700, letterSpacing: "0.14em",
-                  color: NAVY.hex, textTransform: "uppercase", textAlign: "center",
+                  color: textHex("auto", bg), textTransform: "uppercase", textAlign: "center",
                 }}>
                   {fields.caption || "Scan to refer"}
                 </div>
               </div>
             </div>
-          )}
+            );
+          })()}
         </div>
 
         {showGuides && (
@@ -497,6 +606,54 @@ function CardPreview({
   );
 }
 
+const BG_OPTIONS: { key: CardBg; hex: string; label: string }[] = [
+  { key: "navy", hex: NAVY.hex, label: "Navy" },
+  { key: "cream", hex: CREAM.hex, label: "Cream" },
+  { key: "white", hex: WHITE, label: "White" },
+  { key: "orange", hex: ORANGE.hex, label: "Orange" },
+];
+
+const TEXT_OPTIONS: { key: CardTextChoice; hex?: string; label: string }[] = [
+  { key: "auto", label: "Auto" },
+  ...BG_OPTIONS,
+];
+
+function pillStyle(active: boolean): React.CSSProperties {
+  return {
+    display: "inline-flex", alignItems: "center", gap: 6,
+    padding: "5px 9px", borderRadius: 4, cursor: "pointer",
+    border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
+    boxShadow: active ? "0 0 0 1px var(--orange)" : "none",
+    background: "var(--cream)", color: "var(--ink)",
+    fontFamily: "Montserrat, sans-serif", fontSize: 10, fontWeight: 700,
+    letterSpacing: "0.06em", textTransform: "uppercase",
+  };
+}
+
+function SwatchRow<T extends string>({
+  value, options, onChange,
+}: {
+  value: T;
+  options: { key: T; hex?: string; label: string }[];
+  onChange: (v: T) => void;
+}) {
+  return (
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+      {options.map((o) => (
+        <button key={o.key} type="button" onClick={() => onChange(o.key)} style={pillStyle(value === o.key)}>
+          {o.hex && (
+            <span style={{
+              width: 13, height: 13, borderRadius: "50%", background: o.hex,
+              border: "1px solid rgba(11,16,41,0.25)", display: "inline-block",
+            }} />
+          )}
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function BusinessCardBuilder() {
   const [fields, setFields] = useState<Fields>(DEFAULTS);
   const [showGuides, setShowGuides] = useState(true);
@@ -509,6 +666,17 @@ export function BusinessCardBuilder() {
   const bleedIn = PRINT_PRESETS[preset].bleedIn;
   const docW = (3.5 + bleedIn * 2).toFixed(2);
   const docH = (2 + bleedIn * 2).toFixed(2);
+
+  // Soft contrast check (3:1 = WCAG large-text minimum) per side and text role
+  const contrastWarnings: string[] = [];
+  for (const [label, choice, bg] of [
+    ["front headline", fields.headlineColor, fields.frontBg],
+    ["front offer", fields.bodyColor, fields.frontBg],
+    ["back headline", fields.headlineColor, fields.backBg],
+    ["back body", fields.bodyColor, fields.backBg],
+  ] as [string, CardTextChoice, CardBg][]) {
+    if (contrastRatio(textHex(choice, bg), BG_HEX[bg]) < 3) contrastWarnings.push(label);
+  }
 
   function update<K extends keyof Fields>(k: K, v: Fields[K]) {
     setFields((f) => ({ ...f, [k]: v }));
@@ -645,6 +813,59 @@ export function BusinessCardBuilder() {
                       );
                     })}
                   </div>
+                </div>
+
+                <div style={{
+                  marginTop: 6, paddingTop: 16,
+                  borderTop: "1px solid var(--cream-deep)",
+                  display: "grid", gap: 14,
+                }}>
+                  <div>
+                    <label style={labelStyle}>Front background</label>
+                    <SwatchRow value={fields.frontBg} options={BG_OPTIONS} onChange={(v) => update("frontBg", v)} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Back background</label>
+                    <SwatchRow value={fields.backBg} options={BG_OPTIONS} onChange={(v) => update("backBg", v)} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Headline color</label>
+                    <SwatchRow value={fields.headlineColor} options={TEXT_OPTIONS} onChange={(v) => update("headlineColor", v)} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Body text color</label>
+                    <SwatchRow value={fields.bodyColor} options={TEXT_OPTIONS} onChange={(v) => update("bodyColor", v)} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Text position (front)</label>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      {(["top", "middle", "bottom"] as TextPos[]).map((p) => (
+                        <button key={p} type="button" onClick={() => update("textPos", p)} style={pillStyle(fields.textPos === p)}>
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Text alignment (front)</label>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      {(["left", "center", "right"] as TextAlign[]).map((a) => (
+                        <button key={a} type="button" onClick={() => update("textAlign", a)} style={pillStyle(fields.textAlign === a)}>
+                          {a}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {contrastWarnings.length > 0 && (
+                    <p style={{
+                      fontSize: 11, lineHeight: 1.5, margin: 0,
+                      fontFamily: "Montserrat, sans-serif", fontWeight: 600,
+                      color: "var(--error-text-light)",
+                    }}>
+                      ⚠ Low contrast: {contrastWarnings.join(", ")}. Pick a different color
+                      combination so the card stays readable in print.
+                    </p>
+                  )}
                 </div>
 
                 <div style={{
