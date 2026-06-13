@@ -4,11 +4,11 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import assetMap from "@/data/asset-map.json";
 
 const A = assetMap as Record<string, string>;
-const ORIGIN = typeof window !== "undefined" ? window.location.origin : "";
-const ABS = (path: string) => (path?.startsWith("/") ? ORIGIN + path : path);
 
-const WORDMARK_WHITE_URL = ABS(A["assets/logos/png/print_wordmark_white_on_trans_4000x920.png"]);
-const WORDMARK_NAVY_URL  = ABS(A["assets/logos/png/print_wordmark_navy_on_trans_4000x920.png"]);
+// Relative URLs keep SSR and client markup identical (no hydration mismatch)
+// and resolve fine for both <img> and fetch in the browser.
+const WORDMARK_WHITE_URL = A["assets/logos/png/print_wordmark_white_on_trans_4000x920.png"];
+const WORDMARK_NAVY_URL  = A["assets/logos/png/print_wordmark_navy_on_trans_4000x920.png"];
 
 // Brand colors
 const NAVY   = { hex: "#0B1029" };
@@ -141,6 +141,7 @@ function rgbHex(hex: string) {
 
 async function fetchPngBytes(url: string): Promise<Uint8Array> {
   const res = await fetch(url);
+  if (!res.ok) throw new Error(`Asset fetch failed (${res.status}): ${url}`);
   const buf = await res.arrayBuffer();
   return new Uint8Array(buf);
 }
@@ -167,10 +168,7 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   const wordmarkWhitePng = await pdf.embedPng(await fetchPngBytes(WORDMARK_WHITE_URL));
   const wordmarkNavyPng  = await pdf.embedPng(await fetchPngBytes(WORDMARK_NAVY_URL));
 
-  // QR — pure B&W. Front (on cream) = black on white. Back (on navy) = white on black tile.
-  const frontQr = await pdf.embedPng(
-    await prettyQrPngBytes(f.referralUrl, { dark: BLACK, light: WHITE, style: f.qrStyle }, 900),
-  );
+  // QR — pure black on white for maximum scan contrast; drawn on a white plate on the cream back.
   const backQr = await pdf.embedPng(
     await prettyQrPngBytes(f.referralUrl, { dark: BLACK, light: WHITE, style: f.qrStyle }, 900),
   );
@@ -199,25 +197,25 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     });
   }
 
-  // Promo block bottom
+  // Promo block bottom — wrapped so long copy stays inside the trim, matching the preview
   {
-    const headline = f.headline.toUpperCase();
+    const maxW = TRIM_W - 0.5 * IN;
     const hsize = 14;
-    const hw = helvBold.widthOfTextAtSize(headline, hsize);
-    const hx = (PAGE_W - hw) / 2;
-    const hy = BLEED + 0.42 * IN;
-    front.drawText(headline, { x: hx, y: hy, size: hsize, font: helvBold, color: rgbHex(CREAM.hex) });
+    const hLines = wrapText(f.headline.toUpperCase(), helvBold, hsize, maxW);
+    let hy = BLEED + 0.42 * IN + (hLines.length - 1) * 0.21 * IN;
+    for (const line of hLines) {
+      const hw = helvBold.widthOfTextAtSize(line, hsize);
+      front.drawText(line, { x: (PAGE_W - hw) / 2, y: hy, size: hsize, font: helvBold, color: rgbHex(CREAM.hex) });
+      hy -= 0.21 * IN;
+    }
 
-    const offer = f.offer;
     const osize = 8;
-    const ow = helv.widthOfTextAtSize(offer, osize);
-    front.drawText(offer, {
-      x: (PAGE_W - ow) / 2,
-      y: hy - 0.18 * IN,
-      size: osize,
-      font: helv,
-      color: rgbHex(CREAM.hex),
-    });
+    let oy = BLEED + 0.42 * IN - 0.18 * IN;
+    for (const line of wrapText(f.offer, helv, osize, maxW)) {
+      const ow = helv.widthOfTextAtSize(line, osize);
+      front.drawText(line, { x: (PAGE_W - ow) / 2, y: oy, size: osize, font: helv, color: rgbHex(CREAM.hex) });
+      oy -= 0.12 * IN;
+    }
   }
 
   // Bottom orange rule
@@ -242,11 +240,11 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     cursorY -= wmH + 0.14 * IN;
   }
 
-  // Headline
-  back.drawText(f.headline.toUpperCase(), {
-    x: innerX, y: cursorY, size: 12, font: helvBold, color: rgbHex(NAVY.hex),
-  });
-  cursorY -= 0.18 * IN;
+  // Headline (wrapped)
+  for (const line of wrapText(f.headline.toUpperCase(), helvBold, 12, colW)) {
+    back.drawText(line, { x: innerX, y: cursorY, size: 12, font: helvBold, color: rgbHex(NAVY.hex) });
+    cursorY -= 0.18 * IN;
+  }
 
   // Subhead (wrapped)
   const subLines = wrapText(f.subhead, helv, 7.5, colW);
@@ -570,6 +568,12 @@ export function BusinessCardBuilder() {
                 <div>
                   <label style={labelStyle}>Referral URL</label>
                   <input style={inputStyle} value={fields.referralUrl} onChange={(e) => update("referralUrl", e.target.value)} />
+                  <p style={{
+                    fontSize: 11, color: "var(--ink-soft)", marginTop: 6, lineHeight: 1.5,
+                    fontFamily: "Montserrat, sans-serif",
+                  }}>
+                    The QR encodes exactly this URL — open it in a browser and confirm it's live before printing.
+                  </p>
                 </div>
                 <div>
                   <label style={labelStyle}>QR caption</label>
