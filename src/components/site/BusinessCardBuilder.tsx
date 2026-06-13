@@ -126,9 +126,21 @@ async function prettyQrPngBytes(value: string, opts: QrRenderOpts, pxSize = 900)
 const IN = 72;
 const TRIM_W = 3.5 * IN;
 const TRIM_H = 2.0 * IN;
-const BLEED  = 0.125 * IN;
-const PAGE_W = TRIM_W + BLEED * 2;
-const PAGE_H = TRIM_H + BLEED * 2;
+
+// Bleed presets — Vistaprint's business-card template is 3.58 × 2.08 in (0.04 in
+// bleed); most commercial printers (GotPrint, UPrinting, 4over…) want 0.125 in.
+export type PrintPreset = "standard" | "vistaprint";
+export const PRINT_PRESETS: Record<PrintPreset, { label: string; bleedIn: number }> = {
+  standard:   { label: "Standard ⅛″", bleedIn: 0.125 },
+  vistaprint: { label: "Vistaprint", bleedIn: 0.04 },
+};
+
+type PdfOpts = { bleedIn: number; cropMarks: boolean };
+
+function pageDims(bleedIn: number) {
+  const BLEED = bleedIn * IN;
+  return { BLEED, PAGE_W: TRIM_W + BLEED * 2, PAGE_H: TRIM_H + BLEED * 2 };
+}
 
 function rgbHex(hex: string) {
   const h = hex.replace("#", "");
@@ -160,10 +172,19 @@ function wrapText(text: string, font: import("pdf-lib").PDFFont, size: number, m
   return lines;
 }
 
-async function buildPdf(f: Fields): Promise<Uint8Array> {
+async function buildPdf(f: Fields, opts: PdfOpts): Promise<Uint8Array> {
+  const { BLEED, PAGE_W, PAGE_H } = pageDims(opts.bleedIn);
   const pdf = await PDFDocument.create();
+  pdf.setTitle("MWC Referral Card");
+  pdf.setCreator("Men's Wellness Centers Brand Site");
   const helv     = await pdf.embedFont(StandardFonts.Helvetica);
   const helvBold = await pdf.embedFont(StandardFonts.HelveticaBold);
+
+  // TrimBox/BleedBox let print uploaders (Vistaprint etc.) auto-detect the cut line.
+  const setPrintBoxes = (page: ReturnType<PDFDocument["addPage"]>) => {
+    page.setBleedBox(0, 0, PAGE_W, PAGE_H);
+    page.setTrimBox(BLEED, BLEED, TRIM_W, TRIM_H);
+  };
 
   const wordmarkWhitePng = await pdf.embedPng(await fetchPngBytes(WORDMARK_WHITE_URL));
   const wordmarkNavyPng  = await pdf.embedPng(await fetchPngBytes(WORDMARK_NAVY_URL));
@@ -175,6 +196,7 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
 
   /* ---------------- FRONT — brand promo ---------------- */
   const front = pdf.addPage([PAGE_W, PAGE_H]);
+  setPrintBoxes(front);
   front.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(NAVY.hex) });
 
   // Big wordmark centered upper
@@ -221,15 +243,16 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
   // Bottom orange rule
   front.drawRectangle({ x: BLEED, y: BLEED, width: TRIM_W, height: 2, color: rgbHex(ORANGE.hex) });
 
-  drawCropMarks(front);
+  if (opts.cropMarks) drawCropMarks(front, BLEED, PAGE_W, PAGE_H);
 
   /* ---------------- BACK — QR + how it works ---------------- */
   const back = pdf.addPage([PAGE_W, PAGE_H]);
+  setPrintBoxes(back);
   back.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: PAGE_H, color: rgbHex(CREAM.hex) });
 
-  // Left column: explainer text
+  // Left column: explainer text — width stops short of the vertical rule at 2.05 in
   const innerX = BLEED + 0.24 * IN;
-  const colW = 2.0 * IN;
+  const colW = 1.66 * IN;
   let cursorY = PAGE_H - BLEED - 0.34 * IN;
 
   // Small navy wordmark
@@ -293,11 +316,11 @@ async function buildPdf(f: Fields): Promise<Uint8Array> {
     });
   }
 
-  drawCropMarks(back);
+  if (opts.cropMarks) drawCropMarks(back, BLEED, PAGE_W, PAGE_H);
   return pdf.save();
 }
 
-function drawCropMarks(page: ReturnType<PDFDocument["addPage"]>) {
+function drawCropMarks(page: ReturnType<PDFDocument["addPage"]>, BLEED: number, PAGE_W: number, PAGE_H: number) {
   const len = 0.1 * IN;
   const off = 0.02 * IN;
   const col = rgbHex("#000000");
@@ -344,10 +367,12 @@ function CardPreview({
   side,
   fields,
   showGuides,
+  bleedIn,
 }: {
   side: "front" | "back";
   fields: Fields;
   showGuides: boolean;
+  bleedIn: number;
 }) {
   const [svg, setSvg] = useState<string>("");
 
@@ -356,7 +381,7 @@ function CardPreview({
   }, [fields.referralUrl, fields.qrStyle]);
 
   const W = 350, H = 200;
-  const bleedPx = (0.125 / 3.5) * W;
+  const bleedPx = (bleedIn / 3.5) * W;
   const isFront = side === "front";
 
   return (
@@ -475,9 +500,15 @@ function CardPreview({
 export function BusinessCardBuilder() {
   const [fields, setFields] = useState<Fields>(DEFAULTS);
   const [showGuides, setShowGuides] = useState(true);
+  const [preset, setPreset] = useState<PrintPreset>("standard");
+  const [cropMarks, setCropMarks] = useState(false);
   const [status, setStatus] = useState<{ kind: "ok" | "error"; msg: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const lastObjectUrl = useRef<string | null>(null);
+
+  const bleedIn = PRINT_PRESETS[preset].bleedIn;
+  const docW = (3.5 + bleedIn * 2).toFixed(2);
+  const docH = (2 + bleedIn * 2).toFixed(2);
 
   function update<K extends keyof Fields>(k: K, v: Fields[K]) {
     setFields((f) => ({ ...f, [k]: v }));
@@ -486,7 +517,7 @@ export function BusinessCardBuilder() {
   async function downloadPdf() {
     try {
       setBusy(true);
-      const bytes = await buildPdf(fields);
+      const bytes = await buildPdf(fields, { bleedIn, cropMarks });
       const ab = new ArrayBuffer(bytes.byteLength);
       new Uint8Array(ab).set(bytes);
       const blob = new Blob([ab], { type: "application/pdf" });
@@ -495,9 +526,12 @@ export function BusinessCardBuilder() {
       lastObjectUrl.current = url;
       const a = document.createElement("a");
       a.href = url;
-      a.download = `mwc-referral-card.pdf`;
+      a.download = `mwc-referral-card-${preset}.pdf`;
       document.body.appendChild(a); a.click(); a.remove();
-      setStatus({ kind: "ok", msg: "Print-ready referral card downloaded (3.75 × 2.25 in with bleed + crop marks)." });
+      setStatus({
+        kind: "ok",
+        msg: `Print-ready referral card downloaded (${docW} × ${docH} in full bleed${cropMarks ? ", crop marks" : ""}).`,
+      });
     } catch (e) {
       console.error(e);
       setStatus({ kind: "error", msg: "PDF export failed. Check the console for details." });
@@ -517,8 +551,9 @@ export function BusinessCardBuilder() {
           <p>
             A promo handout — not a personal business card. Front carries the brand and the
             offer; back explains how to refer and pairs a clean black-and-white QR with the
-            referral URL. Edit the copy, then download a print-ready PDF
-            (3.5 × 2 in landscape, 0.125 in bleed, crop marks).
+            referral URL. Edit the copy, pick your printer's bleed preset, then download a
+            print-ready PDF (3.5 × 2 in trim, full-bleed, ready to upload to Vistaprint and
+            other print services).
           </p>
         </div>
       </section>
@@ -612,6 +647,53 @@ export function BusinessCardBuilder() {
                   </div>
                 </div>
 
+                <div style={{
+                  marginTop: 6, paddingTop: 16,
+                  borderTop: "1px solid var(--cream-deep)",
+                }}>
+                  <label style={labelStyle}>Printer preset</label>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    {(Object.keys(PRINT_PRESETS) as PrintPreset[]).map((p) => {
+                      const active = preset === p;
+                      return (
+                        <button
+                          key={p}
+                          type="button"
+                          onClick={() => setPreset(p)}
+                          style={{
+                            padding: "6px 10px",
+                            borderRadius: 4,
+                            border: `1px solid ${active ? "var(--orange)" : "var(--cream-deep)"}`,
+                            background: active ? "var(--orange)" : "var(--cream)",
+                            color: active ? "var(--cream)" : "var(--ink)",
+                            fontFamily: "Montserrat, sans-serif",
+                            fontSize: 11, fontWeight: 700,
+                            letterSpacing: "0.08em", textTransform: "uppercase",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {PRINT_PRESETS[p].label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p style={{
+                    fontSize: 11, color: "var(--ink-soft)", marginTop: 6, lineHeight: 1.5,
+                    fontFamily: "Montserrat, sans-serif",
+                  }}>
+                    {preset === "vistaprint"
+                      ? "3.58 × 2.08 in — matches Vistaprint's standard business-card template."
+                      : "3.75 × 2.25 in — the ⅛″ bleed most commercial printers ask for."}
+                  </p>
+                  <label style={{
+                    display: "flex", gap: 8, alignItems: "center", marginTop: 10,
+                    fontSize: 12, color: "var(--ink-soft)", fontFamily: "Montserrat, sans-serif",
+                  }}>
+                    <input type="checkbox" checked={cropMarks} onChange={(e) => setCropMarks(e.target.checked)} />
+                    Include crop marks (leave off for online printers like Vistaprint)
+                  </label>
+                </div>
+
                 <button
                   type="button"
                   onClick={reset}
@@ -651,8 +733,8 @@ export function BusinessCardBuilder() {
                   gap: 32,
                   justifyContent: "center",
                 }}>
-                  <CardPreview side="front" fields={fields} showGuides={showGuides} />
-                  <CardPreview side="back" fields={fields} showGuides={showGuides} />
+                  <CardPreview side="front" fields={fields} showGuides={showGuides} bleedIn={bleedIn} />
+                  <CardPreview side="back" fields={fields} showGuides={showGuides} bleedIn={bleedIn} />
                 </div>
               </div>
 
@@ -671,8 +753,10 @@ export function BusinessCardBuilder() {
               </div>
 
               <p style={{ fontSize: 12, color: "var(--ink-soft)", lineHeight: 1.6 }}>
-                Output is RGB at 3.75 × 2.25 in (trim 3.5 × 2 in, 0.125 in bleed) with crop marks at each corner.
-                QR codes are pure black-and-white for maximum scan reliability across lighting conditions.
+                Output is {docW} × {docH} in full bleed (trim 3.5 × 2 in, {bleedIn} in bleed) with
+                TrimBox and BleedBox metadata embedded, so upload tools at Vistaprint, GotPrint, and
+                similar printers detect the cut line automatically. QR codes are pure black-and-white
+                for maximum scan reliability across lighting conditions.
               </p>
             </div>
           </div>
