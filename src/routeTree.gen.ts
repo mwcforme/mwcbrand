@@ -25,6 +25,7 @@ import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
+import { Route as SocialPlatformRouteImport } from './routes/social.$platform'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -106,6 +107,11 @@ const SocialIndexRoute = SocialIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SocialRoute,
 } as any)
+const SocialPlatformRoute = SocialPlatformRouteImport.update({
+  id: '/$platform',
+  path: '/$platform',
+  getParentRoute: () => SocialRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/social': typeof SocialRouteWithChildren
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social/$platform': typeof SocialPlatformRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRoutesByTo {
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social/$platform': typeof SocialPlatformRoute
   '/social': typeof SocialIndexRoute
 }
 export interface FileRoutesById {
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/social': typeof SocialRouteWithChildren
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social/$platform': typeof SocialPlatformRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRouteTypes {
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/social'
     | '/typography'
     | '/voice'
+    | '/social/$platform'
     | '/social/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/typography'
     | '/voice'
+    | '/social/$platform'
     | '/social'
   id:
     | '__root__'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/social'
     | '/typography'
     | '/voice'
+    | '/social/$platform'
     | '/social/'
   fileRoutesById: FileRoutesById
 }
@@ -349,14 +361,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialIndexRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/social/$platform': {
+      id: '/social/$platform'
+      path: '/$platform'
+      fullPath: '/social/$platform'
+      preLoaderRoute: typeof SocialPlatformRouteImport
+      parentRoute: typeof SocialRoute
+    }
   }
 }
 
 interface SocialRouteChildren {
+  SocialPlatformRoute: typeof SocialPlatformRoute
   SocialIndexRoute: typeof SocialIndexRoute
 }
 
 const SocialRouteChildren: SocialRouteChildren = {
+  SocialPlatformRoute: SocialPlatformRoute,
   SocialIndexRoute: SocialIndexRoute,
 }
 

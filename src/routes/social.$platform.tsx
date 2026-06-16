@@ -53,7 +53,8 @@ export const Route = createFileRoute("/social/$platform")({
 });
 
 function PlatformPage() {
-  const { slug } = Route.useLoaderData();
+  const data = Route.useLoaderData() as { slug: PlatformSlug };
+  const slug = data.slug;
   const platform = PLATFORMS[slug];
   const { assets, cover, avatar, post } = getPlatformHero(slug);
 
