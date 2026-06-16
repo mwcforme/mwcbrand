@@ -98,7 +98,7 @@ function PlatformPage() {
           </p>
 
           <div className="platform-nav" role="navigation" aria-label="Other platforms">
-            {PLATFORM_ORDER.map((s) => (
+            {PLATFORM_ORDER.map((s: PlatformSlug) => (
               <Link
                 key={s}
                 to="/social/$platform"
