@@ -22,6 +22,7 @@ const NAV: NavItem[] = [
     label: "Applications",
     items: [
       { to: "/applications", label: "In the Wild" },
+      { to: "/social", label: "Social Media" },
       { to: "/email-signature", label: "Email Signature" },
       { to: "/business-card", label: "Referral Card" },
       { to: "/lead-forms", label: "Lead Forms" },
