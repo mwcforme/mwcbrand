@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import assetMap from "@/data/asset-map.json";
 
@@ -35,6 +35,7 @@ const NAV: NavItem[] = [
     ],
   },
   { to: "/downloads", label: "Downloads" },
+  { to: "/search", label: "Search" },
 ];
 
 const isGroup = (item: NavItem): item is NavGroup => "items" in item;
@@ -46,8 +47,10 @@ const wordmark = (assetMap as Record<string, string>)[
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [q, setQ] = useState("");
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const headerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   // Close dropdowns on outside click or Escape
   useEffect(() => {
@@ -130,6 +133,26 @@ export function SiteHeader() {
             )}
           </ul>
         </nav>
+        <form
+          className="header-search"
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate({ to: "/search", search: { q: q || undefined } });
+            closeAll();
+          }}
+        >
+          <input
+            type="search"
+            placeholder="Search assets…"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="Search assets"
+          />
+          <button type="submit" aria-label="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+        </form>
         <button
           type="button"
           className="nav-toggle"
