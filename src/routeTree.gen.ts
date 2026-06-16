@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TypographyRouteImport } from './routes/typography'
+import { Route as SocialRouteImport } from './routes/social'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PromptsRouteImport } from './routes/prompts'
 import { Route as LogoLibraryRouteImport } from './routes/logo-library'
@@ -33,6 +34,11 @@ const VoiceRoute = VoiceRouteImport.update({
 const TypographyRoute = TypographyRouteImport.update({
   id: '/typography',
   path: '/typography',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialRoute = SocialRouteImport.update({
+  id: '/social',
+  path: '/social',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -96,9 +102,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SocialIndexRoute = SocialIndexRouteImport.update({
-  id: '/social/',
-  path: '/social/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => SocialRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
   '/search': typeof SearchRoute
+  '/social': typeof SocialRouteWithChildren
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/': typeof SocialIndexRoute
@@ -149,6 +156,7 @@ export interface FileRoutesById {
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
   '/search': typeof SearchRoute
+  '/social': typeof SocialRouteWithChildren
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/': typeof SocialIndexRoute
@@ -168,6 +176,7 @@ export interface FileRouteTypes {
     | '/logo-library'
     | '/prompts'
     | '/search'
+    | '/social'
     | '/typography'
     | '/voice'
     | '/social/'
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/logo-library'
     | '/prompts'
     | '/search'
+    | '/social'
     | '/typography'
     | '/voice'
     | '/social/'
@@ -220,9 +230,9 @@ export interface RootRouteChildren {
   LogoLibraryRoute: typeof LogoLibraryRoute
   PromptsRoute: typeof PromptsRoute
   SearchRoute: typeof SearchRoute
+  SocialRoute: typeof SocialRouteWithChildren
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
-  SocialIndexRoute: typeof SocialIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -239,6 +249,13 @@ declare module '@tanstack/react-router' {
       path: '/typography'
       fullPath: '/typography'
       preLoaderRoute: typeof TypographyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/social': {
+      id: '/social'
+      path: '/social'
+      fullPath: '/social'
+      preLoaderRoute: typeof SocialRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -327,13 +344,24 @@ declare module '@tanstack/react-router' {
     }
     '/social/': {
       id: '/social/'
-      path: '/social'
+      path: '/'
       fullPath: '/social/'
       preLoaderRoute: typeof SocialIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof SocialRoute
     }
   }
 }
+
+interface SocialRouteChildren {
+  SocialIndexRoute: typeof SocialIndexRoute
+}
+
+const SocialRouteChildren: SocialRouteChildren = {
+  SocialIndexRoute: SocialIndexRoute,
+}
+
+const SocialRouteWithChildren =
+  SocialRoute._addFileChildren(SocialRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -348,9 +376,9 @@ const rootRouteChildren: RootRouteChildren = {
   LogoLibraryRoute: LogoLibraryRoute,
   PromptsRoute: PromptsRoute,
   SearchRoute: SearchRoute,
+  SocialRoute: SocialRouteWithChildren,
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
-  SocialIndexRoute: SocialIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
