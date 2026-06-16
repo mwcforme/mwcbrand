@@ -47,8 +47,10 @@ const wordmark = (assetMap as Record<string, string>)[
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [q, setQ] = useState("");
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const headerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   // Close dropdowns on outside click or Escape
   useEffect(() => {
