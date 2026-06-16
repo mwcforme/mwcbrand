@@ -133,6 +133,26 @@ export function SiteHeader() {
             )}
           </ul>
         </nav>
+        <form
+          className="header-search"
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate({ to: "/search", search: { q: q || undefined } });
+            closeAll();
+          }}
+        >
+          <input
+            type="search"
+            placeholder="Search assets…"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="Search assets"
+          />
+          <button type="submit" aria-label="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+        </form>
         <button
           type="button"
           className="nav-toggle"
