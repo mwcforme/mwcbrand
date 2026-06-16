@@ -23,6 +23,7 @@ import { Route as BusinessCardRouteImport } from './routes/business-card'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SocialIndexRouteImport } from './routes/social.index'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -94,6 +95,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SocialIndexRoute = SocialIndexRouteImport.update({
+  id: '/social/',
+  path: '/social/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social/': typeof SocialIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social': typeof SocialIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/social/': typeof SocialIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -161,6 +170,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/typography'
     | '/voice'
+    | '/social/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/typography'
     | '/voice'
+    | '/social'
   id:
     | '__root__'
     | '/'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/typography'
     | '/voice'
+    | '/social/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -210,6 +222,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
+  SocialIndexRoute: typeof SocialIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -312,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/social/': {
+      id: '/social/'
+      path: '/social'
+      fullPath: '/social/'
+      preLoaderRoute: typeof SocialIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -330,6 +350,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
+  SocialIndexRoute: SocialIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
