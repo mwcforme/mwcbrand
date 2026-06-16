@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TypographyRouteImport } from './routes/typography'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as PromptsRouteImport } from './routes/prompts'
 import { Route as LogoLibraryRouteImport } from './routes/logo-library'
 import { Route as LogoRouteImport } from './routes/logo'
@@ -31,6 +32,11 @@ const VoiceRoute = VoiceRouteImport.update({
 const TypographyRoute = TypographyRouteImport.update({
   id: '/typography',
   path: '/typography',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PromptsRoute = PromptsRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
 }
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
 }
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/search': typeof SearchRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
 }
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/search'
     | '/typography'
     | '/voice'
   fileRoutesByTo: FileRoutesByTo
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/search'
     | '/typography'
     | '/voice'
   id:
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/search'
     | '/typography'
     | '/voice'
   fileRoutesById: FileRoutesById
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   LogoRoute: typeof LogoRoute
   LogoLibraryRoute: typeof LogoLibraryRoute
   PromptsRoute: typeof PromptsRoute
+  SearchRoute: typeof SearchRoute
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
 }
@@ -213,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/typography'
       fullPath: '/typography'
       preLoaderRoute: typeof TypographyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prompts': {
@@ -307,19 +327,10 @@ const rootRouteChildren: RootRouteChildren = {
   LogoRoute: LogoRoute,
   LogoLibraryRoute: LogoLibraryRoute,
   PromptsRoute: PromptsRoute,
+  SearchRoute: SearchRoute,
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

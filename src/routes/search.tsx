@@ -90,16 +90,16 @@ function SearchPage() {
   const [category, setCategory] = useState<string>("All");
 
   const results = useMemo(() => {
-    const tokens = query
+    const tokens: string[] = query
       .toLowerCase()
       .split(/\s+/)
-      .map((t) => t.trim())
+      .map((t: string) => t.trim())
       .filter(Boolean);
     return ALL_ASSETS.filter((a) => {
       if (category !== "All" && a.category !== category) return false;
       if (tokens.length === 0) return true;
       const hay = a.path.toLowerCase();
-      return tokens.every((t) => hay.includes(t));
+      return tokens.every((t: string) => hay.includes(t));
     });
   }, [query, category]);
 
