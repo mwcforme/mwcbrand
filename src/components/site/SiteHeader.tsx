@@ -35,6 +35,7 @@ const NAV: NavItem[] = [
     ],
   },
   { to: "/downloads", label: "Downloads" },
+  { to: "/search", label: "Search" },
 ];
 
 const isGroup = (item: NavItem): item is NavGroup => "items" in item;
