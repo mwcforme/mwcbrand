@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as TypographyRouteImport } from './routes/typography'
+import { Route as StockPhotosRouteImport } from './routes/stock-photos'
 import { Route as SocialRouteImport } from './routes/social'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PromptsRouteImport } from './routes/prompts'
@@ -35,6 +36,11 @@ const VoiceRoute = VoiceRouteImport.update({
 const TypographyRoute = TypographyRouteImport.update({
   id: '/typography',
   path: '/typography',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockPhotosRoute = StockPhotosRouteImport.update({
+  id: '/stock-photos',
+  path: '/stock-photos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SocialRoute = SocialRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/prompts': typeof PromptsRoute
   '/search': typeof SearchRoute
   '/social': typeof SocialRouteWithChildren
+  '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
   '/search': typeof SearchRoute
+  '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/prompts': typeof PromptsRoute
   '/search': typeof SearchRoute
   '/social': typeof SocialRouteWithChildren
+  '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/prompts'
     | '/search'
     | '/social'
+    | '/stock-photos'
     | '/typography'
     | '/voice'
     | '/social/$platform'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/logo-library'
     | '/prompts'
     | '/search'
+    | '/stock-photos'
     | '/typography'
     | '/voice'
     | '/social/$platform'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/prompts'
     | '/search'
     | '/social'
+    | '/stock-photos'
     | '/typography'
     | '/voice'
     | '/social/$platform'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   PromptsRoute: typeof PromptsRoute
   SearchRoute: typeof SearchRoute
   SocialRoute: typeof SocialRouteWithChildren
+  StockPhotosRoute: typeof StockPhotosRoute
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
 }
@@ -261,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/typography'
       fullPath: '/typography'
       preLoaderRoute: typeof TypographyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock-photos': {
+      id: '/stock-photos'
+      path: '/stock-photos'
+      fullPath: '/stock-photos'
+      preLoaderRoute: typeof StockPhotosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/social': {
@@ -398,6 +418,7 @@ const rootRouteChildren: RootRouteChildren = {
   PromptsRoute: PromptsRoute,
   SearchRoute: SearchRoute,
   SocialRoute: SocialRouteWithChildren,
+  StockPhotosRoute: StockPhotosRoute,
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
 }
