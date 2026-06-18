@@ -31,6 +31,7 @@ const NAV: NavItem[] = [
   {
     label: "Resources",
     items: [
+      { to: "/stock-photos", label: "Stock Photos" },
       { to: "/accessibility", label: "Accessibility" },
       { to: "/prompts", label: "AI Prompts" },
     ],
