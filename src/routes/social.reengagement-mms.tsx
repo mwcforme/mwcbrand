@@ -161,7 +161,7 @@ function VariantCard({ v }: { v: Variant }) {
 
           <footer className="mms-foot">
             <div className="mms-cta-pill" style={{ background: accent, color: isOrange ? CREAM : NAVY }}>
-              {v.cta} · BookMWC.com
+              {v.cta}
             </div>
             <p className="mms-fine" style={{ color: isNavy ? "#8a8b95" : isOrange ? "#3b1a07" : "#7a7d8c" }}>
               {v.fineprint}
