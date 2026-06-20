@@ -75,7 +75,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com.",
+    body: "One CTA, repeated everywhere: BOOK HIS FIRST VISIT at bookmwc.com.",
   },
 ];
 
