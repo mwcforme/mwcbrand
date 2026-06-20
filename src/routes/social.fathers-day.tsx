@@ -160,6 +160,13 @@ function SlideCard({ slide }: { slide: Slide }) {
       <p className="fd-job">
         <strong>Slide {slide.n}</strong> · {slide.job}
       </p>
+      <button
+        type="button"
+        className="fd-toggle"
+        onClick={() => exportSlideToPng(slide.n)}
+      >
+        Export PNG · 1080×1350
+      </button>
     </div>
   );
 }
