@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import slide1Asset from "@/assets/fathers-day/slide-1.webp.asset.json";
 import slide2Asset from "@/assets/fathers-day/slide-2.jpg.asset.json";
 import slide3Asset from "@/assets/fathers-day/slide-3.webp.asset.json";
@@ -207,8 +207,258 @@ function FathersDayCarousel() {
             <SlideCard key={slide.n} slide={slide} />
           ))}
         </div>
+
+        <ResponsiveCheck bg={bg} />
       </div>
     </main>
+  );
+}
+
+// === Automated responsive safe-margin check ===
+// Renders every slide at common Instagram preview sizes and measures the
+// rendered DOM to confirm that the photo, hero word, body copy and footer
+// strip all stay inside the 1080x1350 safe area at every scale.
+
+const SAFE_INSET = 60;            // px in the 1080x1350 frame
+const FRAME_W = 1080;
+const FRAME_H = 1350;
+const FRAME_RATIO = FRAME_W / FRAME_H; // 0.8
+
+type PreviewSize = { label: string; width: number; note: string };
+
+const PREVIEW_SIZES: PreviewSize[] = [
+  { label: "Profile thumb", width: 110, note: "Instagram profile grid" },
+  { label: "Search grid", width: 160, note: "Explore / search tile" },
+  { label: "Feed", width: 300, note: "In-feed preview" },
+  { label: "Detail", width: 460, note: "Tap-to-open detail view" },
+  { label: "Full", width: 540, note: "1:1 at half-res" },
+];
+
+type CheckRow = {
+  size: PreviewSize;
+  slideN: number;
+  aspectOk: boolean;
+  marginsOk: boolean;
+  details: string;
+};
+
+function ResponsiveCheck({ bg }: { bg: "cream" | "navy" }) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [rows, setRows] = useState<CheckRow[]>([]);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const tolerance = 1.5; // px slop for sub-pixel rounding
+
+    const run = () => {
+      const out: CheckRow[] = [];
+      const frames = root.querySelectorAll<HTMLElement>("[data-rc-frame]");
+      frames.forEach((frame) => {
+        const slideN = Number(frame.dataset.slideN);
+        const sizeLabel = frame.dataset.sizeLabel ?? "";
+        const sizeWidth = Number(frame.dataset.sizeWidth);
+        const size: PreviewSize =
+          PREVIEW_SIZES.find((s) => s.label === sizeLabel) ?? {
+            label: sizeLabel,
+            width: sizeWidth,
+            note: "",
+          };
+
+        const fRect = frame.getBoundingClientRect();
+        const expectedH = fRect.width / FRAME_RATIO;
+        const aspectOk = Math.abs(fRect.height - expectedH) < tolerance;
+        const scale = fRect.width / FRAME_W;
+        const safePx = SAFE_INSET * scale;
+
+        const photo = frame.querySelector<HTMLElement>(".fd-photo")!;
+        const hero = frame.querySelector<HTMLElement>(".fd-hero")!;
+        const intro = frame.querySelector<HTMLElement>(".fd-intro")!;
+        const strip = frame.querySelector<HTMLElement>(".fd-strip")!;
+
+        const issues: string[] = [];
+        const checkInside = (
+          el: HTMLElement,
+          name: string,
+          allowFullBleedBottom = false,
+        ) => {
+          const r = el.getBoundingClientRect();
+          if (r.left < fRect.left + safePx - tolerance)
+            issues.push(`${name} left bleed`);
+          if (r.right > fRect.right - safePx + tolerance)
+            issues.push(`${name} right bleed`);
+          if (r.top < fRect.top - tolerance)
+            issues.push(`${name} top overflow`);
+          if (!allowFullBleedBottom && r.bottom > fRect.bottom + tolerance)
+            issues.push(`${name} bottom overflow`);
+        };
+        checkInside(photo, "photo");
+        checkInside(hero, "hero");
+        checkInside(intro, "intro");
+        // Strip is intentionally full-bleed left/right; only check bottom alignment.
+        const sRect = strip.getBoundingClientRect();
+        if (Math.abs(sRect.bottom - fRect.bottom) > tolerance)
+          issues.push("strip not flush bottom");
+
+        out.push({
+          size,
+          slideN,
+          aspectOk,
+          marginsOk: issues.length === 0,
+          details: issues.length
+            ? issues.join(", ")
+            : `scale ${scale.toFixed(3)} · safe ${safePx.toFixed(1)}px`,
+        });
+      });
+      setRows(out);
+    };
+
+    // Wait a frame so fonts/images settle, then re-run on resize.
+    const raf = requestAnimationFrame(run);
+    const ro = new ResizeObserver(run);
+    ro.observe(root);
+    window.addEventListener("resize", run);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", run);
+    };
+  }, []);
+
+  const total = rows.length;
+  const passing = rows.filter((r) => r.aspectOk && r.marginsOk).length;
+  const allGreen = total > 0 && passing === total;
+
+  return (
+    <section
+      ref={rootRef}
+      className="fd-rc"
+      data-bg={bg}
+      aria-labelledby="fd-rc-heading"
+    >
+      <header className="fd-rc-head">
+        <div>
+          <p className="fd-rc-kicker">Responsive safe-margin check</p>
+          <h2 id="fd-rc-heading" className="fd-rc-title">
+            Every slide × every preview size
+          </h2>
+          <p className="fd-rc-sub">
+            Each slide is rendered at five common Instagram preview widths.
+            After layout, the DOM is measured to confirm the 4:5 aspect ratio
+            holds and the photo, hero word, body copy, and footer strip all
+            stay inside the 60px safe inset (full-bleed strip excepted).
+          </p>
+        </div>
+        <div
+          className="fd-rc-summary"
+          data-state={total === 0 ? "pending" : allGreen ? "pass" : "fail"}
+        >
+          {total === 0 ? "Measuring…" : `${passing} / ${total} pass`}
+        </div>
+      </header>
+
+      <div className="fd-rc-sizes">
+        {PREVIEW_SIZES.map((size) => (
+          <div className="fd-rc-size" key={size.label}>
+            <div className="fd-rc-size-head">
+              <span className="fd-rc-size-label">{size.label}</span>
+              <span className="fd-rc-size-dim">
+                {size.width}×{Math.round(size.width / FRAME_RATIO)}
+              </span>
+              <span className="fd-rc-size-note">{size.note}</span>
+            </div>
+            <div className="fd-rc-row">
+              {SLIDES.map((slide) => {
+                const scale = size.width / FRAME_W;
+                const row = rows.find(
+                  (r) =>
+                    r.size.label === size.label && r.slideN === slide.n,
+                );
+                const state = !row
+                  ? "pending"
+                  : row.aspectOk && row.marginsOk
+                    ? "pass"
+                    : "fail";
+                return (
+                  <div className="fd-rc-cell" key={slide.n}>
+                    <div
+                      className="fd-rc-frame"
+                      data-rc-frame
+                      data-slide-n={slide.n}
+                      data-size-label={size.label}
+                      data-size-width={size.width}
+                      style={{
+                        width: size.width,
+                        height: size.width / FRAME_RATIO,
+                      }}
+                    >
+                      <div
+                        className="fd-rc-inner"
+                        style={{ transform: `scale(${scale})` }}
+                      >
+                        <MiniSlide slide={slide} />
+                      </div>
+                      <div
+                        className="fd-rc-safe"
+                        style={{
+                          inset: `${SAFE_INSET * scale}px`,
+                          bottom: `${(SAFE_INSET + 160) * scale}px`,
+                        }}
+                        aria-hidden
+                      />
+                    </div>
+                    <p className="fd-rc-cell-label" data-state={state}>
+                      <span className="fd-rc-dot" aria-hidden />
+                      Slide {slide.n}
+                      {row ? (
+                        <span className="fd-rc-cell-meta">{row.details}</span>
+                      ) : null}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// Re-uses the existing slide markup at 1:1 dimensions so the parent .fd-rc-frame
+// can scale a single element and DOM measurements reflect real positions.
+function MiniSlide({ slide }: { slide: Slide }) {
+  return (
+    <div
+      className="fd-frame"
+      style={{ transform: "none", position: "relative", boxShadow: "none" }}
+    >
+      <header className="fd-top">
+        <img src={WORDMARK} alt="" className="fd-wordmark" aria-hidden />
+        <span className="fd-pill-num">{slide.n} / 4</span>
+      </header>
+      <div className="fd-photo">
+        <img
+          src={slide.photo}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          style={{
+            objectPosition: slide.photoPosition ?? "center",
+            transform: `scale(${slide.photoScale ?? 1})`,
+          }}
+        />
+      </div>
+      <div className="fd-body">
+        <h3 className="fd-hero">{slide.hero}</h3>
+        <p className="fd-intro">{slide.intro}</p>
+      </div>
+      <footer className="fd-strip">
+        <img src={WORDMARK_LIGHT} alt="" className="fd-strip-mark" aria-hidden />
+        <span className="fd-strip-text">{slide.strip}</span>
+        {slide.cta ? <span className="fd-cta">{slide.cta}</span> : null}
+      </footer>
+    </div>
   );
 }
 
@@ -237,4 +487,33 @@ const css = `
 .fd-job strong{font-family:'Oswald',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:${ORANGE}}
 .fd-toggle{font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:10px 18px;border-radius:4px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer}
 .fd-toggle[data-active="true"]{background:${ORANGE};border-color:${ORANGE};color:${CREAM}}
+
+/* Responsive check panel */
+.fd-rc{margin-top:96px;border-top:1px solid color-mix(in srgb, currentColor 18%, transparent);padding-top:48px}
+.fd-rc-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;margin-bottom:32px}
+.fd-rc-kicker{font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:${ORANGE};margin:0 0 8px}
+.fd-rc-title{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;text-transform:uppercase;font-size:clamp(24px,3vw,38px);margin:0 0 10px;color:inherit}
+.fd-rc-sub{max-width:720px;font-size:15px;line-height:1.55;opacity:.78;margin:0}
+.fd-rc-summary{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:10px 16px;border-radius:6px;white-space:nowrap;align-self:start}
+.fd-rc-summary[data-state="pass"]{background:#0f5132;color:#d1f0dc}
+.fd-rc-summary[data-state="fail"]{background:#7a1f1f;color:#ffdcdc}
+.fd-rc-summary[data-state="pending"]{background:color-mix(in srgb, currentColor 10%, transparent);color:inherit}
+.fd-rc-sizes{display:flex;flex-direction:column;gap:40px}
+.fd-rc-size-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed color-mix(in srgb, currentColor 22%, transparent)}
+.fd-rc-size-label{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:14px}
+.fd-rc-size-dim{font-size:12px;font-family:'JetBrains Mono',ui-monospace,monospace;opacity:.7}
+.fd-rc-size-note{font-size:12px;opacity:.6}
+.fd-rc-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.fd-rc-cell{display:flex;flex-direction:column;gap:8px;min-width:0}
+.fd-rc-frame{position:relative;overflow:hidden;border-radius:4px;background:${CREAM};box-shadow:0 4px 14px rgba(11,16,41,.18)}
+.fd-rc-inner{position:absolute;top:0;left:0;width:1080px;height:1350px;transform-origin:top left}
+.fd-rc-safe{position:absolute;border:1px dashed rgba(184,74,8,.55);pointer-events:none;border-radius:2px}
+.fd-rc-cell-label{margin:0;font-size:11px;font-family:'JetBrains Mono',ui-monospace,monospace;display:flex;align-items:center;gap:6px;flex-wrap:wrap;opacity:.85}
+.fd-rc-dot{width:8px;height:8px;border-radius:999px;flex-shrink:0;background:#777}
+.fd-rc-cell-label[data-state="pass"] .fd-rc-dot{background:#2bb673}
+.fd-rc-cell-label[data-state="fail"] .fd-rc-dot{background:#e35454}
+.fd-rc-cell-label[data-state="fail"]{color:#e35454;opacity:1}
+.fd-rc-cell-meta{opacity:.6;font-size:10px;white-space:nowrap}
+.fd-rc[data-bg="navy"] .fd-rc-frame{box-shadow:0 4px 14px rgba(0,0,0,.45)}
+@media(max-width:640px){.fd-rc-head{grid-template-columns:1fr}}
 `;
