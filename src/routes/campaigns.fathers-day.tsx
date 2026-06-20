@@ -416,11 +416,11 @@ function MmsPreview() {
       <div className="fdc-card-head">
         <div>
           <p className="fdc-card-kicker">MMS · 3-send sequence</p>
-          <h2>Father's Day promo · SMS list</h2>
+          <h2>Father's Day · SMS list</h2>
           <p className="fdc-card-sub">
-            Each send: branded prefix (MWC), one idea, the offer, the URL, and
-            STOP language. Character counts are visible so you stay under the
-            160-char single-segment limit where possible.
+            Each send: branded prefix (MWC), one idea, a tracked short link, and
+            STOP language. Every short link resolves to the same booking page
+            with the Father's Day first-visit offer preselected.
           </p>
         </div>
       </div>
