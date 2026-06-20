@@ -27,6 +27,7 @@ import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
+import { Route as SocialReengagementMmsRouteImport } from './routes/social.reengagement-mms'
 import { Route as SocialFathersDayRouteImport } from './routes/social.fathers-day'
 import { Route as SocialPlatformRouteImport } from './routes/social.$platform'
 import { Route as CampaignsFathersDayRouteImport } from './routes/campaigns.fathers-day'
@@ -121,6 +122,11 @@ const SocialIndexRoute = SocialIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SocialRoute,
 } as any)
+const SocialReengagementMmsRoute = SocialReengagementMmsRouteImport.update({
+  id: '/reengagement-mms',
+  path: '/reengagement-mms',
+  getParentRoute: () => SocialRoute,
+} as any)
 const SocialFathersDayRoute = SocialFathersDayRouteImport.update({
   id: '/fathers-day',
   path: '/fathers-day',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRoutesByTo {
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social': typeof SocialIndexRoute
 }
 export interface FileRoutesById {
@@ -204,6 +212,7 @@ export interface FileRoutesById {
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRouteTypes {
@@ -229,6 +238,7 @@ export interface FileRouteTypes {
     | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/reengagement-mms'
     | '/social/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/reengagement-mms'
     | '/social'
   id:
     | '__root__'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/reengagement-mms'
     | '/social/'
   fileRoutesById: FileRoutesById
 }
@@ -426,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialIndexRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/social/reengagement-mms': {
+      id: '/social/reengagement-mms'
+      path: '/reengagement-mms'
+      fullPath: '/social/reengagement-mms'
+      preLoaderRoute: typeof SocialReengagementMmsRouteImport
+      parentRoute: typeof SocialRoute
+    }
     '/social/fathers-day': {
       id: '/social/fathers-day'
       path: '/fathers-day'
@@ -453,12 +472,14 @@ declare module '@tanstack/react-router' {
 interface SocialRouteChildren {
   SocialPlatformRoute: typeof SocialPlatformRoute
   SocialFathersDayRoute: typeof SocialFathersDayRoute
+  SocialReengagementMmsRoute: typeof SocialReengagementMmsRoute
   SocialIndexRoute: typeof SocialIndexRoute
 }
 
 const SocialRouteChildren: SocialRouteChildren = {
   SocialPlatformRoute: SocialPlatformRoute,
   SocialFathersDayRoute: SocialFathersDayRoute,
+  SocialReengagementMmsRoute: SocialReengagementMmsRoute,
   SocialIndexRoute: SocialIndexRoute,
 }
 
@@ -488,13 +509,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
