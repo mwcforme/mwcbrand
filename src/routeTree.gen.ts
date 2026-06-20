@@ -29,6 +29,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
 import { Route as SocialFathersDayRouteImport } from './routes/social.fathers-day'
 import { Route as SocialPlatformRouteImport } from './routes/social.$platform'
+import { Route as CampaignsFathersDayRouteImport } from './routes/campaigns.fathers-day'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -130,6 +131,11 @@ const SocialPlatformRoute = SocialPlatformRouteImport.update({
   path: '/$platform',
   getParentRoute: () => SocialRoute,
 } as any)
+const CampaignsFathersDayRoute = CampaignsFathersDayRouteImport.update({
+  id: '/campaigns/fathers-day',
+  path: '/campaigns/fathers-day',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
   '/social/': typeof SocialIndexRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByTo {
   '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
   '/social': typeof SocialIndexRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/stock-photos': typeof StockPhotosRoute
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
+  '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
   '/social/': typeof SocialIndexRoute
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
     | '/stock-photos'
     | '/typography'
     | '/voice'
+    | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
     | '/social/'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/stock-photos'
     | '/typography'
     | '/voice'
+    | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
     | '/social'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/stock-photos'
     | '/typography'
     | '/voice'
+    | '/campaigns/fathers-day'
     | '/social/$platform'
     | '/social/fathers-day'
     | '/social/'
@@ -283,6 +295,7 @@ export interface RootRouteChildren {
   StockPhotosRoute: typeof StockPhotosRoute
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
+  CampaignsFathersDayRoute: typeof CampaignsFathersDayRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialPlatformRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/campaigns/fathers-day': {
+      id: '/campaigns/fathers-day'
+      path: '/campaigns/fathers-day'
+      fullPath: '/campaigns/fathers-day'
+      preLoaderRoute: typeof CampaignsFathersDayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -463,6 +483,7 @@ const rootRouteChildren: RootRouteChildren = {
   StockPhotosRoute: StockPhotosRoute,
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
+  CampaignsFathersDayRoute: CampaignsFathersDayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
