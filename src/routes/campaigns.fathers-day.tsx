@@ -299,7 +299,7 @@ function LandingPreview() {
 
 const EMAIL_SUBJECTS = [
   "The gift he won't buy himself",
-  "60 minutes. Same-day labs. 10% off his first visit.",
+  "60 minutes. Same-day labs. One real plan.",
   "For Dad: the one thing missing from his list",
 ];
 
