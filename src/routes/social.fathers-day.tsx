@@ -507,7 +507,7 @@ const css = `
 .fd-rc-cell{display:flex;flex-direction:column;gap:8px;min-width:0}
 .fd-rc-frame{position:relative;overflow:hidden;border-radius:4px;background:${CREAM};box-shadow:0 4px 14px rgba(11,16,41,.18)}
 .fd-rc-inner{position:absolute;top:0;left:0;width:1080px;height:1350px;transform-origin:top left}
-.fd-rc-safe{position:absolute;border:1px dashed rgba(184,74,8,.55);pointer-events:none;border-radius:2px}
+.fd-rc-safe{position:absolute;border:1px dashed rgba(255,85,0,.55);pointer-events:none;border-radius:2px}
 .fd-rc-cell-label{margin:0;font-size:11px;font-family:'JetBrains Mono',ui-monospace,monospace;display:flex;align-items:center;gap:6px;flex-wrap:wrap;opacity:.85}
 .fd-rc-dot{width:8px;height:8px;border-radius:999px;flex-shrink:0;background:#777}
 .fd-rc-cell-label[data-state="pass"] .fd-rc-dot{background:#2bb673}
