@@ -327,9 +327,9 @@ function LandingPreview() {
 // ============================================================
 
 const EMAIL_SUBJECTS = [
-  "The gift he won't buy himself",
-  "60 minutes. Same-day labs. One real plan.",
-  "For Dad: the one thing missing from his list",
+  "This Father's Day, the gift is showing up.",
+  "One hour for you. The dividend goes to them.",
+  "The thing you've been putting off — book it.",
 ];
 
 function EmailPreview() {
