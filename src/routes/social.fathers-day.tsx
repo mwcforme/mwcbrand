@@ -245,6 +245,7 @@ function FathersDayCarousel() {
             >
               ⬇ Export all PNGs
             </button>
+          </div>
         </header>
 
         <div className="fd-grid">
