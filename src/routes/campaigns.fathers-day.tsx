@@ -189,7 +189,7 @@ function LandingPreview() {
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
               <a className="lp-nav-cta" href={BOOKING_URL}>
-                Book now
+                Book his first visit
               </a>
             </header>
 
