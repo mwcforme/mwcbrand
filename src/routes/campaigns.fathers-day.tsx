@@ -553,7 +553,7 @@ function emailPreviewHtml() {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Father's Day · MWC</title></head>
 <body style="margin:0;padding:0;background:${CREAM};font-family:Helvetica,Arial,sans-serif;color:${NAVY};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. Book his first visit by ${OFFER_END}.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">One hour for you. The dividend goes to them. Book your first visit by ${OFFER_END}.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${CREAM};">
   <tr><td align="center" style="padding:24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7e3dc;">
@@ -565,24 +565,25 @@ function emailPreviewHtml() {
       </td></tr>
       <tr><td style="padding:32px 28px 8px 28px;">
         <p style="margin:0 0 12px 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:${ORANGE};font-weight:700;">Father's Day · Book by ${OFFER_END}</p>
-        <h1 style="margin:0 0 16px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:40px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:${NAVY};">Give him the one gift he hasn't bought himself.</h1>
-        <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">He's checked every box on the list — except the one about his own health. A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers, not just guess.</p>
+        <h1 style="margin:0 0 16px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:40px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:${NAVY};">The gift is showing up.</h1>
+        <p style="margin:0 0 18px 0;font-size:17px;line-height:1.55;color:${NAVY};">This Father's Day, the most useful thing you'll do for your family is the thing you keep putting off for yourself.</p>
+        <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">One hour with a physician. Same-day labs. A real plan. So the version of you they see at dinner is rested, focused, and present — not running on fumes.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 28px 28px 28px;">
-        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book your first visit</a>
       </td></tr>
       <tr><td style="padding:8px 28px 28px 28px;border-top:1px solid #efece6;">
-        <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">What's in the first visit</h2>
+        <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">One hour. Three things they'll feel.</h2>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>60 minutes</strong> with a physician.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>A real plan</strong>: nutrition, training, sleep, hormones if indicated.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Judgment-free</strong>, locally owned.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Energy</strong> — for the second half of the day, not just the first.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Focus</strong> — sharper at dinner, sharper at work, fewer things dropped.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Presence</strong> — patience on the hard days, room for the small moments.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>A real plan</strong> — physician-led, built on your numbers, judgment-free.</td></tr>
         </table>
       </td></tr>
       <tr><td style="padding:0 28px 32px 28px;">
-        <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">Be there for the trips, the milestones, the ordinary days. That starts with taking care of himself.</p>
-        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
+        <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">You are the constant in their lives. One hour is the smallest possible investment in keeping it that way. Window closes ${OFFER_END}.</p>
+        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book your first visit</a>
       </td></tr>
       <tr><td style="padding:24px 28px;background:${NAVY};color:${CREAM};">
         <img src="https://mwcbrand.lovable.app${WORDMARK_LIGHT}" alt="Men's Wellness Centers" height="26" style="height:26px;display:block;margin-bottom:10px;">
