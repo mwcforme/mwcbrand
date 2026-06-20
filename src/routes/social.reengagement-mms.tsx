@@ -306,47 +306,48 @@ const css = `
 }
 
 .mms-top { display:flex; align-items:center; justify-content:flex-start; }
-.mms-wordmark { height: 60px; width: auto; opacity: .95; }
+.mms-wordmark { height: 72px; width: auto; opacity: .95; }
 
-.mms-body { flex: 1; display:flex; flex-direction:column; justify-content:center; padding: 32px 0; }
+.mms-body { flex: 1; display:flex; flex-direction:column; justify-content:center; padding: 32px 0; gap: 36px; }
 .mms-eyebrow {
   font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-size: 34px;
   font-weight: 700;
-  letter-spacing: .22em;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  margin-bottom: 28px;
+  margin: 0;
 }
 .mms-hero {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 132px;
-  line-height: 0.94;
+  font-size: 220px;
+  line-height: 0.92;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   white-space: pre-line;
-  margin: 0 0 36px 0;
+  margin: 0;
 }
 .mms-copy {
-  font-size: 28px;
-  line-height: 1.45;
+  font-size: 44px;
+  line-height: 1.35;
+  font-weight: 500;
   max-width: 880px;
   margin: 0;
 }
 
-.mms-foot { display:flex; flex-direction:column; gap: 22px; }
+.mms-foot { display:flex; flex-direction:column; gap: 28px; }
 .mms-cta-pill {
   align-self: flex-start;
-  padding: 22px 36px;
+  padding: 28px 52px;
   border-radius: 999px;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 30px;
-  letter-spacing: .06em;
+  font-size: 48px;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 .mms-fine {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.4;
   margin: 0;
   max-width: 880px;
