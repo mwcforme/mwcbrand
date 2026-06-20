@@ -504,7 +504,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 // Email HTML (table layout, inline styles)
 // ============================================================
 
-function emailHtml() {
+function emailPreviewHtml() {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Father's Day · MWC</title></head>
 <body style="margin:0;padding:0;background:${CREAM};font-family:Helvetica,Arial,sans-serif;color:${NAVY};">
