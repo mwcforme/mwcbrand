@@ -557,7 +557,7 @@ function landingHtml() {
 <section class="fd-hero">
   <h1>Give him the one gift he hasn't bought himself.</h1>
   <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${BOOKING_URL}">Book with code ${PROMO_CODE}</a>
+  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
 </section>
 <section class="fd-included">
   <h2>What's in the first visit</h2>
@@ -570,7 +570,7 @@ function landingHtml() {
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${BOOKING_URL}">Book with code ${PROMO_CODE}</a>
+  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
 </section>`;
 }
 
