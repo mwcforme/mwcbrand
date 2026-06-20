@@ -27,6 +27,7 @@ import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
+import { Route as SocialFathersDayRouteImport } from './routes/social.fathers-day'
 import { Route as SocialPlatformRouteImport } from './routes/social.$platform'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -119,6 +120,11 @@ const SocialIndexRoute = SocialIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SocialRoute,
 } as any)
+const SocialFathersDayRoute = SocialFathersDayRouteImport.update({
+  id: '/fathers-day',
+  path: '/fathers-day',
+  getParentRoute: () => SocialRoute,
+} as any)
 const SocialPlatformRoute = SocialPlatformRouteImport.update({
   id: '/$platform',
   path: '/$platform',
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
+  '/social/fathers-day': typeof SocialFathersDayRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRoutesByTo {
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
+  '/social/fathers-day': typeof SocialFathersDayRoute
   '/social': typeof SocialIndexRoute
 }
 export interface FileRoutesById {
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/social/$platform': typeof SocialPlatformRoute
+  '/social/fathers-day': typeof SocialFathersDayRoute
   '/social/': typeof SocialIndexRoute
 }
 export interface FileRouteTypes {
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/social/$platform'
+    | '/social/fathers-day'
     | '/social/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/social/$platform'
+    | '/social/fathers-day'
     | '/social'
   id:
     | '__root__'
@@ -250,6 +261,7 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/social/$platform'
+    | '/social/fathers-day'
     | '/social/'
   fileRoutesById: FileRoutesById
 }
@@ -401,6 +413,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialIndexRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/social/fathers-day': {
+      id: '/social/fathers-day'
+      path: '/fathers-day'
+      fullPath: '/social/fathers-day'
+      preLoaderRoute: typeof SocialFathersDayRouteImport
+      parentRoute: typeof SocialRoute
+    }
     '/social/$platform': {
       id: '/social/$platform'
       path: '/$platform'
@@ -413,11 +432,13 @@ declare module '@tanstack/react-router' {
 
 interface SocialRouteChildren {
   SocialPlatformRoute: typeof SocialPlatformRoute
+  SocialFathersDayRoute: typeof SocialFathersDayRoute
   SocialIndexRoute: typeof SocialIndexRoute
 }
 
 const SocialRouteChildren: SocialRouteChildren = {
   SocialPlatformRoute: SocialPlatformRoute,
+  SocialFathersDayRoute: SocialFathersDayRoute,
   SocialIndexRoute: SocialIndexRoute,
 }
 
@@ -446,13 +467,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
