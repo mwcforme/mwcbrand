@@ -219,8 +219,8 @@ function FathersDayCarousel() {
               lineHeight: 1.6,
             }}
           >
-            Rebuilt with only your uploaded photos. Cream surface, real wordmark,
-            oversized Oswald hero word, navy bottom strip, and orange CTA pill.
+            Reframed: not a gift you buy for him, but the gift he gives himself
+            — one hour to recalibrate, so he can keep showing up for his family.
           </p>
           <div style={{ marginTop: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <button
