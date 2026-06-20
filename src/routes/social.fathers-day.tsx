@@ -44,8 +44,8 @@ const SLIDES: Slide[] = [
     strip: "THIS FATHER'S DAY, GIVE HIM ANSWERS.",
     photo: slide1Asset.url,
     alt: "Couple smiling on the beach at golden hour",
-    photoPosition: "62% 40%",
-    photoScale: 1.05,
+    photoPosition: "55% 35%",
+    photoScale: 1.0,
     job: "Hook · reframe instantly. This is a gift idea first.",
   },
   {
