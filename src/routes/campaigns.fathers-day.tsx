@@ -44,7 +44,6 @@ const PROOF_PHOTO = slide2Asset.url;
 const STAKES_PHOTO = slide3Asset.url;
 const CLOSE_PHOTO = slide4Asset.url;
 
-const PROMO_CODE = "DAD10";
 const OFFER_END = "June 30";
 const BOOKING_URL = "https://bookmwc.com";
 
