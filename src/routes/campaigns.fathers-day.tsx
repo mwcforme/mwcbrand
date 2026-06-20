@@ -100,13 +100,13 @@ function FathersDayCampaign() {
           <p className="fdc-lede">
             One offer, four channels. Landing page, email, MMS, and the
             Instagram carousel — all pulling against the same hook, the same
-            promo code, and the same close.
+            brand voice, and the same close.
           </p>
 
           <dl className="fdc-meta">
             <div>
-              <dt>Promo code</dt>
-              <dd>{PROMO_CODE}</dd>
+              <dt>Campaign</dt>
+              <dd>Father's Day</dd>
             </div>
             <div>
               <dt>Offer ends</dt>
