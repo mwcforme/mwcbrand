@@ -1,9 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { toPng } from "html-to-image";
 import slide1Asset from "@/assets/fathers-day/slide-1.webp.asset.json";
 import slide2Asset from "@/assets/fathers-day/slide-2.jpg.asset.json";
 import slide3Asset from "@/assets/fathers-day/slide-3.webp.asset.json";
 import slide4Asset from "@/assets/fathers-day/slide-4.jpg.asset.json";
+
+async function exportSlideToPng(slideN: number) {
+  const el = document.getElementById(`fd-slide-${slideN}`) as HTMLElement | null;
+  if (!el) return;
+  const prevTransform = el.style.transform;
+  // Snapshot at native 1080x1350 by neutralizing the preview scale transform.
+  el.style.transform = "none";
+  try {
+    const dataUrl = await toPng(el, {
+      width: 1080,
+      height: 1350,
+      cacheBust: true,
+      pixelRatio: 1,
+      style: { transform: "none" },
+    });
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = `mwc-fathers-day-slide-${slideN}.png`;
+    a.click();
+  } finally {
+    el.style.transform = prevTransform;
+  }
+}
+
+async function exportAllSlides() {
+  for (const n of [1, 2, 3, 4]) {
+    await exportSlideToPng(n);
+    await new Promise((r) => setTimeout(r, 250));
+  }
+}
 
 export const Route = createFileRoute("/social/fathers-day")({
   head: () => ({
@@ -129,6 +160,13 @@ function SlideCard({ slide }: { slide: Slide }) {
       <p className="fd-job">
         <strong>Slide {slide.n}</strong> · {slide.job}
       </p>
+      <button
+        type="button"
+        className="fd-toggle"
+        onClick={() => exportSlideToPng(slide.n)}
+      >
+        Export PNG · 1080×1350
+      </button>
     </div>
   );
 }
@@ -198,6 +236,14 @@ function FathersDayCarousel() {
               data-active={bg === "navy"}
             >
               Navy BG
+            </button>
+            <button
+              onClick={() => exportAllSlides()}
+              className="fd-toggle"
+              data-active="true"
+              style={{ marginLeft: "auto" }}
+            >
+              ⬇ Export all PNGs
             </button>
           </div>
         </header>
