@@ -77,20 +77,20 @@ const CHANNELS: { id: ChannelId; label: string; sub: string }[] = [
 
 const PILLARS = [
   {
-    label: "Hook",
-    body: "Reframe the gift conversation. He has everything except answers about his own health.",
+    label: "Frame",
+    body: "A gift he gives himself — so he can keep showing up for the people who count on him. He's the buyer, the recipient, and the beneficiary.",
   },
   {
     label: "Offer",
-    body: "A 60-minute physician visit with same-day labs. Book his first plan through June 30.",
+    body: "A 60-minute physician visit with same-day labs. One hour to recalibrate energy, focus, and presence. Book through June 30.",
   },
   {
     label: "Stakes",
-    body: "Show up for the trips, milestones, and ordinary days. That starts with taking care of himself.",
+    body: "Dads are the constant. The dividend on one hour of attention goes straight to his family — sharper dinners, more patience, more years.",
   },
   {
     label: "Close",
-    body: "One CTA on every asset: BOOK HIS FIRST VISIT, deep-linked to the booking page with the Father's Day first-visit offer preselected.",
+    body: "One CTA on every asset: BOOK YOUR FIRST VISIT, deep-linked to the booking page with the first-visit offer preselected.",
   },
 ];
 
