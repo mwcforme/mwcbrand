@@ -198,7 +198,7 @@ function LandingPreview() {
                 <img src={HERO_PHOTO} alt="Couple smiling on the beach" />
               </div>
               <div className="lp-hero-copy">
-                <p className="lp-eyebrow">Father's Day · 10% off through June 30</p>
+                <p className="lp-eyebrow">Father's Day · Book by {OFFER_END}</p>
                 <h1>
                   Give him the one gift<br />
                   he hasn't bought himself.
@@ -209,7 +209,7 @@ function LandingPreview() {
                 </p>
                 <div className="lp-cta-row">
                   <a className="lp-cta" href={BOOKING_URL}>
-                    Book with code {PROMO_CODE}
+                    Book his first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
                 </div>
