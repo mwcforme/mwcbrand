@@ -67,7 +67,7 @@ const PILLARS = [
   },
   {
     label: "Offer",
-    body: "10% off his first plan. 60-minute physician visit. Same-day labs. Book through June 30.",
+    body: "A 60-minute physician visit with same-day labs. Book his first plan through June 30.",
   },
   {
     label: "Stakes",
@@ -75,7 +75,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com with code DAD10.",
+    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com.",
   },
 ];
 
