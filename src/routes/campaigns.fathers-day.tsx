@@ -113,9 +113,9 @@ function FathersDayCampaign() {
           <p className="fdc-kicker">Campaign package</p>
           <h1 className="fdc-title">Father's Day · Men's Wellness Centers</h1>
           <p className="fdc-lede">
-            One offer, four channels. Landing page, email, MMS, and the
-            Instagram carousel — all pulling against the same hook, the same
-            brand voice, and the same close.
+            A reframed Father's Day campaign: not a gift you buy for him, but
+            the gift he gives himself — one hour to recalibrate, so he can
+            keep showing up for the people who count on him.
           </p>
 
           <dl className="fdc-meta">
