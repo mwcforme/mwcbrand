@@ -84,7 +84,7 @@ const SLIDES: Slide[] = [
     hero: "60 MINUTES.",
     intro: "A 60-minute visit with a physician. Same-day labs. He will finally know his numbers, not just guess.",
     strip: "PHYSICIAN-LED. SAME-DAY LABS.",
-    cta: "CLAIM 10% OFF",
+    cta: "BOOK HIS VISIT",
     photo: slide2Asset.url,
     alt: "Man cooling down after a workout",
     photoPosition: "76% 28%",
@@ -105,7 +105,7 @@ const SLIDES: Slide[] = [
   {
     n: 4,
     hero: "BOOK.",
-    intro: "This Father's Day, claim 10% off his first plan through June 30. Sit down with a physician at your local Men's Wellness Centers.",
+    intro: "This Father's Day, give him a 60-minute visit with a physician at your local Men's Wellness Centers. Book by June 30.",
     strip: "BOOK AT BOOKMWC.COM",
     cta: "BOOK NOW",
     photo: slide4Asset.url,

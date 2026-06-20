@@ -44,7 +44,6 @@ const PROOF_PHOTO = slide2Asset.url;
 const STAKES_PHOTO = slide3Asset.url;
 const CLOSE_PHOTO = slide4Asset.url;
 
-const PROMO_CODE = "DAD10";
 const OFFER_END = "June 30";
 const BOOKING_URL = "https://bookmwc.com";
 
@@ -68,7 +67,7 @@ const PILLARS = [
   },
   {
     label: "Offer",
-    body: "10% off his first plan. 60-minute physician visit. Same-day labs. Book through June 30.",
+    body: "A 60-minute physician visit with same-day labs. Book his first plan through June 30.",
   },
   {
     label: "Stakes",
@@ -76,7 +75,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com with code DAD10.",
+    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com.",
   },
 ];
 
@@ -101,13 +100,13 @@ function FathersDayCampaign() {
           <p className="fdc-lede">
             One offer, four channels. Landing page, email, MMS, and the
             Instagram carousel — all pulling against the same hook, the same
-            promo code, and the same close.
+            brand voice, and the same close.
           </p>
 
           <dl className="fdc-meta">
             <div>
-              <dt>Promo code</dt>
-              <dd>{PROMO_CODE}</dd>
+              <dt>Campaign</dt>
+              <dd>Father's Day</dd>
             </div>
             <div>
               <dt>Offer ends</dt>
@@ -199,7 +198,7 @@ function LandingPreview() {
                 <img src={HERO_PHOTO} alt="Couple smiling on the beach" />
               </div>
               <div className="lp-hero-copy">
-                <p className="lp-eyebrow">Father's Day · 10% off through June 30</p>
+                <p className="lp-eyebrow">Father's Day · Book by {OFFER_END}</p>
                 <h1>
                   Give him the one gift<br />
                   he hasn't bought himself.
@@ -210,7 +209,7 @@ function LandingPreview() {
                 </p>
                 <div className="lp-cta-row">
                   <a className="lp-cta" href={BOOKING_URL}>
-                    Book with code {PROMO_CODE}
+                    Book his first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
                 </div>
@@ -253,11 +252,11 @@ function LandingPreview() {
             <section className="lp-faq">
               <h2>Frequently asked</h2>
               <details open>
-                <summary>How does the {PROMO_CODE} code work?</summary>
+                <summary>What's included in his first visit?</summary>
                 <p>
-                  Enter <strong>{PROMO_CODE}</strong> at checkout for 10% off
-                  his first plan. Book by {OFFER_END}. Visit can be scheduled
-                  after.
+                  A 60-minute one-on-one with a physician, same-day labs, and
+                  a written plan he can act on. Book by {OFFER_END}; the visit
+                  can be scheduled after.
                 </p>
               </details>
               <details>
@@ -279,7 +278,7 @@ function LandingPreview() {
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
                 <a className="lp-cta" href={BOOKING_URL}>
-                  Book with code {PROMO_CODE}
+                  Book his first visit
                 </a>
               </div>
               <div className="lp-foot-mark">
@@ -300,7 +299,7 @@ function LandingPreview() {
 
 const EMAIL_SUBJECTS = [
   "The gift he won't buy himself",
-  "60 minutes. Same-day labs. 10% off his first visit.",
+  "60 minutes. Same-day labs. One real plan.",
   "For Dad: the one thing missing from his list",
 ];
 
@@ -325,7 +324,7 @@ function EmailPreview() {
         </div>
         <div>
           <p className="fdc-card-kicker">Preheader</p>
-          <p>60 minutes with a physician. Same-day labs. 10% off through {OFFER_END}.</p>
+          <p>60 minutes with a physician. Same-day labs. Book his first visit by {OFFER_END}.</p>
         </div>
       </div>
 
@@ -365,21 +364,21 @@ const MMS_MESSAGES: MmsMsg[] = [
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. 10% off his first visit with code DAD10. bookmwc.com Reply STOP to opt out.",
+      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: bookmwc.com Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
     label: "Send 2 · Offer",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Use DAD10 for 10% off through June 30. bookmwc.com Reply STOP to opt out.",
+      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: bookmwc.com Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day offer ends Sunday. 10% off his first plan with code DAD10. Book in 60 seconds: bookmwc.com Reply STOP to opt out.",
+      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: bookmwc.com Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
@@ -519,12 +518,12 @@ function emailPreviewHtml() {
         <img src="https://mwcbrand.lovable.app${HERO_PHOTO}" alt="" width="600" style="width:100%;display:block;height:auto;">
       </td></tr>
       <tr><td style="padding:32px 28px 8px 28px;">
-        <p style="margin:0 0 12px 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:${ORANGE};font-weight:700;">Father's Day · 10% off through ${OFFER_END}</p>
+        <p style="margin:0 0 12px 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:${ORANGE};font-weight:700;">Father's Day · Book by ${OFFER_END}</p>
         <h1 style="margin:0 0 16px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:40px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:${NAVY};">Give him the one gift he hasn't bought himself.</h1>
         <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">He's checked every box on the list — except the one about his own health. A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers, not just guess.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 28px 28px 28px;">
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=hero" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book with code ${PROMO_CODE}</a>
+        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=hero" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:8px 28px 28px 28px;border-top:1px solid #efece6;">
         <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">What's in the first visit</h2>
@@ -558,7 +557,7 @@ function landingHtml() {
 <section class="fd-hero">
   <h1>Give him the one gift he hasn't bought himself.</h1>
   <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${BOOKING_URL}">Book with code ${PROMO_CODE}</a>
+  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
 </section>
 <section class="fd-included">
   <h2>What's in the first visit</h2>
@@ -571,7 +570,7 @@ function landingHtml() {
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${BOOKING_URL}">Book with code ${PROMO_CODE}</a>
+  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
 </section>`;
 }
 
