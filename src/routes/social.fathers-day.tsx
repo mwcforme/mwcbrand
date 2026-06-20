@@ -87,7 +87,7 @@ const SLIDES: Slide[] = [
 
 const CREAM = "#f5f3f0";
 const NAVY = "#0b1029";
-const ORANGE = "#b84a08";
+const ORANGE = "#ff5500";
 const INK_SOFT = "#4a4e66";
 
 function SlideCard({ slide }: { slide: Slide }) {
