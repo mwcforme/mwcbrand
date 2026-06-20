@@ -70,49 +70,49 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     n: 1,
-    hero: "GIFTED.",
-    intro: "He has bought every gift on this list except the one he actually needs.",
-    strip: "THIS FATHER'S DAY, GIVE HIM ANSWERS.",
+    hero: "SHOWING UP.",
+    intro: "This Father's Day, the gift is the version of you that's rested, focused, and present at the table.",
+    strip: "FATHER'S DAY AT MWC.",
     photo: slide1Asset.url,
-    alt: "Couple smiling on the beach at golden hour",
+    alt: "Father present with his family at golden hour",
     photoPosition: "55% 35%",
     photoScale: 1.0,
-    job: "Hook · reframe instantly. This is a gift idea first.",
+    job: "Hook · reframe the gift. It's the one he gives himself.",
   },
   {
     n: 2,
     hero: "60 MINUTES.",
-    intro: "A 60-minute visit with a physician. Same-day labs. He will finally know his numbers, not just guess.",
+    intro: "One hour for you. The dividend goes to them. A physician visit with same-day labs and a plan you can actually follow.",
     strip: "PHYSICIAN-LED. SAME-DAY LABS.",
-    cta: "BOOK HIS VISIT",
+    cta: "BOOK YOUR VISIT",
     photo: slide2Asset.url,
     alt: "Man cooling down after a workout",
     photoPosition: "76% 28%",
     photoScale: 1.16,
-    job: "Offer · make the value clear early.",
+    job: "Offer · the smallest possible investment, the largest dividend.",
   },
   {
     n: 3,
-    hero: "SHOW UP.",
-    intro: "Be there for the moments that matter. The trips, the milestones, the ordinary days. That starts with taking care of himself.",
+    hero: "THE CONSTANT.",
+    intro: "Energy. Focus. Presence. The things your family actually feels — at dinner, on the trip, on the ordinary Tuesday.",
     strip: "LOCALLY OWNED. JUDGMENT-FREE.",
     photo: slide3Asset.url,
-    alt: "Couple relaxing together on a rooftop patio",
+    alt: "Father present with the people who matter",
     photoPosition: "55% 42%",
     photoScale: 1.1,
-    job: "Stakes · emotional payoff, the real reason to book.",
+    job: "Stakes · you are the constant. Act like it.",
   },
   {
     n: 4,
     hero: "BOOK.",
-    intro: "This Father's Day, give him a 60-minute visit with a physician at your local Men's Wellness Centers. Book by June 30.",
+    intro: "Book your first visit at your local Men's Wellness Centers before June 30. One hour. Then everything else gets easier.",
     strip: "BOOK.MENSWELLNESSCENTERS.COM",
-    cta: "BOOK HIS VISIT",
+    cta: "BOOK YOUR VISIT",
     photo: slide4Asset.url,
     alt: "Smiling man leaning on a railing after a workout",
     photoPosition: "68% center",
     photoScale: 1.2,
-    job: "Close · hard close with urgency.",
+    job: "Close · the nudge, not the sale. Window closes 6/30.",
   },
 ];
 
@@ -219,8 +219,8 @@ function FathersDayCarousel() {
               lineHeight: 1.6,
             }}
           >
-            Rebuilt with only your uploaded photos. Cream surface, real wordmark,
-            oversized Oswald hero word, navy bottom strip, and orange CTA pill.
+            Reframed: not a gift you buy for him, but the gift he gives himself
+            — one hour to recalibrate, so he can keep showing up for his family.
           </p>
           <div style={{ marginTop: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <button

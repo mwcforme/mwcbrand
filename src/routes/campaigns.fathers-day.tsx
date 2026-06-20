@@ -77,20 +77,20 @@ const CHANNELS: { id: ChannelId; label: string; sub: string }[] = [
 
 const PILLARS = [
   {
-    label: "Hook",
-    body: "Reframe the gift conversation. He has everything except answers about his own health.",
+    label: "Frame",
+    body: "A gift he gives himself — so he can keep showing up for the people who count on him. He's the buyer, the recipient, and the beneficiary.",
   },
   {
     label: "Offer",
-    body: "A 60-minute physician visit with same-day labs. Book his first plan through June 30.",
+    body: "A 60-minute physician visit with same-day labs. One hour to recalibrate energy, focus, and presence. Book through June 30.",
   },
   {
     label: "Stakes",
-    body: "Show up for the trips, milestones, and ordinary days. That starts with taking care of himself.",
+    body: "Dads are the constant. The dividend on one hour of attention goes straight to his family — sharper dinners, more patience, more years.",
   },
   {
     label: "Close",
-    body: "One CTA on every asset: BOOK HIS FIRST VISIT, deep-linked to the booking page with the Father's Day first-visit offer preselected.",
+    body: "One CTA on every asset: BOOK YOUR FIRST VISIT, deep-linked to the booking page with the first-visit offer preselected.",
   },
 ];
 
@@ -113,9 +113,9 @@ function FathersDayCampaign() {
           <p className="fdc-kicker">Campaign package</p>
           <h1 className="fdc-title">Father's Day · Men's Wellness Centers</h1>
           <p className="fdc-lede">
-            One offer, four channels. Landing page, email, MMS, and the
-            Instagram carousel — all pulling against the same hook, the same
-            brand voice, and the same close.
+            A reframed Father's Day campaign: not a gift you buy for him, but
+            the gift he gives himself — one hour to recalibrate, so he can
+            keep showing up for the people who count on him.
           </p>
 
           <dl className="fdc-meta">
@@ -129,7 +129,7 @@ function FathersDayCampaign() {
             </div>
             <div>
               <dt>Primary CTA</dt>
-              <dd>Book his first visit</dd>
+              <dd>Book your first visit</dd>
             </div>
             <div>
               <dt>CTA destination</dt>
@@ -208,27 +208,29 @@ function LandingPreview() {
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
               <a className="lp-nav-cta" href={bookingUrl("nav", "landing")}>
-                Book his first visit
+                Book your first visit
               </a>
             </header>
 
             <section className="lp-hero">
               <div className="lp-hero-photo">
-                <img src={HERO_PHOTO} alt="Couple smiling on the beach" />
+                <img src={HERO_PHOTO} alt="Father with his family at golden hour" />
               </div>
               <div className="lp-hero-copy">
                 <p className="lp-eyebrow">Father's Day · Book by {OFFER_END}</p>
                 <h1>
-                  Give him the one gift<br />
-                  he hasn't bought himself.
+                  The gift is<br />
+                  showing up.
                 </h1>
                 <p className="lp-sub">
-                  A 60-minute visit with a physician. Same-day labs. He'll
-                  finally know his numbers — not just guess.
+                  One hour for you. The dividend goes to them. A 60-minute
+                  visit with a physician — same-day labs, real answers,
+                  a plan you can actually follow. So the version of you they
+                  see at dinner is the one you want them to remember.
                 </p>
                 <div className="lp-cta-row">
                   <a className="lp-cta" href={bookingUrl("hero", "landing")}>
-                    Book his first visit
+                    Book your first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
                 </div>
@@ -236,19 +238,23 @@ function LandingPreview() {
             </section>
 
             <section className="lp-included">
-              <h2>What's included in the first visit</h2>
+              <h2>One hour. Three things they'll feel.</h2>
               <ul>
                 <li>
-                  <strong>60 minutes</strong> one-on-one with a physician — no rushed door-knock.
+                  <strong>Energy</strong> — for the Saturday morning, the late
+                  meeting, the second half of the day.
                 </li>
                 <li>
-                  <strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac markers.
+                  <strong>Focus</strong> — sharper at dinner, sharper at work,
+                  fewer things falling through the cracks.
                 </li>
                 <li>
-                  <strong>A real plan</strong>: nutrition, training, sleep, hormone optimization if indicated.
+                  <strong>Presence</strong> — patience on the hard days, room
+                  for the small moments that actually count.
                 </li>
                 <li>
-                  <strong>Judgment-free</strong>: locally owned, built for men who put themselves last.
+                  <strong>A real plan</strong> — physician-led, built on your
+                  numbers, judgment-free.
                 </li>
               </ul>
             </section>
@@ -256,38 +262,42 @@ function LandingPreview() {
             <section className="lp-stakes">
               <div className="lp-stakes-copy">
                 <p className="lp-eyebrow">Why now</p>
-                <h2>Show up for the moments that matter.</h2>
+                <h2>You are the constant. Act like it.</h2>
                 <p>
-                  The trips, the milestones, the ordinary Tuesdays. The men who
-                  are still standing at 70 didn't get lucky. They paid attention
-                  early.
+                  Your family doesn't need another gadget. They need the
+                  rested, focused, present version of you — at the dinner
+                  table, on the trip, on the ordinary Tuesday. That starts
+                  with one hour you keep putting off.
                 </p>
               </div>
               <div className="lp-stakes-photo">
-                <img src={STAKES_PHOTO} alt="Couple relaxing on a rooftop" />
+                <img src={STAKES_PHOTO} alt="Father present with the people who matter" />
               </div>
             </section>
 
             <section className="lp-faq">
               <h2>Frequently asked</h2>
               <details open>
-                <summary>What's included in his first visit?</summary>
+                <summary>What's included in the first visit?</summary>
                 <p>
                   A 60-minute one-on-one with a physician, same-day labs, and
-                  a written plan he can act on. Book by {OFFER_END}; the visit
-                  can be scheduled after.
+                  a written plan you can act on. Book by {OFFER_END}; the
+                  visit itself can be scheduled after.
                 </p>
               </details>
               <details>
-                <summary>Do I need to know which plan he wants?</summary>
+                <summary>Do I need to know which plan I want?</summary>
                 <p>
-                  No. Buy the consult — the physician builds his plan with him.
+                  No. Book the consult — the physician builds your plan with
+                  you, based on what your labs actually say.
                 </p>
               </details>
               <details>
-                <summary>Can I buy this as a surprise?</summary>
+                <summary>Is this a Father's Day promotion?</summary>
                 <p>
-                  Yes. You'll get a printable card to hand him on Father's Day.
+                  Father's Day is the nudge, not the gimmick. No discount, no
+                  gift card — just the moment to finally do the thing you've
+                  been putting off.
                 </p>
               </details>
             </section>
@@ -297,7 +307,7 @@ function LandingPreview() {
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
                 <a className="lp-cta" href={bookingUrl("footer-lastcall", "landing")}>
-                  Book his first visit
+                  Book your first visit
                 </a>
               </div>
               <div className="lp-foot-mark">
@@ -317,9 +327,9 @@ function LandingPreview() {
 // ============================================================
 
 const EMAIL_SUBJECTS = [
-  "The gift he won't buy himself",
-  "60 minutes. Same-day labs. One real plan.",
-  "For Dad: the one thing missing from his list",
+  "This Father's Day, the gift is showing up.",
+  "One hour for you. The dividend goes to them.",
+  "The thing you've been putting off — book it.",
 ];
 
 function EmailPreview() {
@@ -343,7 +353,7 @@ function EmailPreview() {
         </div>
         <div>
           <p className="fdc-card-kicker">Preheader</p>
-          <p>60 minutes with a physician. Same-day labs. Book his first visit by {OFFER_END}.</p>
+          <p>One hour for you. The dividend goes to them. Book your first visit by {OFFER_END}.</p>
         </div>
       </div>
 
@@ -385,21 +395,21 @@ const MMS_MESSAGES: MmsMsg[] = [
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Father's Day reminder. The best gift this month is the version of you that's rested, focused, and present. One hour. Book your first visit: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
-    label: "Send 2 · Offer",
+    label: "Send 2 · Mid",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Half the guys we see say the same thing — \"I should've done this sooner.\" One hour with a physician. Book your first visit before 6/30: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Final reminder — first-visit slots close 6/30. One hour for you. The dividend goes to your family. book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
@@ -408,7 +418,7 @@ const MMS_MESSAGES: MmsMsg[] = [
 // you can verify the redirect target preselects the right offer.
 const MMS_DESTINATIONS: Record<string, string> = {
   "Send 1 · Warm-up": bookingUrl("mms-warm", "mms"),
-  "Send 2 · Offer": bookingUrl("mms-offer", "mms"),
+  "Send 2 · Mid": bookingUrl("mms-mid", "mms"),
   "Send 3 · Last call": bookingUrl("mms-last", "mms"),
 };
 
@@ -492,9 +502,9 @@ function CarouselPreview() {
 
       <div className="fdc-carousel-grid">
         {[
-          { n: 1, photo: HERO_PHOTO, hero: "GIFTED." },
+          { n: 1, photo: HERO_PHOTO, hero: "SHOWING UP." },
           { n: 2, photo: PROOF_PHOTO, hero: "60 MINUTES." },
-          { n: 3, photo: STAKES_PHOTO, hero: "SHOW UP." },
+          { n: 3, photo: STAKES_PHOTO, hero: "THE CONSTANT." },
           { n: 4, photo: CLOSE_PHOTO, hero: "BOOK." },
         ].map((s) => (
           <figure key={s.n} className="fdc-thumb">
@@ -543,7 +553,7 @@ function emailPreviewHtml() {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Father's Day · MWC</title></head>
 <body style="margin:0;padding:0;background:${CREAM};font-family:Helvetica,Arial,sans-serif;color:${NAVY};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. Book his first visit by ${OFFER_END}.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">One hour for you. The dividend goes to them. Book your first visit by ${OFFER_END}.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${CREAM};">
   <tr><td align="center" style="padding:24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7e3dc;">
@@ -555,24 +565,25 @@ function emailPreviewHtml() {
       </td></tr>
       <tr><td style="padding:32px 28px 8px 28px;">
         <p style="margin:0 0 12px 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:${ORANGE};font-weight:700;">Father's Day · Book by ${OFFER_END}</p>
-        <h1 style="margin:0 0 16px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:40px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:${NAVY};">Give him the one gift he hasn't bought himself.</h1>
-        <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">He's checked every box on the list — except the one about his own health. A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers, not just guess.</p>
+        <h1 style="margin:0 0 16px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:40px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:${NAVY};">The gift is showing up.</h1>
+        <p style="margin:0 0 18px 0;font-size:17px;line-height:1.55;color:${NAVY};">This Father's Day, the most useful thing you'll do for your family is the thing you keep putting off for yourself.</p>
+        <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">One hour with a physician. Same-day labs. A real plan. So the version of you they see at dinner is rested, focused, and present — not running on fumes.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 28px 28px 28px;">
-        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book your first visit</a>
       </td></tr>
       <tr><td style="padding:8px 28px 28px 28px;border-top:1px solid #efece6;">
-        <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">What's in the first visit</h2>
+        <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">One hour. Three things they'll feel.</h2>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>60 minutes</strong> with a physician.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>A real plan</strong>: nutrition, training, sleep, hormones if indicated.</td></tr>
-          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Judgment-free</strong>, locally owned.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Energy</strong> — for the second half of the day, not just the first.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Focus</strong> — sharper at dinner, sharper at work, fewer things dropped.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>Presence</strong> — patience on the hard days, room for the small moments.</td></tr>
+          <tr><td style="padding:6px 0;font-size:15px;line-height:1.5;color:${NAVY};">• <strong>A real plan</strong> — physician-led, built on your numbers, judgment-free.</td></tr>
         </table>
       </td></tr>
       <tr><td style="padding:0 28px 32px 28px;">
-        <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">Be there for the trips, the milestones, the ordinary days. That starts with taking care of himself.</p>
-        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
+        <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">You are the constant in their lives. One hour is the smallest possible investment in keeping it that way. Window closes ${OFFER_END}.</p>
+        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book your first visit</a>
       </td></tr>
       <tr><td style="padding:24px 28px;background:${NAVY};color:${CREAM};">
         <img src="https://mwcbrand.lovable.app${WORDMARK_LIGHT}" alt="Men's Wellness Centers" height="26" style="height:26px;display:block;margin-bottom:10px;">
@@ -591,22 +602,22 @@ function emailPreviewHtml() {
 function landingHtml() {
   return `<!-- bookmwc.com/fathers-day · paste into your site builder -->
 <section class="fd-hero">
-  <h1>Give him the one gift he hasn't bought himself.</h1>
-  <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book his first visit</a>
+  <h1>The gift is showing up.</h1>
+  <p>One hour for you. The dividend goes to them. A 60-minute physician visit with same-day labs and a plan you can actually follow.</p>
+  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book your first visit</a>
 </section>
 <section class="fd-included">
-  <h2>What's in the first visit</h2>
+  <h2>One hour. Three things they'll feel.</h2>
   <ul>
-    <li><strong>60 minutes</strong> with a physician.</li>
-    <li><strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac.</li>
-    <li><strong>A real plan</strong>: nutrition, training, sleep, hormones if indicated.</li>
-    <li><strong>Judgment-free</strong>, locally owned.</li>
+    <li><strong>Energy</strong> — for the second half of the day, not just the first.</li>
+    <li><strong>Focus</strong> — sharper at dinner, sharper at work.</li>
+    <li><strong>Presence</strong> — patience on the hard days, room for the small ones.</li>
+    <li><strong>A real plan</strong> — physician-led, judgment-free.</li>
   </ul>
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book your first visit</a>
 </section>`;
 }
 
