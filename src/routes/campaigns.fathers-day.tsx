@@ -574,7 +574,7 @@ function landingHtml() {
 <section class="fd-hero">
   <h1>Give him the one gift he hasn't bought himself.</h1>
   <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book his first visit</a>
 </section>
 <section class="fd-included">
   <h2>What's in the first visit</h2>
