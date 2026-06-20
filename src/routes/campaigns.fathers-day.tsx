@@ -129,7 +129,7 @@ function FathersDayCampaign() {
             </div>
             <div>
               <dt>Primary CTA</dt>
-              <dd>Book his first visit</dd>
+              <dd>Book your first visit</dd>
             </div>
             <div>
               <dt>CTA destination</dt>
