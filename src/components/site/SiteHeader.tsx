@@ -23,6 +23,7 @@ const NAV: NavItem[] = [
     items: [
       { to: "/applications", label: "In the Wild" },
       { to: "/social", label: "Social Media" },
+      { to: "/social/fathers-day", label: "Father's Day Carousel" },
       { to: "/email-signature", label: "Email Signature" },
       { to: "/business-card", label: "Referral Card" },
       { to: "/lead-forms", label: "Lead Forms" },
