@@ -147,7 +147,7 @@ function SlideCard({ slide }: { slide: Slide }) {
           </div>
 
           <div className="fd-body">
-            <h1 className="fd-hero">{slide.hero}</h1>
+            <h1 className="fd-hero" style={slide.heroSize ? { fontSize: `${slide.heroSize}px` } : undefined}>{slide.hero}</h1>
             <p className="fd-intro">{slide.intro}</p>
           </div>
 
