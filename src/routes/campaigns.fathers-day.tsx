@@ -252,11 +252,11 @@ function LandingPreview() {
             <section className="lp-faq">
               <h2>Frequently asked</h2>
               <details open>
-                <summary>How does the {PROMO_CODE} code work?</summary>
+                <summary>What's included in his first visit?</summary>
                 <p>
-                  Enter <strong>{PROMO_CODE}</strong> at checkout for 10% off
-                  his first plan. Book by {OFFER_END}. Visit can be scheduled
-                  after.
+                  A 60-minute one-on-one with a physician, same-day labs, and
+                  a written plan he can act on. Book by {OFFER_END}; the visit
+                  can be scheduled after.
                 </p>
               </details>
               <details>
