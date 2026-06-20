@@ -520,11 +520,11 @@ const css = `
 .fd-top{position:absolute;top:0;left:0;right:0;height:120px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;z-index:3}
 .fd-wordmark{height:54px;width:auto;display:block}
 .fd-pill-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;letter-spacing:.24em;color:${NAVY};border:1.5px solid ${NAVY};padding:8px 18px;border-radius:999px;background:rgba(245,243,240,.72);backdrop-filter:blur(8px);white-space:nowrap;line-height:1}
-.fd-photo{position:absolute;top:120px;left:60px;right:60px;height:620px;overflow:hidden;border-radius:6px;background:#ddd}
+.fd-photo{position:absolute;top:120px;left:60px;right:60px;height:580px;overflow:hidden;border-radius:6px;background:#ddd}
 .fd-photo img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center}
-.fd-body{position:absolute;top:780px;left:60px;right:60px;display:flex;flex-direction:column;gap:24px}
-.fd-hero{font-family:'Oswald',sans-serif;font-weight:700;font-size:188px;line-height:.88;letter-spacing:0;text-transform:uppercase;color:${NAVY};margin:0}
-.fd-intro{font-family:'Montserrat',sans-serif;font-size:34px;line-height:1.32;color:${NAVY};max-width:930px;margin:0;font-weight:500}
+.fd-body{position:absolute;top:730px;left:60px;right:60px;bottom:200px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+.fd-hero{font-family:'Oswald',sans-serif;font-weight:700;font-size:158px;line-height:.86;letter-spacing:0;text-transform:uppercase;color:${NAVY};margin:0}
+.fd-intro{font-family:'Montserrat',sans-serif;font-size:30px;line-height:1.32;color:${NAVY};max-width:930px;margin:0;font-weight:500}
 .fd-strip{position:absolute;bottom:0;left:0;right:0;height:160px;background:${NAVY};color:${CREAM};display:flex;align-items:center;padding:0 60px;gap:28px}
 .fd-strip-mark{height:46px;width:auto;flex-shrink:0;opacity:.95}
 .fd-strip-text{font-family:'Oswald',sans-serif;font-weight:600;font-size:29px;letter-spacing:.14em;text-transform:uppercase;color:${CREAM};flex:1;line-height:1.1}
