@@ -497,7 +497,7 @@ function MiniSlide({ slide }: { slide: Slide }) {
         />
       </div>
       <div className="fd-body">
-        <h3 className="fd-hero">{slide.hero}</h3>
+        <h3 className="fd-hero" style={slide.heroSize ? { fontSize: `${slide.heroSize}px` } : undefined}>{slide.hero}</h3>
         <p className="fd-intro">{slide.intro}</p>
       </div>
       <footer className="fd-strip">
