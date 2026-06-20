@@ -519,7 +519,7 @@ const css = `
 @media(max-width:420px){.fd-stage{--fd-scale:0.26}}
 .fd-top{position:absolute;top:0;left:0;right:0;height:120px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;z-index:3}
 .fd-wordmark{height:54px;width:auto;display:block}
-.fd-pill-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;letter-spacing:.24em;color:${NAVY};border:1.5px solid ${NAVY};padding:8px 18px;border-radius:999px;background:rgba(245,243,240,.72);backdrop-filter:blur(8px)}
+.fd-pill-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;letter-spacing:.24em;color:${NAVY};border:1.5px solid ${NAVY};padding:8px 18px;border-radius:999px;background:rgba(245,243,240,.72);backdrop-filter:blur(8px);white-space:nowrap;line-height:1}
 .fd-photo{position:absolute;top:120px;left:60px;right:60px;height:620px;overflow:hidden;border-radius:6px;background:#ddd}
 .fd-photo img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center}
 .fd-body{position:absolute;top:780px;left:60px;right:60px;display:flex;flex-direction:column;gap:24px}
