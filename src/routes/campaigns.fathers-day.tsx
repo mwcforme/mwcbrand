@@ -294,7 +294,7 @@ function LandingPreview() {
               <div className="lp-foot-cta">
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
-                <a className="lp-cta" href={BOOKING_URL}>
+                <a className="lp-cta" href={bookingUrl("footer-lastcall", "landing")}>
                   Book his first visit
                 </a>
               </div>
