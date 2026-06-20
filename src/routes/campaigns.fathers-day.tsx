@@ -305,7 +305,6 @@ const EMAIL_SUBJECTS = [
 ];
 
 function EmailPreview() {
-  const html = useMemo(emailHtml, []);
   return (
     <div className="fdc-card">
       <div className="fdc-card-head">
@@ -317,7 +316,6 @@ function EmailPreview() {
             Gmail, Apple Mail, and Outlook (table layout, inline styles).
           </p>
         </div>
-        <CopyButton text={html} label="Copy HTML" />
       </div>
 
       <div className="fdc-email-meta">
@@ -343,7 +341,7 @@ function EmailPreview() {
       <div className="fdc-email-frame">
         <iframe
           title="Father's Day email preview"
-          srcDoc={html}
+          srcDoc={emailPreviewHtml()}
           style={{ width: "100%", height: 1100, border: 0, display: "block" }}
         />
       </div>
