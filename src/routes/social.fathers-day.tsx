@@ -44,8 +44,8 @@ const SLIDES: Slide[] = [
     strip: "THIS FATHER'S DAY, GIVE HIM ANSWERS.",
     photo: slide1Asset.url,
     alt: "Couple smiling on the beach at golden hour",
-    photoPosition: "62% center",
-    photoScale: 1.18,
+    photoPosition: "62% 40%",
+    photoScale: 1.05,
     job: "Hook · reframe instantly. This is a gift idea first.",
   },
   {
@@ -66,9 +66,9 @@ const SLIDES: Slide[] = [
     intro: "Be there for the moments that matter. The trips, the milestones, the ordinary days. That starts with taking care of himself.",
     strip: "LOCALLY OWNED. JUDGMENT-FREE.",
     photo: slide3Asset.url,
-    alt: "Couple relaxing together outdoors",
-    photoPosition: "52% 34%",
-    photoScale: 1.26,
+    alt: "Couple relaxing together on a rooftop patio",
+    photoPosition: "55% 42%",
+    photoScale: 1.1,
     job: "Stakes · emotional payoff, the real reason to book.",
   },
   {
