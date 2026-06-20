@@ -45,7 +45,24 @@ const STAKES_PHOTO = slide3Asset.url;
 const CLOSE_PHOTO = slide4Asset.url;
 
 const OFFER_END = "June 30";
-const BOOKING_URL = "https://bookmwc.com";
+const BOOKING_BASE = "https://bookmwc.com/book";
+const OFFER_ID = "fathers-day-2026";
+
+// Single source of truth for every CTA: same destination + preselected offer,
+// only the per-CTA placement/content tag changes.
+function bookingUrl(content: string, source: "landing" | "email" | "mms" | "social" | "hub" = "hub") {
+  const params = new URLSearchParams({
+    offer: OFFER_ID,
+    plan: "first-visit",
+    utm_source: source,
+    utm_medium: source === "email" ? "email" : source === "mms" ? "sms" : "web",
+    utm_campaign: OFFER_ID,
+    utm_content: content,
+  });
+  return `${BOOKING_BASE}?${params.toString()}`;
+}
+
+const BOOKING_URL = bookingUrl("default", "hub");
 
 // ----- Channels -----
 
@@ -75,7 +92,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK HIS FIRST VISIT at bookmwc.com.",
+    body: "One CTA on every asset: BOOK HIS FIRST VISIT, deep-linked to the booking page with the Father's Day first-visit offer preselected.",
   },
 ];
 
@@ -114,11 +131,15 @@ function FathersDayCampaign() {
             </div>
             <div>
               <dt>Primary CTA</dt>
-              <dd>Book at bookmwc.com</dd>
+              <dd>Book his first visit</dd>
             </div>
             <div>
-              <dt>Audience</dt>
-              <dd>Gift-givers · partners, adult kids</dd>
+              <dt>CTA destination</dt>
+              <dd style={{ fontFamily: "ui-monospace,monospace", fontSize: 12, letterSpacing: 0, textTransform: "none" }}>
+                <a href={BOOKING_URL} target="_blank" rel="noreferrer" style={{ color: NAVY }}>
+                  {BOOKING_BASE}?offer={OFFER_ID}
+                </a>
+              </dd>
             </div>
           </dl>
         </div>
@@ -188,7 +209,7 @@ function LandingPreview() {
           <div className="fdc-landing">
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
-              <a className="lp-nav-cta" href={BOOKING_URL}>
+              <a className="lp-nav-cta" href={bookingUrl("nav", "landing")}>
                 Book his first visit
               </a>
             </header>
@@ -208,7 +229,7 @@ function LandingPreview() {
                   finally know his numbers — not just guess.
                 </p>
                 <div className="lp-cta-row">
-                  <a className="lp-cta" href={BOOKING_URL}>
+                  <a className="lp-cta" href={bookingUrl("hero", "landing")}>
                     Book his first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
@@ -277,7 +298,7 @@ function LandingPreview() {
               <div className="lp-foot-cta">
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
-                <a className="lp-cta" href={BOOKING_URL}>
+                <a className="lp-cta" href={bookingUrl("footer-lastcall", "landing")}>
                   Book his first visit
                 </a>
               </div>
@@ -359,29 +380,39 @@ type MmsMsg = {
   media: string;
 };
 
+// Short links route through the booking page with the offer preselected.
+// In production these are CNAMEd to bookmwc.com/go/<slug> -> bookingUrl(...).
 const MMS_MESSAGES: MmsMsg[] = [
   {
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: bookmwc.com Reply STOP to opt out.",
+      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: bookmwc.com/go/dad-warm Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
     label: "Send 2 · Offer",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: bookmwc.com Reply STOP to opt out.",
+      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: bookmwc.com/go/dad-offer Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: bookmwc.com Reply STOP to opt out.",
+      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: bookmwc.com/go/dad-last Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
+
+// Resolved destinations for the MMS short links — shown under each bubble so
+// you can verify the redirect target preselects the right offer.
+const MMS_DESTINATIONS: Record<string, string> = {
+  "Send 1 · Warm-up": bookingUrl("mms-warm", "mms"),
+  "Send 2 · Offer": bookingUrl("mms-offer", "mms"),
+  "Send 3 · Last call": bookingUrl("mms-last", "mms"),
+};
 
 function MmsPreview() {
   return (
@@ -389,11 +420,11 @@ function MmsPreview() {
       <div className="fdc-card-head">
         <div>
           <p className="fdc-card-kicker">MMS · 3-send sequence</p>
-          <h2>Father's Day promo · SMS list</h2>
+          <h2>Father's Day · SMS list</h2>
           <p className="fdc-card-sub">
-            Each send: branded prefix (MWC), one idea, the offer, the URL, and
-            STOP language. Character counts are visible so you stay under the
-            160-char single-segment limit where possible.
+            Each send: branded prefix (MWC), one idea, a tracked short link, and
+            STOP language. Every short link resolves to the same booking page
+            with the Father's Day first-visit offer preselected.
           </p>
         </div>
       </div>
@@ -419,6 +450,13 @@ function MmsPreview() {
                   </div>
                 </div>
               </div>
+
+              <p className="fdc-mms-dest">
+                Resolves to:{" "}
+                <a href={MMS_DESTINATIONS[m.label]} target="_blank" rel="noreferrer">
+                  {MMS_DESTINATIONS[m.label]}
+                </a>
+              </p>
 
               <footer className="fdc-mms-foot">
                 <span>{chars} chars</span>
@@ -523,7 +561,7 @@ function emailPreviewHtml() {
         <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">He's checked every box on the list — except the one about his own health. A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers, not just guess.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 28px 28px 28px;">
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=hero" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:8px 28px 28px 28px;border-top:1px solid #efece6;">
         <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">What's in the first visit</h2>
@@ -536,7 +574,7 @@ function emailPreviewHtml() {
       </td></tr>
       <tr><td style="padding:0 28px 32px 28px;">
         <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">Be there for the trips, the milestones, the ordinary days. That starts with taking care of himself.</p>
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=secondary" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:24px 28px;background:${NAVY};color:${CREAM};">
         <img src="https://mwcbrand.lovable.app${WORDMARK_LIGHT}" alt="Men's Wellness Centers" height="26" style="height:26px;display:block;margin-bottom:10px;">
@@ -557,7 +595,7 @@ function landingHtml() {
 <section class="fd-hero">
   <h1>Give him the one gift he hasn't bought himself.</h1>
   <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book his first visit</a>
 </section>
 <section class="fd-included">
   <h2>What's in the first visit</h2>
@@ -570,7 +608,7 @@ function landingHtml() {
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book his first visit</a>
 </section>`;
 }
 
@@ -684,6 +722,8 @@ const css = `
 .fdc-bubble img{width:100%;height:140px;object-fit:cover;display:block;}
 .fdc-bubble p{margin:0;padding:10px 12px;font-size:13px;line-height:1.4;color:#fff;}
 .fdc-mms-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:${INK_SOFT};font-family:ui-monospace,monospace;}
+.fdc-mms-dest{margin:0;font-size:11px;font-family:ui-monospace,monospace;color:${INK_SOFT};word-break:break-all;}
+.fdc-mms-dest a{color:${NAVY};text-decoration:underline;}
 
 /* Carousel */
 .fdc-carousel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
