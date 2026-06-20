@@ -41,74 +41,62 @@ const VARIANTS: Variant[] = [
   {
     id: "still-on-the-table",
     bg: "navy",
-    eyebrow: "A note from your local clinic",
-    hero: "STILL ON\nTHE TABLE.",
-    body:
-      "Your first visit at Men's Wellness Centers is 30% off when you book this month. One hour. Same-day labs. A plan from a physician.",
-    cta: "Claim 30% off",
-    fineprint:
-      "New members only. Offer ends this month. Reply STOP to opt out.",
-    job: "Validation reopen. Quiet, no urgency theatrics.",
+    eyebrow: "Your spot's still open",
+    hero: "30% OFF\nFIRST VISIT",
+    body: "Book this month.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Quiet reopen.",
   },
   {
     id: "one-hour-then",
     bg: "cream",
-    eyebrow: "30% off your first visit",
-    hero: "ONE HOUR.\nTHEN A PLAN.",
-    body:
-      "Sit down with a physician. Same-day labs. Walk out with a plan built around your numbers. 30% off when you book before the month closes.",
-    cta: "Claim your visit",
-    fineprint:
-      "New members only. Many men report results vary. Reply STOP to opt out.",
-    job: "Offer + process. Leads with the differentiator.",
+    eyebrow: "One hour. One plan.",
+    hero: "30% OFF",
+    body: "Physician + same-day labs.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Process + offer.",
   },
   {
     id: "labs-are-fine",
     bg: "navy",
-    eyebrow: "From Men's Wellness Centers",
-    hero: "LABS SAID\n\u201CFINE.\u201D",
-    body:
-      "You knew they weren't. Come sit down with a physician who actually reads them. 30% off your first 60-minute visit, this month only.",
-    cta: "Claim 30% off",
-    fineprint:
-      "New members only. Individual results may vary. Reply STOP to opt out.",
-    job: "Validation flip. Speaks to the dismissed man.",
+    eyebrow: "Labs said \u201Cfine.\u201D",
+    hero: "YOU KNEW\nTHEY WEREN'T.",
+    body: "30% off your first visit.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Validation flip.",
   },
   {
     id: "no-runaround",
     bg: "orange",
-    eyebrow: "30% off your first visit",
-    hero: "NO REFERRAL.\nNO WAITING.",
-    body:
-      "No callbacks. No surprise bills. One physician. One hour. Same-day labs. 30% off when you book this month.",
-    cta: "Claim it",
-    fineprint:
-      "New members only. Offer ends this month. Reply STOP to opt out.",
-    job: "The 'no' stack. Punchiest, brightest unit.",
+    eyebrow: "No referral. No wait.",
+    hero: "30% OFF\nBOOK TODAY",
+    body: "One physician. One hour.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Punchy bright unit.",
   },
   {
     id: "three-problems",
     bg: "cream",
-    eyebrow: "Low T. ED. Weight.",
-    hero: "THREE\nPROBLEMS.\nONE CLINIC.",
-    body:
-      "Physician-led care for men's hormone health, sexual health, and metabolic health. 30% off your first 60-minute visit, this month only.",
-    cta: "Claim 30% off",
-    fineprint:
-      "New members only. Care decisions made with your physician. Reply STOP to opt out.",
-    job: "Category umbrella. Use for broad re-engagement list.",
+    eyebrow: "Low T · ED · Weight",
+    hero: "30% OFF\nFIRST VISIT",
+    body: "Physician-led men's care.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Category umbrella.",
   },
   {
     id: "window-closes",
     bg: "navy",
     eyebrow: "Last call this month",
-    hero: "30% OFF.\nONE HOUR.\nONE VISIT.",
-    body:
-      "Book your first visit at your local Men's Wellness Centers before the month closes and take 30% off. Physician-led. Same-day labs. Honest pricing.",
-    cta: "Claim 30% off",
-    fineprint:
-      "New members only. Offer ends 11:59pm last day of month. Reply STOP to opt out.",
-    job: "Close. Use as the final send in the sequence.",
+    hero: "30% OFF\nENDS SOON",
+    body: "Book before month's end.",
+    cta: "BookMWC.com",
+    fineprint: "New members. Reply STOP to opt out.",
+    job: "Final send.",
   },
 ];
 
@@ -173,7 +161,7 @@ function VariantCard({ v }: { v: Variant }) {
 
           <footer className="mms-foot">
             <div className="mms-cta-pill" style={{ background: accent, color: isOrange ? CREAM : NAVY }}>
-              {v.cta} · BookMWC.com
+              {v.cta}
             </div>
             <p className="mms-fine" style={{ color: isNavy ? "#8a8b95" : isOrange ? "#3b1a07" : "#7a7d8c" }}>
               {v.fineprint}
@@ -318,47 +306,48 @@ const css = `
 }
 
 .mms-top { display:flex; align-items:center; justify-content:flex-start; }
-.mms-wordmark { height: 60px; width: auto; opacity: .95; }
+.mms-wordmark { height: 72px; width: auto; opacity: .95; }
 
-.mms-body { flex: 1; display:flex; flex-direction:column; justify-content:center; padding: 32px 0; }
+.mms-body { flex: 1; display:flex; flex-direction:column; justify-content:center; padding: 32px 0; gap: 36px; }
 .mms-eyebrow {
   font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-size: 34px;
   font-weight: 700;
-  letter-spacing: .22em;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  margin-bottom: 28px;
+  margin: 0;
 }
 .mms-hero {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 132px;
-  line-height: 0.94;
+  font-size: 220px;
+  line-height: 0.92;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   white-space: pre-line;
-  margin: 0 0 36px 0;
+  margin: 0;
 }
 .mms-copy {
-  font-size: 28px;
-  line-height: 1.45;
+  font-size: 44px;
+  line-height: 1.35;
+  font-weight: 500;
   max-width: 880px;
   margin: 0;
 }
 
-.mms-foot { display:flex; flex-direction:column; gap: 22px; }
+.mms-foot { display:flex; flex-direction:column; gap: 28px; }
 .mms-cta-pill {
   align-self: flex-start;
-  padding: 22px 36px;
+  padding: 28px 52px;
   border-radius: 999px;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 30px;
-  letter-spacing: .06em;
+  font-size: 48px;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 .mms-fine {
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.4;
   margin: 0;
   max-width: 880px;
