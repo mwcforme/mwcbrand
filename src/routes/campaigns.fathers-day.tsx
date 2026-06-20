@@ -75,7 +75,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK NOW at bookmwc.com.",
+    body: "One CTA, repeated everywhere: BOOK HIS FIRST VISIT at bookmwc.com.",
   },
 ];
 
@@ -189,7 +189,7 @@ function LandingPreview() {
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
               <a className="lp-nav-cta" href={BOOKING_URL}>
-                Book now
+                Book his first visit
               </a>
             </header>
 
@@ -507,7 +507,7 @@ function emailPreviewHtml() {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Father's Day · MWC</title></head>
 <body style="margin:0;padding:0;background:${CREAM};font-family:Helvetica,Arial,sans-serif;color:${NAVY};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. 10% off through ${OFFER_END}.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. Book his first visit by ${OFFER_END}.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${CREAM};">
   <tr><td align="center" style="padding:24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7e3dc;">
@@ -536,7 +536,7 @@ function emailPreviewHtml() {
       </td></tr>
       <tr><td style="padding:0 28px 32px 28px;">
         <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">Be there for the trips, the milestones, the ordinary days. That starts with taking care of himself.</p>
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=secondary" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book now</a>
+        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=secondary" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:24px 28px;background:${NAVY};color:${CREAM};">
         <img src="https://mwcbrand.lovable.app${WORDMARK_LIGHT}" alt="Men's Wellness Centers" height="26" style="height:26px;display:block;margin-bottom:10px;">
