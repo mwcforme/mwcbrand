@@ -94,7 +94,7 @@ const SLIDES: Slide[] = [
   {
     n: 3,
     hero: "THE CONSTANT.",
-    intro: "Energy. Focus. Presence. The things your family actually feels — at dinner, on the trip, on the ordinary Tuesday.",
+    intro: "Energy. Focus. Presence. The things your family actually feels, at dinner, on the trip, on the ordinary Tuesday.",
     strip: "LOCALLY OWNED. JUDGMENT-FREE.",
     photo: slide3Asset.url,
     alt: "Father present with the people who matter",
@@ -220,7 +220,7 @@ function FathersDayCarousel() {
             }}
           >
             Reframed: not a gift you buy for him, but the gift he gives himself
-            — one hour to recalibrate, so he can keep showing up for his family.
+           , one hour to recalibrate, so he can keep showing up for his family.
           </p>
           <div style={{ marginTop: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <button
