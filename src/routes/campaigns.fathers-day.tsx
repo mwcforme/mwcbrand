@@ -225,7 +225,7 @@ function LandingPreview() {
                   finally know his numbers — not just guess.
                 </p>
                 <div className="lp-cta-row">
-                  <a className="lp-cta" href={BOOKING_URL}>
+                  <a className="lp-cta" href={bookingUrl("hero", "landing")}>
                     Book his first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
