@@ -418,7 +418,7 @@ const MMS_MESSAGES: MmsMsg[] = [
 // you can verify the redirect target preselects the right offer.
 const MMS_DESTINATIONS: Record<string, string> = {
   "Send 1 · Warm-up": bookingUrl("mms-warm", "mms"),
-  "Send 2 · Offer": bookingUrl("mms-offer", "mms"),
+  "Send 2 · Mid": bookingUrl("mms-mid", "mms"),
   "Send 3 · Last call": bookingUrl("mms-last", "mms"),
 };
 
