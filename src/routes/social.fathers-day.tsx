@@ -64,6 +64,7 @@ type Slide = {
   alt: string;
   photoPosition?: string;
   photoScale?: number;
+  heroSize?: number;
   job: string;
 };
 
