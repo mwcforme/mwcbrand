@@ -540,7 +540,7 @@ function emailPreviewHtml() {
         <p style="margin:0 0 24px 0;font-size:17px;line-height:1.55;color:${NAVY};">He's checked every box on the list — except the one about his own health. A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers, not just guess.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 28px 28px 28px;">
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=hero" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-hero", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:15px;padding:18px 28px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:8px 28px 28px 28px;border-top:1px solid #efece6;">
         <h2 style="margin:24px 0 12px 0;font-family:'Oswald',Helvetica,Arial,sans-serif;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:${NAVY};">What's in the first visit</h2>
