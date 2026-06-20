@@ -587,7 +587,7 @@ function landingHtml() {
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${BOOKING_URL}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book his first visit</a>
 </section>`;
 }
 
