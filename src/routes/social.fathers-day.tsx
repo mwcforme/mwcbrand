@@ -213,10 +213,10 @@ function FathersDayCarousel() {
 }
 
 const css = `
-.fd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:48px}
-.fd-stage{display:flex;flex-direction:column;align-items:center;gap:14px;width:calc(1080px * var(--fd-scale, 0.45));}
-.fd-stage::before{content:"";display:block;width:1px;height:calc(1350px * var(--fd-scale, 0.45));margin-bottom:-14px}
-.fd-frame{width:1080px;height:1350px;background:${CREAM};color:${NAVY};position:relative;display:flex;flex-direction:column;transform-origin:top left;transform:scale(var(--fd-scale, 0.45));box-shadow:0 24px 60px rgba(11,16,41,.18),0 2px 0 rgba(11,16,41,.06);overflow:hidden;font-family:'Montserrat',system-ui,sans-serif}
+.fd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:48px;align-items:start}
+.fd-stage{display:flex;flex-direction:column;align-items:center;gap:14px}
+.fd-preview{width:calc(1080px * var(--fd-scale, 0.45));height:calc(1350px * var(--fd-scale, 0.45));position:relative;overflow:hidden}
+.fd-frame{width:1080px;height:1350px;background:${CREAM};color:${NAVY};position:absolute;top:0;left:0;display:flex;flex-direction:column;transform-origin:top left;transform:scale(var(--fd-scale, 0.45));box-shadow:0 24px 60px rgba(11,16,41,.18),0 2px 0 rgba(11,16,41,.06);overflow:hidden;font-family:'Montserrat',system-ui,sans-serif}
 @media(min-width:1280px){.fd-stage{--fd-scale:0.5}}
 @media(max-width:900px){.fd-stage{--fd-scale:0.42}}
 @media(max-width:640px){.fd-stage{--fd-scale:0.32}}
