@@ -208,27 +208,29 @@ function LandingPreview() {
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
               <a className="lp-nav-cta" href={bookingUrl("nav", "landing")}>
-                Book his first visit
+                Book your first visit
               </a>
             </header>
 
             <section className="lp-hero">
               <div className="lp-hero-photo">
-                <img src={HERO_PHOTO} alt="Couple smiling on the beach" />
+                <img src={HERO_PHOTO} alt="Father with his family at golden hour" />
               </div>
               <div className="lp-hero-copy">
                 <p className="lp-eyebrow">Father's Day · Book by {OFFER_END}</p>
                 <h1>
-                  Give him the one gift<br />
-                  he hasn't bought himself.
+                  The gift is<br />
+                  showing up.
                 </h1>
                 <p className="lp-sub">
-                  A 60-minute visit with a physician. Same-day labs. He'll
-                  finally know his numbers — not just guess.
+                  One hour for you. The dividend goes to them. A 60-minute
+                  visit with a physician — same-day labs, real answers,
+                  a plan you can actually follow. So the version of you they
+                  see at dinner is the one you want them to remember.
                 </p>
                 <div className="lp-cta-row">
                   <a className="lp-cta" href={bookingUrl("hero", "landing")}>
-                    Book his first visit
+                    Book your first visit
                   </a>
                   <span className="lp-cta-meta">No insurance hoops · Locally owned</span>
                 </div>
@@ -236,19 +238,23 @@ function LandingPreview() {
             </section>
 
             <section className="lp-included">
-              <h2>What's included in the first visit</h2>
+              <h2>One hour. Three things they'll feel.</h2>
               <ul>
                 <li>
-                  <strong>60 minutes</strong> one-on-one with a physician — no rushed door-knock.
+                  <strong>Energy</strong> — for the Saturday morning, the late
+                  meeting, the second half of the day.
                 </li>
                 <li>
-                  <strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac markers.
+                  <strong>Focus</strong> — sharper at dinner, sharper at work,
+                  fewer things falling through the cracks.
                 </li>
                 <li>
-                  <strong>A real plan</strong>: nutrition, training, sleep, hormone optimization if indicated.
+                  <strong>Presence</strong> — patience on the hard days, room
+                  for the small moments that actually count.
                 </li>
                 <li>
-                  <strong>Judgment-free</strong>: locally owned, built for men who put themselves last.
+                  <strong>A real plan</strong> — physician-led, built on your
+                  numbers, judgment-free.
                 </li>
               </ul>
             </section>
@@ -256,38 +262,42 @@ function LandingPreview() {
             <section className="lp-stakes">
               <div className="lp-stakes-copy">
                 <p className="lp-eyebrow">Why now</p>
-                <h2>Show up for the moments that matter.</h2>
+                <h2>You are the constant. Act like it.</h2>
                 <p>
-                  The trips, the milestones, the ordinary Tuesdays. The men who
-                  are still standing at 70 didn't get lucky. They paid attention
-                  early.
+                  Your family doesn't need another gadget. They need the
+                  rested, focused, present version of you — at the dinner
+                  table, on the trip, on the ordinary Tuesday. That starts
+                  with one hour you keep putting off.
                 </p>
               </div>
               <div className="lp-stakes-photo">
-                <img src={STAKES_PHOTO} alt="Couple relaxing on a rooftop" />
+                <img src={STAKES_PHOTO} alt="Father present with the people who matter" />
               </div>
             </section>
 
             <section className="lp-faq">
               <h2>Frequently asked</h2>
               <details open>
-                <summary>What's included in his first visit?</summary>
+                <summary>What's included in the first visit?</summary>
                 <p>
                   A 60-minute one-on-one with a physician, same-day labs, and
-                  a written plan he can act on. Book by {OFFER_END}; the visit
-                  can be scheduled after.
+                  a written plan you can act on. Book by {OFFER_END}; the
+                  visit itself can be scheduled after.
                 </p>
               </details>
               <details>
-                <summary>Do I need to know which plan he wants?</summary>
+                <summary>Do I need to know which plan I want?</summary>
                 <p>
-                  No. Buy the consult — the physician builds his plan with him.
+                  No. Book the consult — the physician builds your plan with
+                  you, based on what your labs actually say.
                 </p>
               </details>
               <details>
-                <summary>Can I buy this as a surprise?</summary>
+                <summary>Is this a Father's Day promotion?</summary>
                 <p>
-                  Yes. You'll get a printable card to hand him on Father's Day.
+                  Father's Day is the nudge, not the gimmick. No discount, no
+                  gift card — just the moment to finally do the thing you've
+                  been putting off.
                 </p>
               </details>
             </section>
@@ -297,7 +307,7 @@ function LandingPreview() {
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
                 <a className="lp-cta" href={bookingUrl("footer-lastcall", "landing")}>
-                  Book his first visit
+                  Book your first visit
                 </a>
               </div>
               <div className="lp-foot-mark">
