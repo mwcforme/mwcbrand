@@ -447,6 +447,13 @@ function MmsPreview() {
                 </div>
               </div>
 
+              <p className="fdc-mms-dest">
+                Resolves to:{" "}
+                <a href={MMS_DESTINATIONS[m.label]} target="_blank" rel="noreferrer">
+                  {MMS_DESTINATIONS[m.label]}
+                </a>
+              </p>
+
               <footer className="fdc-mms-foot">
                 <span>{chars} chars</span>
                 <span>{segments} segment{segments > 1 ? "s" : ""}</span>
