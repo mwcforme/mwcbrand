@@ -49,7 +49,9 @@ for (const d of [baselineDir, currentDir, diffDir]) {
 console.log(`→ Target: ${TARGET_URL}`);
 console.log(`→ Mode:   ${isBaseline ? "WRITE BASELINES" : "DIFF vs baselines"}`);
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({
+  args: ["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu"],
+});
 const ctx = await browser.newContext({
   viewport: { width: 1400, height: 1400 },
   deviceScaleFactor: 1,
