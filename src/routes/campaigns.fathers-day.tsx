@@ -92,7 +92,7 @@ const PILLARS = [
   },
   {
     label: "Close",
-    body: "One CTA, repeated everywhere: BOOK HIS FIRST VISIT at bookmwc.com.",
+    body: "One CTA on every asset: BOOK HIS FIRST VISIT, deep-linked to the booking page with the Father's Day first-visit offer preselected.",
   },
 ];
 
