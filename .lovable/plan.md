@@ -1,110 +1,60 @@
-## Goal
 
-Add a `/business-card` page to the MWC brand site: an interactive editor that
-generates a US 3.5×2 in landscape card with a QR code on **both** sides, plus
-a print-ready PDF export. Same pattern and chrome as `/email-signature`.
+# Reframe: "The Gift He Gives Himself"
 
-## Route
+You're right — there's no realistic gifting mechanic here (no card, no surprise booking for someone else). Trying to position this as a gift *to* dad creates friction. The honest, stronger frame is:
 
-```
-src/routes/business-card.tsx          // createFileRoute("/business-card") + head() meta
-src/components/site/BusinessCardBuilder.tsx
-```
+> **A gift he gives himself — so he can keep showing up for the people who count on him.**
 
-Add **Business Card** to `SiteHeader` nav next to Email Signature.
+This keeps Father's Day as the emotional trigger but puts the decision (and the booking) in his hands, where it actually lives. It also elevates the brand: this isn't a discount holiday play, it's a moment of permission to invest in himself *because* of his family, not instead of them.
 
-## Card spec
+## Core message architecture
 
-- Trim: 3.5 × 2 in landscape (1050 × 600 px @ 300 DPI)
-- Bleed: 0.125 in on all sides → 3.75 × 2.25 in (1125 × 675 px) full-bleed art
-- Safe area: 0.125 in inside trim
-- Crop marks: 0.125 in tick marks at each corner outside bleed
-- Color: brand tokens — Midnight Navy `#0B1029`, Cream `#F5F3F0`, Accent Orange `#E8670A`
-- Type: Oswald (display) + Montserrat (body), already loaded by `__root.tsx`
+- **Headline frame:** "The gift is showing up." / "Give yourself the hour. Give them the better version of you."
+- **Emotional logic:** Dads are the constant. Energy, focus, presence, drive — those aren't vanity, they're how he provides. One hour to recalibrate is the most useful thing he'll do this month.
+- **Father's Day hook:** Not "treat dad" — "this Father's Day, do the thing you've been putting off." The deadline (June 30) is a nudge, not a sale.
+- **CTA voice:** "Book his first visit" → **"Book your first visit"** everywhere. Second person. He's the buyer, the recipient, and the beneficiary.
 
-## Layout
+## What changes, file by file
 
-**Front — brand-forward**
-- Background: Midnight Navy, full-bleed
-- Logo lockup (Cream wordmark on transparent) — centered upper third
-- Tagline below, small caps Cream/Orange: "Find Your Edge Over Age."
-- QR (front destination) bottom-right, ~0.65 in square, on a Cream tile so it scans on dark bg
-- Thin Orange rule along bottom edge
+### `src/routes/campaigns.fathers-day.tsx` (landing + emails + MMS)
 
-**Back — info-dense**
-- Background: Cream
-- Left column: Name (Oswald 18pt), credentials, Title (Orange caps), Center line
-- Divider (1 px hairline, `#D4D2CE`)
-- Contact rows: Direct, Center, Email, Web (same labels as email signature)
-- Right column: QR (back destination), ~0.85 in square, with a 9pt caption underneath ("Scan to book" / "Scan to connect" depending on destination)
-- 2 px Orange vertical rule between columns
+**Landing page**
+- Hero: replace any "gift him / treat dad" language with self-directed framing. New H1 candidate: *"The best thing you'll do for them this month takes one hour."* Subhead names the Father's Day moment without making it transactional.
+- Value section: reframe the three pillars around **Energy / Focus / Presence** — the things his family actually feels — rather than clinical benefits.
+- Testimonial / proof block: lean on dad-voice quotes ("I'm sharper at dinner," "I have patience again on Saturday mornings").
+- Remove any remaining gift-card, "surprise him," or "treat" language.
+- Keep the booking flow + UTM helper exactly as-is.
 
-Same brand visual language as the email signature so the two artifacts feel like siblings.
+**Email (single send, no sequence change)**
+- Subject: *"This Father's Day, the gift is showing up."*
+- Preheader: *"One hour for you. The dividend goes to them."*
+- Body: 3 short paragraphs — the frame, what the visit is, why now (June 30). Single CTA: **Book your first visit.**
+- No codes, no HTML flourish (per your earlier rule). Plain, branded, human.
 
-## Form fields (left column of the editor, sticky)
+**MMS (3-touch)**
+- Warm: *"Father's Day reminder from MWC — the best gift this month is the version of you that's rested, focused, and present. One hour. Book your first visit: [link]"*
+- Mid: *"Half the guys we see say the same thing — 'I should've done this sooner.' Father's Day is the nudge. Book your first visit before 6/30: [link]"*
+- Last call: *"Final reminder — slots for first visits close 6/30. One hour for you, dividend goes to your family. [link]"*
+- Keep the resolved destination labels and bookingUrl helper.
 
-Identity: First name, Last name, Credentials, Title, Primary center, Direct phone (toggle include), Center phone, Email.
+**Campaign hub meta**
+- Update the positioning line at the top to: *"Frame: a gift he gives himself, so he can keep showing up for his family."*
+- Audience: *"Dads, 32–55, primary providers / present fathers."*
 
-QR section per side (Front QR + Back QR each independently):
-- Destination type radio: **Booking URL**, **Personal profile URL**, **Referral URL** (default `https://go.menswellnesscenters.com/refer`), **Custom URL**, **vCard (contact info)**
-- For URL types: pre-filled value, editable
-- For vCard: auto-built from identity fields (FN, TITLE, ORG=Men's Wellness Centers, TEL, EMAIL, URL)
-- Caption text (auto-suggested per type, editable: "Scan to book", "Scan to connect", "Save contact")
-- Defaults: Front = Personal profile URL, Back = Booking URL (matches the user's intent — booking + profile, with same-QR-on-both as a 1-click toggle).
+### `src/routes/social.fathers-day.tsx` (4-slide carousel)
 
-A "Use the same QR on both sides" toggle copies front → back.
+- **Slide 1 (cover):** *"The gift is showing up."* — small kicker: *Father's Day at MWC.*
+- **Slide 2:** *"60 minutes for you. The dividend goes to them."* (keeps the type fix we just made.)
+- **Slide 3:** Three short lines — *Energy. Focus. Presence.* — with one-line explainers tying each back to family life.
+- **Slide 4 (CTA):** *"Book your first visit before June 30."* — footer strip stays `BOOK.MENSWELLNESSCENTERS.COM`.
+- No discount language, no "treat dad," no gift-card references on any slide.
 
-Reset to example button.
+## Out of scope (intentionally)
 
-## Live preview (right column)
+- No new routes, no new components, no design-system changes.
+- Booking URL, UTM scheme, and offer ID stay as they are.
+- Type scale / layout work on the carousel from the prior turn is preserved.
 
-- Both sides rendered side by side as HTML/CSS at exact aspect ratio, scaled to fit (using brand tokens, not the print colorspace — purely visual proof).
-- Safe area + bleed shown as toggleable dashed overlays so the user can see what will trim.
-- QR rendered live as SVG via `qrcode` npm package.
+## Open question before I build
 
-## Actions
-
-- **Download Print-Ready PDF** — generates a 2-page PDF (front, back) at 3.75 × 2.25 in with bleed + crop marks. Filename `mwc-card-{first}-{last}.pdf`.
-- **Download PNG (front + back)** — 300 DPI, no bleed (proof images).
-- **Copy vCard** — copies the vCard text to clipboard (useful even without scanning).
-
-Status messages inline (same pattern as Email Signature page).
-
-## Install / usage section (bottom)
-
-3-card explainer: "Print at any printer", "Order through Moo/Vistaprint", "Share digitally" — short copy, brand-styled cards.
-
-## Technical notes
-
-- `bun add qrcode pdf-lib` — both are pure JS, edge-safe, no Node-only deps.
-- QR rendered with `qrcode.toString(value, { type: 'svg', margin: 0, color: { dark, light } })`.
-- PDF built with `pdf-lib`:
-  - Page size in points: `3.75 in × 2.25 in` = `270 × 162 pt`
-  - Embed the Cream wordmark PNG once (fetch from existing asset map URL) for the front
-  - Draw the QRs as PNG bitmaps from `qrcode.toDataURL(... { width: 600 })` so quality is print-grade
-  - Embed Helvetica as a fallback for type (Oswald/Montserrat aren't bundled; the PDF will use Helvetica weights — acceptable for a v1; we can upgrade to embedded brand fonts later if you want exact type)
-  - Draw crop marks as 0.125 in lines at corners
-- All work client-side; no backend needed.
-
-## Out of scope
-
-- Embedding Oswald/Montserrat as TTFs in the PDF (Helvetica fallback for v1)
-- Multi-employee batch export
-- CMYK output (PDF is RGB; most printers accept it for digital print runs — note this in the UI)
-
-## What you'll see when it ships
-
-```
-/business-card
-┌────────────────┬───────────────────────────────────────────────┐
-│ Your Details   │  Live Preview                                 │
-│  • identity    │   ┌────────────────┐   ┌────────────────┐    │
-│  • Front QR    │   │  FRONT (navy)  │   │  BACK (cream)  │    │
-│  • Back QR     │   │  logo · QR     │   │  name · QR     │    │
-│  • [Reset]     │   └────────────────┘   └────────────────┘    │
-│                │                                               │
-│                │  [Download PDF] [PNG] [Copy vCard]            │
-└────────────────┴───────────────────────────────────────────────┘
-```
-
-Add nav link, ship route, done. Iterate on layout polish after you see it live.
+One call to make: **do you want the email and MMS to still reference "Father's Day" by name, or stay implicit** (e.g. "this month," "before 6/30")? Naming it makes the timing obvious; staying implicit makes the self-gift frame feel less holiday-coded and more evergreen. My recommendation: **name it once in the subject line / first MMS, then let the rest speak to him directly.** Tell me if you'd rather lean harder either way and I'll adjust the copy as I write it.
