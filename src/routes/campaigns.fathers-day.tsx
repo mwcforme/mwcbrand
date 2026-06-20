@@ -45,7 +45,24 @@ const STAKES_PHOTO = slide3Asset.url;
 const CLOSE_PHOTO = slide4Asset.url;
 
 const OFFER_END = "June 30";
-const BOOKING_URL = "https://bookmwc.com";
+const BOOKING_BASE = "https://bookmwc.com/book";
+const OFFER_ID = "fathers-day-2026";
+
+// Single source of truth for every CTA: same destination + preselected offer,
+// only the per-CTA placement/content tag changes.
+function bookingUrl(content: string, source: "landing" | "email" | "mms" | "social" | "hub" = "hub") {
+  const params = new URLSearchParams({
+    offer: OFFER_ID,
+    plan: "first-visit",
+    utm_source: source,
+    utm_medium: source === "email" ? "email" : source === "mms" ? "sms" : "web",
+    utm_campaign: OFFER_ID,
+    utm_content: content,
+  });
+  return `${BOOKING_BASE}?${params.toString()}`;
+}
+
+const BOOKING_URL = bookingUrl("default", "hub");
 
 // ----- Channels -----
 
