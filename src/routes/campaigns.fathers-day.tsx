@@ -278,7 +278,7 @@ function LandingPreview() {
                 <p className="lp-eyebrow">Last call</p>
                 <h2>Book before {OFFER_END}.</h2>
                 <a className="lp-cta" href={BOOKING_URL}>
-                  Book with code {PROMO_CODE}
+                  Book his first visit
                 </a>
               </div>
               <div className="lp-foot-mark">
