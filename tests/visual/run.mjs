@@ -56,7 +56,7 @@ const ctx = await browser.newContext({
 });
 const page = await ctx.newPage();
 
-await page.goto(TARGET_URL, { waitUntil: "networkidle", timeout: 60_000 });
+await page.goto(TARGET_URL, { waitUntil: "domcontentloaded", timeout: 60_000 });
 // Wait for first slide DOM + all slide images to decode.
 await page.waitForSelector("#fd-slide-1", { timeout: 30_000 });
 await page.evaluate(async () => {
