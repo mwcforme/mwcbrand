@@ -131,11 +131,15 @@ function FathersDayCampaign() {
             </div>
             <div>
               <dt>Primary CTA</dt>
-              <dd>Book at bookmwc.com</dd>
+              <dd>Book his first visit</dd>
             </div>
             <div>
-              <dt>Audience</dt>
-              <dd>Gift-givers · partners, adult kids</dd>
+              <dt>CTA destination</dt>
+              <dd style={{ fontFamily: "ui-monospace,monospace", fontSize: 12, letterSpacing: 0, textTransform: "none" }}>
+                <a href={BOOKING_URL} target="_blank" rel="noreferrer" style={{ color: NAVY }}>
+                  {BOOKING_BASE}?offer={OFFER_ID}
+                </a>
+              </dd>
             </div>
           </dl>
         </div>
