@@ -395,21 +395,21 @@ const MMS_MESSAGES: MmsMsg[] = [
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Father's Day reminder. The best gift this month is the version of you that's rested, focused, and present. One hour. Book your first visit: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
-    label: "Send 2 · Offer",
+    label: "Send 2 · Mid",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Half the guys we see say the same thing — \"I should've done this sooner.\" One hour with a physician. Book your first visit before 6/30: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
+      "MWC: Final reminder — first-visit slots close 6/30. One hour for you. The dividend goes to your family. book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
