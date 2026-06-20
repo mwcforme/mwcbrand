@@ -237,7 +237,14 @@ function FathersDayCarousel() {
             >
               Navy BG
             </button>
-          </div>
+            <button
+              onClick={() => exportAllSlides()}
+              className="fd-toggle"
+              data-active="true"
+              style={{ marginLeft: "auto" }}
+            >
+              ⬇ Export all PNGs
+            </button>
         </header>
 
         <div className="fd-grid">
