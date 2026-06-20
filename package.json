@@ -9,7 +9,9 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:visual": "node tests/visual/run.mjs",
+    "test:visual:baseline": "node tests/visual/run.mjs --baseline"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
