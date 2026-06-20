@@ -95,34 +95,36 @@ function SlideCard({ slide }: { slide: Slide }) {
 
   return (
     <div className="fd-stage">
-      <div className="fd-frame" id={id}>
-        <header className="fd-top">
-          <img src={WORDMARK} alt="Men's Wellness Centers" className="fd-wordmark" />
-          <span className="fd-pill-num">{slide.n} / 4</span>
-        </header>
+      <div className="fd-preview">
+        <div className="fd-frame" id={id}>
+          <header className="fd-top">
+            <img src={WORDMARK} alt="Men's Wellness Centers" className="fd-wordmark" />
+            <span className="fd-pill-num">{slide.n} / 4</span>
+          </header>
 
-        <div className="fd-photo">
-          <img
-            src={slide.photo}
-            alt={slide.alt}
-            loading="lazy"
-            style={{
-              objectPosition: slide.photoPosition ?? "center",
-              transform: `scale(${slide.photoScale ?? 1})`,
-            }}
-          />
+          <div className="fd-photo">
+            <img
+              src={slide.photo}
+              alt={slide.alt}
+              loading="lazy"
+              style={{
+                objectPosition: slide.photoPosition ?? "center",
+                transform: `scale(${slide.photoScale ?? 1})`,
+              }}
+            />
+          </div>
+
+          <div className="fd-body">
+            <h1 className="fd-hero">{slide.hero}</h1>
+            <p className="fd-intro">{slide.intro}</p>
+          </div>
+
+          <footer className="fd-strip">
+            <img src={WORDMARK_LIGHT} alt="" className="fd-strip-mark" aria-hidden />
+            <span className="fd-strip-text">{slide.strip}</span>
+            {slide.cta ? <span className="fd-cta">{slide.cta}</span> : null}
+          </footer>
         </div>
-
-        <div className="fd-body">
-          <h1 className="fd-hero">{slide.hero}</h1>
-          <p className="fd-intro">{slide.intro}</p>
-        </div>
-
-        <footer className="fd-strip">
-          <img src={WORDMARK_LIGHT} alt="" className="fd-strip-mark" aria-hidden />
-          <span className="fd-strip-text">{slide.strip}</span>
-          {slide.cta ? <span className="fd-cta">{slide.cta}</span> : null}
-        </footer>
       </div>
       <p className="fd-job">
         <strong>Slide {slide.n}</strong> · {slide.job}
@@ -130,6 +132,7 @@ function SlideCard({ slide }: { slide: Slide }) {
     </div>
   );
 }
+
 
 function FathersDayCarousel() {
   const [bg, setBg] = useState<"cream" | "navy">("cream");
