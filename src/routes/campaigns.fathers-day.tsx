@@ -553,7 +553,7 @@ function emailPreviewHtml() {
       </td></tr>
       <tr><td style="padding:0 28px 32px 28px;">
         <p style="margin:0 0 18px 0;font-size:15px;line-height:1.6;color:${INK_SOFT};">Be there for the trips, the milestones, the ordinary days. That starts with taking care of himself.</p>
-        <a href="${BOOKING_URL}?utm_source=email&utm_medium=email&utm_campaign=fathers-day&utm_content=secondary" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
+        <a href="${bookingUrl("email-secondary", "email")}" style="display:inline-block;background:${ORANGE};color:#ffffff;text-decoration:none;font-family:'Oswald',Helvetica,Arial,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:4px;">Book his first visit</a>
       </td></tr>
       <tr><td style="padding:24px 28px;background:${NAVY};color:${CREAM};">
         <img src="https://mwcbrand.lovable.app${WORDMARK_LIGHT}" alt="Men's Wellness Centers" height="26" style="height:26px;display:block;margin-bottom:10px;">
