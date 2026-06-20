@@ -364,21 +364,21 @@ const MMS_MESSAGES: MmsMsg[] = [
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. 10% off his first visit with code DAD10. bookmwc.com Reply STOP to opt out.",
+      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: bookmwc.com Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
     label: "Send 2 · Offer",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Use DAD10 for 10% off through June 30. bookmwc.com Reply STOP to opt out.",
+      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: bookmwc.com Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day offer ends Sunday. 10% off his first plan with code DAD10. Book in 60 seconds: bookmwc.com Reply STOP to opt out.",
+      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: bookmwc.com Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
