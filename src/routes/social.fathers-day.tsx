@@ -526,10 +526,10 @@ const css = `
 .fd-body{position:absolute;top:730px;left:60px;right:60px;bottom:200px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
 .fd-hero{font-family:'Oswald',sans-serif;font-weight:700;font-size:158px;line-height:.86;letter-spacing:0;text-transform:uppercase;color:${NAVY};margin:0}
 .fd-intro{font-family:'Montserrat',sans-serif;font-size:30px;line-height:1.32;color:${NAVY};max-width:930px;margin:0;font-weight:500}
-.fd-strip{position:absolute;bottom:0;left:0;right:0;height:160px;background:${NAVY};color:${CREAM};display:flex;align-items:center;padding:0 60px;gap:28px}
+.fd-strip{position:absolute;bottom:0;left:0;right:0;height:160px;background:${NAVY};color:${CREAM};display:flex;align-items:center;padding:0 60px;gap:20px}
 .fd-strip-mark{height:46px;width:auto;flex-shrink:0;opacity:.95}
-.fd-strip-text{font-family:'Oswald',sans-serif;font-weight:600;font-size:29px;letter-spacing:.14em;text-transform:uppercase;color:${CREAM};flex:1;line-height:1.1}
-.fd-cta{font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;letter-spacing:.16em;text-transform:uppercase;background:${ORANGE};color:${CREAM};padding:18px 28px;border-radius:6px;white-space:nowrap}
+.fd-strip-text{font-family:'Oswald',sans-serif;font-weight:600;font-size:26px;letter-spacing:.12em;text-transform:uppercase;color:${CREAM};flex:1;min-width:0;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fd-cta{font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;letter-spacing:.14em;text-transform:uppercase;background:${ORANGE};color:${CREAM};padding:16px 24px;border-radius:6px;white-space:nowrap;flex-shrink:0}
 .fd-job{font-size:13px;letter-spacing:.04em;color:inherit;opacity:.75;max-width:480px;text-align:center}
 .fd-job strong{font-family:'Oswald',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:${ORANGE}}
 .fd-toggle{font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:10px 18px;border-radius:4px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer}
