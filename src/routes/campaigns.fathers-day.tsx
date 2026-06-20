@@ -205,7 +205,7 @@ function LandingPreview() {
           <div className="fdc-landing">
             <header className="lp-nav">
               <img src={WORDMARK} alt="Men's Wellness Centers" />
-              <a className="lp-nav-cta" href={BOOKING_URL}>
+              <a className="lp-nav-cta" href={bookingUrl("nav", "landing")}>
                 Book his first visit
               </a>
             </header>
