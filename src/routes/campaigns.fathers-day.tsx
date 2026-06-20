@@ -45,15 +45,13 @@ const STAKES_PHOTO = slide3Asset.url;
 const CLOSE_PHOTO = slide4Asset.url;
 
 const OFFER_END = "June 30";
-const BOOKING_BASE = "https://bookmwc.com/book";
+const BOOKING_BASE = "http://book.menswellnesscenters.com/fathers-day-2026";
 const OFFER_ID = "fathers-day-2026";
 
-// Single source of truth for every CTA: same destination + preselected offer,
+// Single source of truth for every CTA: same destination + UTM tags,
 // only the per-CTA placement/content tag changes.
 function bookingUrl(content: string, source: "landing" | "email" | "mms" | "social" | "hub" = "hub") {
   const params = new URLSearchParams({
-    offer: OFFER_ID,
-    plan: "first-visit",
     utm_source: source,
     utm_medium: source === "email" ? "email" : source === "mms" ? "sms" : "web",
     utm_campaign: OFFER_ID,
@@ -137,7 +135,7 @@ function FathersDayCampaign() {
               <dt>CTA destination</dt>
               <dd style={{ fontFamily: "ui-monospace,monospace", fontSize: 12, letterSpacing: 0, textTransform: "none" }}>
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer" style={{ color: NAVY }}>
-                  {BOOKING_BASE}?offer={OFFER_ID}
+                  {BOOKING_URL}
                 </a>
               </dd>
             </div>
@@ -387,21 +385,21 @@ const MMS_MESSAGES: MmsMsg[] = [
     label: "Send 1 · Warm-up",
     send: "Mon, Jun 8 · 10:00 AM local",
     body:
-      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: bookmwc.com/go/dad-warm Reply STOP to opt out.",
+      "MWC: He's bought every gift on this list — except the one he actually needs. This Father's Day, give him answers. Book his first visit: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: HERO_PHOTO,
   },
   {
     label: "Send 2 · Offer",
     send: "Sat, Jun 13 · 9:00 AM local",
     body:
-      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: bookmwc.com/go/dad-offer Reply STOP to opt out.",
+      "MWC: 60 minutes with a physician. Same-day labs. He'll finally know his numbers. Book by June 30: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: PROOF_PHOTO,
   },
   {
     label: "Send 3 · Last call",
     send: "Thu, Jun 26 · 6:00 PM local",
     body:
-      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: bookmwc.com/go/dad-last Reply STOP to opt out.",
+      "MWC: Father's Day window closes Sunday. Book his first visit in 60 seconds: book.menswellnesscenters.com/fathers-day-2026 Reply STOP to opt out.",
     media: CLOSE_PHOTO,
   },
 ];
