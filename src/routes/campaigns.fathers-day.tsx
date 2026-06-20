@@ -353,7 +353,7 @@ function EmailPreview() {
         </div>
         <div>
           <p className="fdc-card-kicker">Preheader</p>
-          <p>60 minutes with a physician. Same-day labs. Book his first visit by {OFFER_END}.</p>
+          <p>One hour for you. The dividend goes to them. Book your first visit by {OFFER_END}.</p>
         </div>
       </div>
 
