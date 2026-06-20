@@ -722,6 +722,8 @@ const css = `
 .fdc-bubble img{width:100%;height:140px;object-fit:cover;display:block;}
 .fdc-bubble p{margin:0;padding:10px 12px;font-size:13px;line-height:1.4;color:#fff;}
 .fdc-mms-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:${INK_SOFT};font-family:ui-monospace,monospace;}
+.fdc-mms-dest{margin:0;font-size:11px;font-family:ui-monospace,monospace;color:${INK_SOFT};word-break:break-all;}
+.fdc-mms-dest a{color:${NAVY};text-decoration:underline;}
 
 /* Carousel */
 .fdc-carousel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
