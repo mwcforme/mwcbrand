@@ -507,7 +507,7 @@ function emailPreviewHtml() {
   return `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Father's Day · MWC</title></head>
 <body style="margin:0;padding:0;background:${CREAM};font-family:Helvetica,Arial,sans-serif;color:${NAVY};">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. 10% off through ${OFFER_END}.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">60 minutes with a physician. Same-day labs. Book his first visit by ${OFFER_END}.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${CREAM};">
   <tr><td align="center" style="padding:24px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid #e7e3dc;">
