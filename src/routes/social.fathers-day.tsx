@@ -107,7 +107,7 @@ const SLIDES: Slide[] = [
     hero: "BOOK.",
     intro: "This Father's Day, give him a 60-minute visit with a physician at your local Men's Wellness Centers. Book by June 30.",
     strip: "BOOK AT BOOKMWC.COM",
-    cta: "BOOK NOW",
+    cta: "BOOK HIS VISIT",
     photo: slide4Asset.url,
     alt: "Smiling man leaning on a railing after a workout",
     photoPosition: "68% center",
