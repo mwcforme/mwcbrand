@@ -502,9 +502,9 @@ function CarouselPreview() {
 
       <div className="fdc-carousel-grid">
         {[
-          { n: 1, photo: HERO_PHOTO, hero: "GIFTED." },
+          { n: 1, photo: HERO_PHOTO, hero: "SHOWING UP." },
           { n: 2, photo: PROOF_PHOTO, hero: "60 MINUTES." },
-          { n: 3, photo: STAKES_PHOTO, hero: "SHOW UP." },
+          { n: 3, photo: STAKES_PHOTO, hero: "THE CONSTANT." },
           { n: 4, photo: CLOSE_PHOTO, hero: "BOOK." },
         ].map((s) => (
           <figure key={s.n} className="fdc-thumb">
