@@ -602,22 +602,22 @@ function emailPreviewHtml() {
 function landingHtml() {
   return `<!-- bookmwc.com/fathers-day · paste into your site builder -->
 <section class="fd-hero">
-  <h1>Give him the one gift he hasn't bought himself.</h1>
-  <p>A 60-minute visit with a physician. Same-day labs. He'll finally know his numbers.</p>
-  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book his first visit</a>
+  <h1>The gift is showing up.</h1>
+  <p>One hour for you. The dividend goes to them. A 60-minute physician visit with same-day labs and a plan you can actually follow.</p>
+  <a class="fd-cta" href="${bookingUrl("hero", "landing")}">Book your first visit</a>
 </section>
 <section class="fd-included">
-  <h2>What's in the first visit</h2>
+  <h2>One hour. Three things they'll feel.</h2>
   <ul>
-    <li><strong>60 minutes</strong> with a physician.</li>
-    <li><strong>Same-day labs</strong>: testosterone, thyroid, metabolic, cardiac.</li>
-    <li><strong>A real plan</strong>: nutrition, training, sleep, hormones if indicated.</li>
-    <li><strong>Judgment-free</strong>, locally owned.</li>
+    <li><strong>Energy</strong> — for the second half of the day, not just the first.</li>
+    <li><strong>Focus</strong> — sharper at dinner, sharper at work.</li>
+    <li><strong>Presence</strong> — patience on the hard days, room for the small ones.</li>
+    <li><strong>A real plan</strong> — physician-led, judgment-free.</li>
   </ul>
 </section>
 <section class="fd-foot">
   <h2>Book before ${OFFER_END}.</h2>
-  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book his first visit</a>
+  <a class="fd-cta" href="${bookingUrl("footer-lastcall", "landing")}">Book your first visit</a>
 </section>`;
 }
 
