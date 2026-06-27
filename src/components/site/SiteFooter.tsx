@@ -42,7 +42,6 @@ export function SiteFooter() {
           <div className="footer-col">
             <h4>Contact</h4>
             <ul>
-              <li>Glen Allen, Virginia</li>
               <li>
                 <a href="mailto:marketing@menswellnesscenters.com">
                   marketing@menswellnesscenters.com
