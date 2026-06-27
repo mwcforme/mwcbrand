@@ -2131,110 +2131,6 @@
       "ext": "png"
     },
     {
-      "path": "assets/logos/png/m_16_navy_on_orange.png",
-      "category": "m_bug",
-      "label": "M Bug 16px (Navy on Orange)",
-      "use_for": "Tiny accent badge on orange surface",
-      "platform_spec": "16 x 16",
-      "dimensions": [
-        16,
-        16
-      ],
-      "size_bytes": 368,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_16_orange_on_navy.png",
-      "category": "m_bug",
-      "label": "M Bug 16px (Orange on Navy)",
-      "use_for": "Tiny accent badge on navy surface",
-      "platform_spec": "16 x 16",
-      "dimensions": [
-        16,
-        16
-      ],
-      "size_bytes": 374,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_16_orange_on_white.png",
-      "category": "m_bug",
-      "label": "M Bug 16px (Orange on White)",
-      "use_for": "Tiny accent badge on light surface",
-      "platform_spec": "16 x 16",
-      "dimensions": [
-        16,
-        16
-      ],
-      "size_bytes": 372,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_16_white_on_orange.png",
-      "category": "m_bug",
-      "label": "M Bug 16px (White on Orange)",
-      "use_for": "Tiny accent badge on orange surface",
-      "platform_spec": "16 x 16",
-      "dimensions": [
-        16,
-        16
-      ],
-      "size_bytes": 383,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_300_navy_on_orange.png",
-      "category": "m_bug",
-      "label": "M Bug 300px (Navy on Orange)",
-      "use_for": "Hero badge or sticker, orange surface",
-      "platform_spec": "300 x 300",
-      "dimensions": [
-        300,
-        300
-      ],
-      "size_bytes": 4912,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_300_orange_on_navy.png",
-      "category": "m_bug",
-      "label": "M Bug 300px (Orange on Navy)",
-      "use_for": "Hero badge on navy surface",
-      "platform_spec": "300 x 300",
-      "dimensions": [
-        300,
-        300
-      ],
-      "size_bytes": 4923,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_300_orange_on_white.png",
-      "category": "m_bug",
-      "label": "M Bug 300px (Orange on White)",
-      "use_for": "Hero badge on light surface",
-      "platform_spec": "300 x 300",
-      "dimensions": [
-        300,
-        300
-      ],
-      "size_bytes": 5077,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/m_300_white_on_orange.png",
-      "category": "m_bug",
-      "label": "M Bug 300px (White on Orange)",
-      "use_for": "Hero badge on orange surface",
-      "platform_spec": "300 x 300",
-      "dimensions": [
-        300,
-        300
-      ],
-      "size_bytes": 4868,
-      "ext": "png"
-    },
-    {
       "path": "assets/logos/png/01_all_navy_0B1029.png",
       "category": "wordmark",
       "label": "All-Navy Wordmark (Navy Background)",
@@ -2595,5 +2491,5 @@
       "ext": "svg"
     }
   ],
-  "total_assets": 196
+  "total_assets": 186
 }
