@@ -68,10 +68,29 @@ function isDarkTile(a: Asset): boolean {
   );
 }
 
+function hasOrange(a: Asset): boolean {
+  const s = (a.label + " " + a.path + " " + a.use_for).toLowerCase();
+  return (
+    s.includes("orange") ||
+    s.includes("on_orange") ||
+    s.includes("orange_bg") ||
+    s.includes("_orange.") ||
+    s.includes("(orange)")
+  );
+}
+
 function PageLogoLibrary() {
   const data = logoLibrary as { categories: Category[]; assets: Asset[] };
-  const assets = data.assets;
-  const categories = data.categories.filter((c) => c.count > 0);
+  // Defensive: never surface any orange-containing logo, even if the JSON drifts.
+  const assets = data.assets.filter((a) => !hasOrange(a));
+  const allowedCats = new Set(assets.map((a) => a.category));
+  const counts = assets.reduce<Record<string, number>>((acc, a) => {
+    acc[a.category] = (acc[a.category] || 0) + 1;
+    return acc;
+  }, {});
+  const categories = data.categories
+    .filter((c) => allowedCats.has(c.id))
+    .map((c) => ({ ...c, count: counts[c.id] || 0 }));
 
   const [query, setQuery] = useState("");
   const [activeCat, setActiveCat] = useState<string>("all");
