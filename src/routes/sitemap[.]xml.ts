@@ -42,6 +42,8 @@ const STATIC_ROUTES: SitemapEntry[] = [
   { path: "/social/fathers-day", changefreq: "weekly", priority: "0.8" },
   { path: "/social/reengagement-mms", changefreq: "weekly", priority: "0.8" },
   { path: "/campaigns/fathers-day", changefreq: "weekly", priority: "0.9" },
+  { path: "/social/mwc-250", changefreq: "weekly", priority: "0.8" },
+  { path: "/campaigns/mwc-250", changefreq: "weekly", priority: "0.9" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
