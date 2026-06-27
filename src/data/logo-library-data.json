@@ -102,12 +102,6 @@
       "label": "M Bug (Standalone Mark)",
       "group": "Library",
       "count": 56
-    },
-    {
-      "id": "two_color",
-      "label": "Two-Color Lockup",
-      "group": "Library",
-      "count": 4
     }
   ],
   "assets": [
@@ -2242,7 +2236,7 @@
     },
     {
       "path": "assets/logos/png/01_all_navy_0B1029.png",
-      "category": "two_color",
+      "category": "wordmark",
       "label": "All-Navy Wordmark (Navy Background)",
       "use_for": "Primary lockup on navy surfaces",
       "platform_spec": "Master",
@@ -2255,7 +2249,7 @@
     },
     {
       "path": "assets/logos/png/01_all_navy_transparent.png",
-      "category": "two_color",
+      "category": "wordmark",
       "label": "All-Navy Wordmark (Transparent)",
       "use_for": "Primary lockup, transparent",
       "platform_spec": "Master",
@@ -2264,32 +2258,6 @@
         460
       ],
       "size_bytes": 109991,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/02_navy_top_orange_bottom.png",
-      "category": "two_color",
-      "label": "Two-Color Lockup (Navy + Orange)",
-      "use_for": "Limited-use two-color variation",
-      "platform_spec": "Master",
-      "dimensions": [
-        2000,
-        460
-      ],
-      "size_bytes": 189413,
-      "ext": "png"
-    },
-    {
-      "path": "assets/logos/png/02_navy_top_orange_bottom_transparent.png",
-      "category": "two_color",
-      "label": "Two-Color Lockup Transparent",
-      "use_for": "Two-color variation, transparent",
-      "platform_spec": "Master",
-      "dimensions": [
-        2000,
-        460
-      ],
-      "size_bytes": 110001,
       "ext": "png"
     },
     {
