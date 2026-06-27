@@ -29,8 +29,10 @@ import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
 import { Route as SocialReengagementMmsRouteImport } from './routes/social.reengagement-mms'
+import { Route as SocialMwc250RouteImport } from './routes/social.mwc-250'
 import { Route as SocialFathersDayRouteImport } from './routes/social.fathers-day'
 import { Route as SocialPlatformRouteImport } from './routes/social.$platform'
+import { Route as CampaignsMwc250RouteImport } from './routes/campaigns.mwc-250'
 import { Route as CampaignsFathersDayRouteImport } from './routes/campaigns.fathers-day'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -133,6 +135,11 @@ const SocialReengagementMmsRoute = SocialReengagementMmsRouteImport.update({
   path: '/reengagement-mms',
   getParentRoute: () => SocialRoute,
 } as any)
+const SocialMwc250Route = SocialMwc250RouteImport.update({
+  id: '/mwc-250',
+  path: '/mwc-250',
+  getParentRoute: () => SocialRoute,
+} as any)
 const SocialFathersDayRoute = SocialFathersDayRouteImport.update({
   id: '/fathers-day',
   path: '/fathers-day',
@@ -142,6 +149,11 @@ const SocialPlatformRoute = SocialPlatformRouteImport.update({
   id: '/$platform',
   path: '/$platform',
   getParentRoute: () => SocialRoute,
+} as any)
+const CampaignsMwc250Route = CampaignsMwc250RouteImport.update({
+  id: '/campaigns/mwc-250',
+  path: '/campaigns/mwc-250',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CampaignsFathersDayRoute = CampaignsFathersDayRouteImport.update({
   id: '/campaigns/fathers-day',
@@ -169,8 +181,10 @@ export interface FileRoutesByFullPath {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
+  '/campaigns/mwc-250': typeof CampaignsMwc250Route
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/mwc-250': typeof SocialMwc250Route
   '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social/': typeof SocialIndexRoute
 }
@@ -193,8 +207,10 @@ export interface FileRoutesByTo {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
+  '/campaigns/mwc-250': typeof CampaignsMwc250Route
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/mwc-250': typeof SocialMwc250Route
   '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social': typeof SocialIndexRoute
 }
@@ -219,8 +235,10 @@ export interface FileRoutesById {
   '/typography': typeof TypographyRoute
   '/voice': typeof VoiceRoute
   '/campaigns/fathers-day': typeof CampaignsFathersDayRoute
+  '/campaigns/mwc-250': typeof CampaignsMwc250Route
   '/social/$platform': typeof SocialPlatformRoute
   '/social/fathers-day': typeof SocialFathersDayRoute
+  '/social/mwc-250': typeof SocialMwc250Route
   '/social/reengagement-mms': typeof SocialReengagementMmsRoute
   '/social/': typeof SocialIndexRoute
 }
@@ -246,8 +264,10 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/campaigns/fathers-day'
+    | '/campaigns/mwc-250'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/mwc-250'
     | '/social/reengagement-mms'
     | '/social/'
   fileRoutesByTo: FileRoutesByTo
@@ -270,8 +290,10 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/campaigns/fathers-day'
+    | '/campaigns/mwc-250'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/mwc-250'
     | '/social/reengagement-mms'
     | '/social'
   id:
@@ -295,8 +317,10 @@ export interface FileRouteTypes {
     | '/typography'
     | '/voice'
     | '/campaigns/fathers-day'
+    | '/campaigns/mwc-250'
     | '/social/$platform'
     | '/social/fathers-day'
+    | '/social/mwc-250'
     | '/social/reengagement-mms'
     | '/social/'
   fileRoutesById: FileRoutesById
@@ -321,6 +345,7 @@ export interface RootRouteChildren {
   TypographyRoute: typeof TypographyRoute
   VoiceRoute: typeof VoiceRoute
   CampaignsFathersDayRoute: typeof CampaignsFathersDayRoute
+  CampaignsMwc250Route: typeof CampaignsMwc250Route
 }
 
 declare module '@tanstack/react-router' {
@@ -465,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialReengagementMmsRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/social/mwc-250': {
+      id: '/social/mwc-250'
+      path: '/mwc-250'
+      fullPath: '/social/mwc-250'
+      preLoaderRoute: typeof SocialMwc250RouteImport
+      parentRoute: typeof SocialRoute
+    }
     '/social/fathers-day': {
       id: '/social/fathers-day'
       path: '/fathers-day'
@@ -479,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SocialPlatformRouteImport
       parentRoute: typeof SocialRoute
     }
+    '/campaigns/mwc-250': {
+      id: '/campaigns/mwc-250'
+      path: '/campaigns/mwc-250'
+      fullPath: '/campaigns/mwc-250'
+      preLoaderRoute: typeof CampaignsMwc250RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/campaigns/fathers-day': {
       id: '/campaigns/fathers-day'
       path: '/campaigns/fathers-day'
@@ -492,6 +531,7 @@ declare module '@tanstack/react-router' {
 interface SocialRouteChildren {
   SocialPlatformRoute: typeof SocialPlatformRoute
   SocialFathersDayRoute: typeof SocialFathersDayRoute
+  SocialMwc250Route: typeof SocialMwc250Route
   SocialReengagementMmsRoute: typeof SocialReengagementMmsRoute
   SocialIndexRoute: typeof SocialIndexRoute
 }
@@ -499,6 +539,7 @@ interface SocialRouteChildren {
 const SocialRouteChildren: SocialRouteChildren = {
   SocialPlatformRoute: SocialPlatformRoute,
   SocialFathersDayRoute: SocialFathersDayRoute,
+  SocialMwc250Route: SocialMwc250Route,
   SocialReengagementMmsRoute: SocialReengagementMmsRoute,
   SocialIndexRoute: SocialIndexRoute,
 }
@@ -526,6 +567,7 @@ const rootRouteChildren: RootRouteChildren = {
   TypographyRoute: TypographyRoute,
   VoiceRoute: VoiceRoute,
   CampaignsFathersDayRoute: CampaignsFathersDayRoute,
+  CampaignsMwc250Route: CampaignsMwc250Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
