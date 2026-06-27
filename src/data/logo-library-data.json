@@ -2545,7 +2545,7 @@
       "platform_spec": "SVG (any size, vector)",
       "dimensions": null,
       "size_bytes": 358,
-      "ext": "swag"
+      "ext": "svg"
     },
     {
       "path": "assets/logos/svg/m_icon_black.svg",
