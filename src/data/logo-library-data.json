@@ -102,8 +102,15 @@
       "label": "M Bug (Standalone Mark)",
       "group": "Library",
       "count": 56
+    },
+    {
+      "id": "swag",
+      "label": "Swag & Large Format (SVG)",
+      "group": "Library",
+      "count": 6
     }
   ],
+
   "assets": [
     {
       "path": "assets/favicon/favicon-32.png",
