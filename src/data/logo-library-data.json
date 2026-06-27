@@ -102,8 +102,15 @@
       "label": "M Bug (Standalone Mark)",
       "group": "Library",
       "count": 56
+    },
+    {
+      "id": "swag",
+      "label": "Swag & Large Format (SVG)",
+      "group": "Library",
+      "count": 6
     }
   ],
+
   "assets": [
     {
       "path": "assets/favicon/favicon-32.png",
@@ -2489,7 +2496,67 @@
       "dimensions": null,
       "size_bytes": 531,
       "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_navy.svg",
+      "category": "swag",
+      "label": "Swag Wordmark Navy (SVG)",
+      "use_for": "Large-format swag, signage, vehicle wraps, banners, t-shirts, embroidery digitizing source. Navy on light substrates. Infinite scale, no resolution loss.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_white.svg",
+      "category": "swag",
+      "label": "Swag Wordmark White (SVG)",
+      "use_for": "Large-format swag on dark substrates: navy tees, hats, banners, signage. Vector source for screen printing and embroidery.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/wordmark_black.svg",
+      "category": "swag",
+      "label": "Swag Wordmark Black (SVG)",
+      "use_for": "Single-color black master for laser engraving, etching, one-color print, and grayscale promo items.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 21867,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_navy.svg",
+      "category": "swag",
+      "label": "Swag M Bug Navy (SVG)",
+      "use_for": "Hat embroidery, lapel pins, sleeve hits, small-space swag where the wordmark would not read.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_white.svg",
+      "category": "swag",
+      "label": "Swag M Bug White (SVG)",
+      "use_for": "Hat embroidery and small swag on navy or dark substrates.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
+    },
+    {
+      "path": "assets/logos/svg/m_icon_black.svg",
+      "category": "swag",
+      "label": "Swag M Bug Black (SVG)",
+      "use_for": "Single-color black bug for engraving, debossing, and one-color promo runs.",
+      "platform_spec": "SVG (any size, vector)",
+      "dimensions": null,
+      "size_bytes": 358,
+      "ext": "svg"
     }
   ],
-  "total_assets": 186
+  "total_assets": 192
 }
