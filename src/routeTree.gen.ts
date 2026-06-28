@@ -26,6 +26,7 @@ import { Route as ColorRouteImport } from './routes/color'
 import { Route as BusinessCardRouteImport } from './routes/business-card'
 import { Route as BrandKitDotjsonRouteImport } from './routes/brand-kit[.]json'
 import { Route as BrandKitRouteImport } from './routes/brand-kit'
+import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
@@ -122,6 +123,11 @@ const BrandKitRoute = BrandKitRouteImport.update({
   path: '/brand-kit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandRoute = BrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplicationsRoute = ApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
   '/brand-kit.json': typeof BrandKitDotjsonRoute
   '/business-card': typeof BusinessCardRoute
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
   '/brand-kit.json': typeof BrandKitDotjsonRoute
   '/business-card': typeof BusinessCardRoute
@@ -235,6 +243,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/applications': typeof ApplicationsRoute
+  '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
   '/brand-kit.json': typeof BrandKitDotjsonRoute
   '/business-card': typeof BusinessCardRoute
@@ -266,6 +275,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/brand'
     | '/brand-kit'
     | '/brand-kit.json'
     | '/business-card'
@@ -295,6 +305,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/brand'
     | '/brand-kit'
     | '/brand-kit.json'
     | '/business-card'
@@ -323,6 +334,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/applications'
+    | '/brand'
     | '/brand-kit'
     | '/brand-kit.json'
     | '/business-card'
@@ -353,6 +365,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessibilityRoute: typeof AccessibilityRoute
   ApplicationsRoute: typeof ApplicationsRoute
+  BrandRoute: typeof BrandRoute
   BrandKitRoute: typeof BrandKitRoute
   BrandKitDotjsonRoute: typeof BrandKitDotjsonRoute
   BusinessCardRoute: typeof BusinessCardRoute
@@ -495,6 +508,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandKitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand': {
+      id: '/brand'
+      path: '/brand'
+      fullPath: '/brand'
+      preLoaderRoute: typeof BrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/applications': {
       id: '/applications'
       path: '/applications'
@@ -591,6 +611,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
   ApplicationsRoute: ApplicationsRoute,
+  BrandRoute: BrandRoute,
   BrandKitRoute: BrandKitRoute,
   BrandKitDotjsonRoute: BrandKitDotjsonRoute,
   BusinessCardRoute: BusinessCardRoute,
