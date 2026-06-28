@@ -23,6 +23,8 @@ const SOCIAL_PLATFORMS = [
 
 const STATIC_ROUTES: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/brand-kit", changefreq: "monthly", priority: "0.9" },
+  { path: "/brand-kit.json", changefreq: "monthly", priority: "0.9" },
   { path: "/logo", changefreq: "monthly", priority: "0.8" },
   { path: "/logo-library", changefreq: "monthly", priority: "0.7" },
   { path: "/color", changefreq: "monthly", priority: "0.7" },
