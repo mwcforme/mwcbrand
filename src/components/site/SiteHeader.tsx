@@ -16,6 +16,7 @@ const NAV: NavItem[] = [
       { to: "/color", label: "Color" },
       { to: "/typography", label: "Typography" },
       { to: "/voice", label: "Voice & Tone" },
+      { to: "/brand-kit", label: "Brand Kit (LLM)" },
     ],
   },
   {

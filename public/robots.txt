@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://mwcbrand.lovable.app/sitemap.xml
+
+# LLM / AI tooling reference
+# Machine-readable brand kit: /brand-kit  and  /brand-kit.json
+# Discovery file: /llms.txt

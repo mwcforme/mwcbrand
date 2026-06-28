@@ -1,0 +1,38 @@
+# Men's Wellness Centers Brand
+
+> Locally owned, physician-led men's health practice in Virginia. Brand system reference site for the MWC team, partners, and AI tools that build assets on our behalf.
+
+The canonical, machine-readable brand kit lives at `/brand-kit` (HTML) and `/brand-kit.json` (raw JSON). Either is sufficient to reproduce the brand in any external tool.
+
+## Primary
+
+- [Brand Kit (LLM reference)](/brand-kit): Single-page brand system: identity, colors, type, voice, logos, asset URLs.
+- [Brand Kit JSON](/brand-kit.json): Same payload as a JSON document for direct ingestion.
+
+## Brand system
+
+- [Logo](/logo): Logo usage, clear space, minimum sizes.
+- [Logo Library](/logo-library): Every approved logo file with dimensions, format, and use case.
+- [Color](/color): Full color palette, HEX/RGB/HSL, pairings, banned colors.
+- [Typography](/typography): Oswald, Montserrat, Inter — scale and rules.
+- [Voice & Tone](/voice): Tagline, approved/banned terms, brand personality.
+- [Accessibility](/accessibility): WCAG 2.2 AA compliance notes.
+
+## Applications
+
+- [Applications](/applications): Brand in the wild — web, social, signage.
+- [Social Media](/social): Platform-specific specs and mockups.
+- [Email Signature](/email-signature): Approved signature template.
+- [Referral Card](/business-card): Print-ready referral card builder.
+- [Lead Forms](/lead-forms): Embeddable lead-capture form.
+
+## Resources
+
+- [Downloads](/downloads): Curated SVG/PNG/PDF logo downloads.
+- [Stock Photos](/stock-photos): Approved photography library.
+- [AI Prompts](/prompts): Approved prompts for image and copy generation.
+
+## Optional
+
+- [Search](/search): Sitewide asset search.
+- [Sitemap](/sitemap.xml): Full URL index.
