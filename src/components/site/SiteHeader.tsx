@@ -27,6 +27,7 @@ const NAV: NavItem[] = [
       { to: "/social/fathers-day", label: "Father's Day Carousel" },
       { to: "/email-signature", label: "Email Signature" },
       { to: "/business-card", label: "Referral Card" },
+      { to: "/ambassador", label: "Ambassador Program" },
       { to: "/lead-forms", label: "Lead Forms" },
     ],
   },
