@@ -28,6 +28,7 @@ import { Route as BrandKitDotjsonRouteImport } from './routes/brand-kit[.]json'
 import { Route as BrandKitRouteImport } from './routes/brand-kit'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AmbassadorRouteImport } from './routes/ambassador'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SocialIndexRouteImport } from './routes/social.index'
@@ -133,6 +134,11 @@ const ApplicationsRoute = ApplicationsRouteImport.update({
   path: '/applications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AmbassadorRoute = AmbassadorRouteImport.update({
+  id: '/ambassador',
+  path: '/ambassador',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
   id: '/accessibility',
   path: '/accessibility',
@@ -182,6 +188,7 @@ const CampaignsFathersDayRoute = CampaignsFathersDayRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
+  '/ambassador': typeof AmbassadorRoute
   '/applications': typeof ApplicationsRoute
   '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
@@ -212,6 +219,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
+  '/ambassador': typeof AmbassadorRoute
   '/applications': typeof ApplicationsRoute
   '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
+  '/ambassador': typeof AmbassadorRoute
   '/applications': typeof ApplicationsRoute
   '/brand': typeof BrandRoute
   '/brand-kit': typeof BrandKitRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/accessibility'
+    | '/ambassador'
     | '/applications'
     | '/brand'
     | '/brand-kit'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/accessibility'
+    | '/ambassador'
     | '/applications'
     | '/brand'
     | '/brand-kit'
@@ -333,6 +344,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/accessibility'
+    | '/ambassador'
     | '/applications'
     | '/brand'
     | '/brand-kit'
@@ -364,6 +376,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessibilityRoute: typeof AccessibilityRoute
+  AmbassadorRoute: typeof AmbassadorRoute
   ApplicationsRoute: typeof ApplicationsRoute
   BrandRoute: typeof BrandRoute
   BrandKitRoute: typeof BrandKitRoute
@@ -522,6 +535,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ambassador': {
+      id: '/ambassador'
+      path: '/ambassador'
+      fullPath: '/ambassador'
+      preLoaderRoute: typeof AmbassadorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/accessibility': {
       id: '/accessibility'
       path: '/accessibility'
@@ -610,6 +630,7 @@ const SocialRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
+  AmbassadorRoute: AmbassadorRoute,
   ApplicationsRoute: ApplicationsRoute,
   BrandRoute: BrandRoute,
   BrandKitRoute: BrandKitRoute,
