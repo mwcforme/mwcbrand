@@ -4,10 +4,17 @@ import assetMap from "@/data/asset-map.json";
 const A = assetMap as Record<string, string>;
 const WORDMARK_WHITE = A["assets/logos/svg/wordmark_white.svg"];
 
-const NAVY = "#0F1B36";
-const NAVY_2 = "#1B2B4B";
-const CREAM = "#F5F0E6";
-const ORANGE = "#FF5500";
+// Brand tokens (mirrors src/styles.css :root):
+//   --navy #0b1029 · --navy-mid #161b3a · --cream #f5f3f0 · --orange #e8670a
+//   --orange-btn #b84a08 (AA-safe with white text; bright orange fails 4.5:1)
+const NAVY = "#0b1029";
+const NAVY_2 = "#161b3a";
+const NAVY_DEEP = "#070b1d";
+const CREAM = "#f5f3f0";
+const ORANGE = "#e8670a"; // accent (borders, eyebrows, icons)
+const ORANGE_CTA = "#b84a08"; // buttons/bands carrying white text — AA compliant
+const INK = "#0b1029";
+const INK_SOFT = "#4a4e66";
 
 const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
 const REFER_URL = "https://go.menswellnesscenters.com/ambassador/referral";
