@@ -14,7 +14,7 @@ const CREAM = "#f5f3f0";
 const ORANGE = "#e8670a"; // accent (borders, eyebrows, icons)
 const ORANGE_CTA = "#b84a08"; // buttons/bands carrying white text — AA compliant
 const INK = "#0b1029";
-const INK_SOFT = "#4a4e66";
+const INK_SOFT = "#2a2f45";
 
 const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
 const REFER_URL = "https://go.menswellnesscenters.com/ambassador/referral";
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/refer")({
 
 function ReferMarketingPage() {
   return (
-    <div style={{ background: NAVY, color: "#fff", fontFamily: "'Montserrat', sans-serif" }}>
+    <div style={{ background: NAVY, color: "#fff", fontFamily: "'Open Sans', sans-serif" }}>
       <MockTopBar />
       <MockNav />
       <Hero />
@@ -88,7 +88,7 @@ function MockTopBar() {
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ color: ORANGE }}>●</span>
             <span>{city}</span>
-            <span style={{ opacity: 0.7 }}>{phone}</span>
+            <span style={{ opacity: 0.92 }}>{phone}</span>
           </div>
         ))}
       </div>
@@ -229,7 +229,7 @@ function Hero() {
               lineHeight: 1.55,
               maxWidth: 560,
               marginTop: 28,
-              color: "rgba(255,255,255,0.85)",
+              color: "rgba(255,255,255,0.95)",
             }}
           >
             Refer him to Men's Wellness Centers. Sit-down visit with a licensed Virginia
@@ -255,7 +255,7 @@ function Hero() {
             ].map((line) => (
               <li
                 key={line}
-                style={{ display: "flex", gap: 12, fontSize: 15, color: "rgba(255,255,255,0.9)" }}
+                style={{ display: "flex", gap: 12, fontSize: 15, color: "rgba(255,255,255,0.96)" }}
               >
                 <span style={{ color: ORANGE, marginTop: 6 }}>●</span>
                 <span>{line}</span>
@@ -297,7 +297,7 @@ function Hero() {
             <span
               style={{
                 fontSize: 12,
-                color: "rgba(255,255,255,0.55)",
+                color: "rgba(255,255,255,0.82)",
                 fontStyle: "italic",
               }}
             >
@@ -363,7 +363,7 @@ function Hero() {
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.15em",
-                  color: "rgba(255,255,255,0.55)",
+                  color: "rgba(255,255,255,0.82)",
                   fontWeight: 700,
                   textTransform: "uppercase",
                   paddingTop: 2,
@@ -371,7 +371,7 @@ function Hero() {
               >
                 {label}
               </div>
-              <div style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.9)" }}>
+              <div style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.96)" }}>
                 {val}
               </div>
             </div>
@@ -380,7 +380,7 @@ function Hero() {
             style={{
               fontSize: 11,
               lineHeight: 1.5,
-              color: INK_SOFT === INK_SOFT ? "rgba(255,255,255,0.55)" : undefined,
+              color: INK_SOFT === INK_SOFT ? "rgba(255,255,255,0.82)" : undefined,
               marginTop: 20,
               paddingTop: 16,
               borderTop: "1px solid rgba(255,255,255,0.08)",
@@ -442,7 +442,7 @@ function StatsBar() {
                 marginTop: 10,
                 fontSize: 11,
                 letterSpacing: "0.2em",
-                color: "rgba(255,255,255,0.65)",
+                color: "rgba(255,255,255,0.88)",
                 fontWeight: 700,
               }}
             >
@@ -604,7 +604,7 @@ function WhyRefer() {
               marginTop: 20,
               fontSize: 16,
               lineHeight: 1.6,
-              color: "rgba(255,255,255,0.75)",
+              color: "rgba(255,255,255,0.92)",
               maxWidth: 380,
             }}
           >
@@ -636,7 +636,7 @@ function WhyRefer() {
               >
                 {t}
               </div>
-              <div style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.8)" }}>{d}</div>
+              <div style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.94)" }}>{d}</div>
             </div>
           ))}
         </div>
@@ -738,7 +738,7 @@ function PosterStrip() {
               marginTop: 20,
               fontSize: 16,
               lineHeight: 1.6,
-              color: "rgba(255,255,255,0.75)",
+              color: "rgba(255,255,255,0.92)",
               maxWidth: 460,
             }}
           >
@@ -929,7 +929,7 @@ function CtaBand() {
                   marginTop: 14,
                   fontSize: 15,
                   lineHeight: 1.65,
-                  color: "rgba(255,255,255,0.8)",
+                  color: "rgba(255,255,255,0.94)",
                   maxWidth: 780,
                 }}
               >
@@ -952,7 +952,7 @@ function CtaBand() {
             flexWrap: "wrap",
           }}
         >
-          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", maxWidth: 560 }}>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.92)", maxWidth: 560 }}>
             Still have questions? The program page has full terms and the ambassador hub
             has the toolkit.
           </div>
@@ -1042,7 +1042,7 @@ function MockFooter() {
               marginTop: 20,
               fontSize: 13,
               lineHeight: 1.6,
-              color: "rgba(255,255,255,0.6)",
+              color: "rgba(255,255,255,0.95)",
               maxWidth: 340,
             }}
           >
@@ -1069,7 +1069,7 @@ function MockFooter() {
             </div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
               {(items as string[]).map((i) => (
-                <li key={i} style={{ fontSize: 14, color: "rgba(255,255,255,0.8)" }}>
+                <li key={i} style={{ fontSize: 14, color: "rgba(255,255,255,0.94)" }}>
                   {i}
                 </li>
               ))}
