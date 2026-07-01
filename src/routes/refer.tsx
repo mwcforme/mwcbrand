@@ -833,48 +833,152 @@ function PosterStrip() {
 /* CTA band                                                          */
 /* ---------------------------------------------------------------- */
 function CtaBand() {
+  const faqs: [string, string][] = [
+    [
+      "Do I have to be a current patient to refer someone?",
+      "No. The program is open to current members, family, friends, and partner providers. If you know a man in Virginia who could benefit, you can refer him.",
+    ],
+    [
+      "What does it cost him to book?",
+      "Nothing for the first visit. MWC covers the initial consult and on-site labs so he can make a decision with real data in front of him.",
+    ],
+    [
+      "How will he be contacted?",
+      "One outreach from the local center, at a reasonable hour, to help him schedule. If he doesn't respond, we stop. He is never added to a marketing list without opting in.",
+    ],
+    [
+      "How am I rewarded, and when?",
+      "You're thanked after your referred friend completes his first visit. Details are outlined during enrollment; rewards are not tied to purchases he makes.",
+    ],
+    [
+      "Is my information — or his — shared with anyone?",
+      "No. MWC is a licensed Virginia medical practice bound by HIPAA. Referral information is used only to schedule the visit and to thank you after it happens.",
+    ],
+    [
+      "Can I share my referral link publicly?",
+      "Yes. Ambassadors receive a personal link and print-ready materials (business cards, in-center flyers) they can share one-to-one or post as they see fit.",
+    ],
+  ];
   return (
-    <section style={{ background: ORANGE_CTA, color: "#fff", padding: "72px 24px" }}>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 32,
-          flexWrap: "wrap",
-        }}
-      >
+    <section style={{ background: NAVY, color: "#fff", padding: "96px 24px" }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <div
+          style={{
+            fontSize: 12,
+            letterSpacing: "0.25em",
+            color: ORANGE,
+            fontWeight: 700,
+            marginBottom: 16,
+          }}
+        >
+          FREQUENTLY ASKED
+        </div>
+        <h2
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: 44,
+            fontSize: 48,
             lineHeight: 1,
             letterSpacing: "-0.005em",
             textTransform: "uppercase",
-            maxWidth: 720,
+            margin: 0,
+            maxWidth: 780,
           }}
         >
-          Ready when you are.<br />Enroll and start referring today.
+          Straight answers before you refer.
+        </h2>
+        <div style={{ marginTop: 40, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+          {faqs.map(([q, a]) => (
+            <details
+              key={q}
+              style={{
+                borderBottom: "1px solid rgba(255,255,255,0.12)",
+                padding: "22px 0",
+              }}
+            >
+              <summary
+                style={{
+                  fontFamily: "'Oswald', sans-serif",
+                  fontWeight: 700,
+                  fontSize: 20,
+                  letterSpacing: "0.01em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  listStyle: "none",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 24,
+                  alignItems: "start",
+                }}
+              >
+                <span>{q}</span>
+                <span style={{ color: ORANGE, fontSize: 22, lineHeight: 1 }}>+</span>
+              </summary>
+              <p
+                style={{
+                  marginTop: 14,
+                  fontSize: 15,
+                  lineHeight: 1.65,
+                  color: "rgba(255,255,255,0.8)",
+                  maxWidth: 780,
+                }}
+              >
+                {a}
+              </p>
+            </details>
+          ))}
         </div>
-        <a
-          href={ENROLL_URL}
+
+        <div
           style={{
-            background: NAVY,
-            color: "#fff",
-            padding: "20px 34px",
-            borderRadius: 999,
-            fontWeight: 800,
-            letterSpacing: "0.1em",
-            fontSize: 13,
-            textDecoration: "none",
-            whiteSpace: "nowrap",
+            marginTop: 56,
+            padding: "28px 32px",
+            border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: 12,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 24,
+            flexWrap: "wrap",
           }}
         >
-          ENROLL AS AN AMBASSADOR →
-        </a>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.75)", maxWidth: 560 }}>
+            Still have questions? The program page has full terms and the ambassador hub
+            has the toolkit.
+          </div>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <Link
+              to="/ambassador"
+              style={{
+                border: "1.5px solid rgba(255,255,255,0.35)",
+                color: "#fff",
+                padding: "14px 22px",
+                borderRadius: 999,
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+              }}
+            >
+              PROGRAM DETAILS
+            </Link>
+            <a
+              href={ENROLL_URL}
+              style={{
+                background: ORANGE_CTA,
+                color: "#fff",
+                padding: "14px 22px",
+                borderRadius: 999,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+              }}
+            >
+              ENROLL WHEN READY →
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
