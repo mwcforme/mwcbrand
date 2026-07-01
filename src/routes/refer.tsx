@@ -263,42 +263,42 @@ function Hero() {
             ))}
           </ul>
 
-          <div style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 20, marginTop: 40, flexWrap: "wrap", alignItems: "center" }}>
             <a
-              href={ENROLL_URL}
-              style={{
-                background: ORANGE_CTA,
-                color: "#fff",
-                padding: "18px 32px",
-                borderRadius: 999,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
-                fontSize: 13,
-                textDecoration: "none",
-              }}
-            >
-              ENROLL AS AN AMBASSADOR →
-            </a>
-            <a
-              href={REFER_URL}
+              href="#how-it-works"
               style={{
                 border: "1.5px solid rgba(255,255,255,0.35)",
                 color: "#fff",
-                padding: "18px 32px",
+                padding: "16px 26px",
                 borderRadius: 999,
                 fontWeight: 700,
                 letterSpacing: "0.08em",
-                fontSize: 13,
+                fontSize: 12,
                 textDecoration: "none",
               }}
             >
-              SEND A REFERRAL NOW
+              READ HOW IT WORKS
+            </a>
+            <a
+              href={ENROLL_URL}
+              style={{
+                color: ORANGE,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+                borderBottom: `1px solid ${ORANGE}`,
+                paddingBottom: 2,
+              }}
+            >
+              OR ENROLL WHEN YOU'RE READY →
             </a>
           </div>
         </div>
 
-        {/* Right: form-style card */}
-        <div
+        {/* Right: at-a-glance info panel */}
+        <aside
+          aria-label="Program at a glance"
           style={{
             background: NAVY_2,
             border: "1px solid rgba(255,255,255,0.08)",
@@ -309,101 +309,77 @@ function Hero() {
         >
           <div
             style={{
+              fontSize: 11,
+              letterSpacing: "0.25em",
+              color: ORANGE,
+              fontWeight: 700,
+              marginBottom: 14,
+            }}
+          >
+            AT A GLANCE
+          </div>
+          <div
+            style={{
               fontFamily: "'Oswald', sans-serif",
               fontWeight: 700,
-              fontSize: 22,
-              lineHeight: 1.2,
-              letterSpacing: "0.02em",
+              fontSize: 26,
+              lineHeight: 1.15,
+              letterSpacing: "0.01em",
               textTransform: "uppercase",
               marginBottom: 24,
             }}
           >
-            Refer a friend in 30 seconds.
+            The MWC Ambassador Program
           </div>
           {[
-            ["His First Name", "e.g. Michael"],
-            ["His Mobile Number", "(804) 000-0000"],
-            ["Your Name", "So we can thank you"],
-          ].map(([label, ph]) => (
-            <div key={label} style={{ marginBottom: 14 }}>
+            ["Who it's for", "Current members, referring partners, and anyone who knows a man who's been putting it off."],
+            ["What it costs", "Nothing to join. No purchase required. Free to share."],
+            ["What he gets", "A no-cost first visit with a licensed Virginia provider and on-site labs."],
+            ["What you get", "A personal thank-you every time a referred friend completes his first visit."],
+            ["Where it works", "All three MWC centers: Richmond, Newport News, Virginia Beach."],
+          ].map(([label, val]) => (
+            <div
+              key={label}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "130px 1fr",
+                gap: 16,
+                padding: "14px 0",
+                borderTop: "1px solid rgba(255,255,255,0.08)",
+                alignItems: "start",
+              }}
+            >
               <div
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.15em",
-                  color: "rgba(255,255,255,0.6)",
-                  marginBottom: 6,
+                  color: "rgba(255,255,255,0.55)",
                   fontWeight: 700,
+                  textTransform: "uppercase",
+                  paddingTop: 2,
                 }}
               >
-                {label.toUpperCase()}
+                {label}
               </div>
-              <div
-                style={{
-                  background: "#fff",
-                  color: INK_SOFT, // was NAVY_2 + opacity:0.5 → ~2.5:1, fails AA
-                  padding: "14px 16px",
-                  borderRadius: 8,
-                  fontSize: 14,
-                }}
-              >
-                {ph}
+              <div style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.9)" }}>
+                {val}
               </div>
             </div>
           ))}
-          <div style={{ marginBottom: 14 }}>
-            <div
-              style={{
-                fontSize: 11,
-                letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.6)",
-                marginBottom: 6,
-                fontWeight: 700,
-              }}
-            >
-              NEAREST CENTER
-            </div>
-            <div
-              style={{
-                background: "#fff",
-                color: NAVY_2,
-                padding: "14px 16px",
-                borderRadius: 8,
-                fontSize: 14,
-              }}
-            >
-              Richmond ▾
-            </div>
-          </div>
           <p
             style={{
               fontSize: 11,
               lineHeight: 1.5,
-              color: "rgba(255,255,255,0.6)",
-              marginTop: 18,
+              color: INK_SOFT === INK_SOFT ? "rgba(255,255,255,0.55)" : undefined,
+              marginTop: 20,
+              paddingTop: 16,
+              borderTop: "1px solid rgba(255,255,255,0.08)",
             }}
           >
-            By submitting, you confirm your friend has agreed to be contacted by MWC. Msg
-            &amp; data rates may apply. Reply STOP to opt out.
+            Rewards are issued after a referred friend completes his first visit. MWC never
+            contacts a referred person more than once without their consent.
           </p>
-          <a
-            href={REFER_URL}
-            style={{
-              display: "block",
-              textAlign: "center",
-              background: ORANGE_CTA,
-              color: "#fff",
-              padding: "18px 24px",
-              borderRadius: 10,
-              fontWeight: 800,
-              letterSpacing: "0.1em",
-              fontSize: 13,
-              textDecoration: "none",
-              marginTop: 8,
-            }}
-          >
-            SEND THE REFERRAL
-          </a>
-        </div>
+        </aside>
       </div>
     </section>
   );
