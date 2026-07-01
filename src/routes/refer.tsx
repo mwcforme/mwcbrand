@@ -158,7 +158,7 @@ function MockNav() {
           </span>
           <span
             style={{
-              background: ORANGE,
+              background: ORANGE_CTA,
               color: "#fff",
               borderRadius: 999,
               padding: "12px 20px",
@@ -267,7 +267,7 @@ function Hero() {
             <a
               href={ENROLL_URL}
               style={{
-                background: ORANGE,
+                background: ORANGE_CTA,
                 color: "#fff",
                 padding: "18px 32px",
                 borderRadius: 999,
@@ -391,7 +391,7 @@ function Hero() {
             style={{
               display: "block",
               textAlign: "center",
-              background: ORANGE,
+              background: ORANGE_CTA,
               color: "#fff",
               padding: "18px 24px",
               borderRadius: 10,
@@ -764,7 +764,7 @@ function PosterStrip() {
             <Link
               to="/ambassador"
               style={{
-                background: ORANGE,
+                background: ORANGE_CTA,
                 color: "#fff",
                 padding: "16px 26px",
                 borderRadius: 999,
@@ -859,7 +859,7 @@ function PosterStrip() {
 /* ---------------------------------------------------------------- */
 function CtaBand() {
   return (
-    <section style={{ background: ORANGE, color: "#fff", padding: "72px 24px" }}>
+    <section style={{ background: ORANGE_CTA, color: "#fff", padding: "72px 24px" }}>
       <div
         style={{
           maxWidth: 1280,
@@ -910,7 +910,7 @@ function CtaBand() {
 /* ---------------------------------------------------------------- */
 function MockFooter() {
   return (
-    <footer style={{ background: "#0A1226", padding: "64px 24px 40px", color: "#fff" }}>
+    <footer style={{ background: "#070b1d", padding: "64px 24px 40px", color: "#fff" }}>
       <div
         style={{
           maxWidth: 1280,
