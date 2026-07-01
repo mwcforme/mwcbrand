@@ -16,6 +16,7 @@ import { Route as StockDownloadsRouteImport } from './routes/stock-downloads'
 import { Route as SocialRouteImport } from './routes/social'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ReferRouteImport } from './routes/refer'
 import { Route as PromptsRouteImport } from './routes/prompts'
 import { Route as LogoLibraryRouteImport } from './routes/logo-library'
 import { Route as LogoRouteImport } from './routes/logo'
@@ -72,6 +73,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferRoute = ReferRouteImport.update({
+  id: '/refer',
+  path: '/refer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PromptsRoute = PromptsRouteImport.update({
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/refer': typeof ReferRoute
   '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social': typeof SocialRouteWithChildren
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/refer': typeof ReferRoute
   '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stock-downloads': typeof StockDownloadsRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/logo': typeof LogoRoute
   '/logo-library': typeof LogoLibraryRoute
   '/prompts': typeof PromptsRoute
+  '/refer': typeof ReferRoute
   '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social': typeof SocialRouteWithChildren
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/refer'
     | '/search'
     | '/sitemap.xml'
     | '/social'
@@ -327,6 +337,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/refer'
     | '/search'
     | '/sitemap.xml'
     | '/stock-downloads'
@@ -357,6 +368,7 @@ export interface FileRouteTypes {
     | '/logo'
     | '/logo-library'
     | '/prompts'
+    | '/refer'
     | '/search'
     | '/sitemap.xml'
     | '/social'
@@ -389,6 +401,7 @@ export interface RootRouteChildren {
   LogoRoute: typeof LogoRoute
   LogoLibraryRoute: typeof LogoLibraryRoute
   PromptsRoute: typeof PromptsRoute
+  ReferRoute: typeof ReferRoute
   SearchRoute: typeof SearchRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SocialRoute: typeof SocialRouteWithChildren
@@ -449,6 +462,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refer': {
+      id: '/refer'
+      path: '/refer'
+      fullPath: '/refer'
+      preLoaderRoute: typeof ReferRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prompts': {
@@ -643,6 +663,7 @@ const rootRouteChildren: RootRouteChildren = {
   LogoRoute: LogoRoute,
   LogoLibraryRoute: LogoLibraryRoute,
   PromptsRoute: PromptsRoute,
+  ReferRoute: ReferRoute,
   SearchRoute: SearchRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SocialRoute: SocialRouteWithChildren,
