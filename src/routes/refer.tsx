@@ -460,7 +460,7 @@ function StatsBar() {
 /* ---------------------------------------------------------------- */
 function HowItWorks() {
   const steps = [
-    ["01", "Enroll", "Two minutes. We give you a personal referral link and a page just for you."],
+    ["01", "Get your link", "We give you a personal referral link instantly. Enroll anytime if you want rewards tracked to your name."],
     ["02", "Share", "Text it, hand him a card, drop it on group chat. He books when he's ready."],
     ["03", "Get thanked", "When he completes his first visit, we thank you. Every time."],
   ];
