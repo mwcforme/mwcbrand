@@ -28,6 +28,7 @@ const NAV: NavItem[] = [
       { to: "/email-signature", label: "Email Signature" },
       { to: "/business-card", label: "Referral Card" },
       { to: "/ambassador", label: "Ambassador Program" },
+      { to: "/refer", label: "Refer a Friend (Landing)" },
       { to: "/lead-forms", label: "Lead Forms" },
     ],
   },
