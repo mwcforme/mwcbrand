@@ -265,6 +265,21 @@ function Hero() {
 
           <div style={{ display: "flex", gap: 20, marginTop: 40, flexWrap: "wrap", alignItems: "center" }}>
             <a
+              href={REFER_URL}
+              style={{
+                background: ORANGE_CTA,
+                color: "#fff",
+                padding: "16px 26px",
+                borderRadius: 999,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+              }}
+            >
+              SEND A REFERRAL →
+            </a>
+            <a
               href="#how-it-works"
               style={{
                 border: "1.5px solid rgba(255,255,255,0.35)",
@@ -279,20 +294,15 @@ function Hero() {
             >
               READ HOW IT WORKS
             </a>
-            <a
-              href={ENROLL_URL}
+            <span
               style={{
-                color: ORANGE,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
                 fontSize: 12,
-                textDecoration: "none",
-                borderBottom: `1px solid ${ORANGE}`,
-                paddingBottom: 2,
+                color: "rgba(255,255,255,0.55)",
+                fontStyle: "italic",
               }}
             >
-              OR ENROLL WHEN YOU'RE READY →
-            </a>
+              No enrollment required to refer.
+            </span>
           </div>
         </div>
 
