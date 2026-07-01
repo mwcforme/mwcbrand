@@ -4,10 +4,17 @@ import assetMap from "@/data/asset-map.json";
 const A = assetMap as Record<string, string>;
 const WORDMARK_WHITE = A["assets/logos/svg/wordmark_white.svg"];
 
-const NAVY = "#0F1B36";
-const NAVY_2 = "#1B2B4B";
-const CREAM = "#F5F0E6";
-const ORANGE = "#FF5500";
+// Brand tokens (mirrors src/styles.css :root):
+//   --navy #0b1029 · --navy-mid #161b3a · --cream #f5f3f0 · --orange #e8670a
+//   --orange-btn #b84a08 (AA-safe with white text; bright orange fails 4.5:1)
+const NAVY = "#0b1029";
+const NAVY_2 = "#161b3a";
+const NAVY_DEEP = "#070b1d";
+const CREAM = "#f5f3f0";
+const ORANGE = "#e8670a"; // accent (borders, eyebrows, icons)
+const ORANGE_CTA = "#b84a08"; // buttons/bands carrying white text — AA compliant
+const INK = "#0b1029";
+const INK_SOFT = "#4a4e66";
 
 const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
 const REFER_URL = "https://go.menswellnesscenters.com/ambassador/referral";
@@ -151,7 +158,7 @@ function MockNav() {
           </span>
           <span
             style={{
-              background: ORANGE,
+              background: ORANGE_CTA,
               color: "#fff",
               borderRadius: 999,
               padding: "12px 20px",
@@ -260,7 +267,7 @@ function Hero() {
             <a
               href={ENROLL_URL}
               style={{
-                background: ORANGE,
+                background: ORANGE_CTA,
                 color: "#fff",
                 padding: "18px 32px",
                 borderRadius: 999,
@@ -333,11 +340,10 @@ function Hero() {
               <div
                 style={{
                   background: "#fff",
-                  color: NAVY_2,
+                  color: INK_SOFT, // was NAVY_2 + opacity:0.5 → ~2.5:1, fails AA
                   padding: "14px 16px",
                   borderRadius: 8,
                   fontSize: 14,
-                  opacity: 0.5,
                 }}
               >
                 {ph}
@@ -384,7 +390,7 @@ function Hero() {
             style={{
               display: "block",
               textAlign: "center",
-              background: ORANGE,
+              background: ORANGE_CTA,
               color: "#fff",
               padding: "18px 24px",
               borderRadius: 10,
@@ -757,7 +763,7 @@ function PosterStrip() {
             <Link
               to="/ambassador"
               style={{
-                background: ORANGE,
+                background: ORANGE_CTA,
                 color: "#fff",
                 padding: "16px 26px",
                 borderRadius: 999,
@@ -852,7 +858,7 @@ function PosterStrip() {
 /* ---------------------------------------------------------------- */
 function CtaBand() {
   return (
-    <section style={{ background: ORANGE, color: "#fff", padding: "72px 24px" }}>
+    <section style={{ background: ORANGE_CTA, color: "#fff", padding: "72px 24px" }}>
       <div
         style={{
           maxWidth: 1280,
@@ -903,7 +909,7 @@ function CtaBand() {
 /* ---------------------------------------------------------------- */
 function MockFooter() {
   return (
-    <footer style={{ background: "#0A1226", padding: "64px 24px 40px", color: "#fff" }}>
+    <footer style={{ background: "#070b1d", padding: "64px 24px 40px", color: "#fff" }}>
       <div
         style={{
           maxWidth: 1280,
