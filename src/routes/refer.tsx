@@ -340,11 +340,10 @@ function Hero() {
               <div
                 style={{
                   background: "#fff",
-                  color: NAVY_2,
+                  color: INK_SOFT, // was NAVY_2 + opacity:0.5 → ~2.5:1, fails AA
                   padding: "14px 16px",
                   borderRadius: 8,
                   fontSize: 14,
-                  opacity: 0.5,
                 }}
               >
                 {ph}
