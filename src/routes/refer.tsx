@@ -1,23 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import assetMap from "@/data/asset-map.json";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
 
-const A = assetMap as Record<string, string>;
-const WORDMARK_WHITE = A["assets/logos/svg/wordmark_white.svg"];
-
-// Brand tokens (mirrors src/styles.css :root):
-//   --navy #0b1029 · --navy-mid #161b3a · --cream #f5f3f0 · --orange #e8670a
-//   --orange-btn #b84a08 (AA-safe with white text; bright orange fails 4.5:1)
-const NAVY = "#0b1029";
-const NAVY_2 = "#161b3a";
-const NAVY_DEEP = "#070b1d";
-const CREAM = "#f5f3f0";
-const ORANGE = "#e8670a"; // accent (borders, eyebrows, icons)
-const ORANGE_CTA = "#b84a08"; // buttons/bands carrying white text — AA compliant
-const INK = "#0b1029";
-const INK_SOFT = "#2a2f45";
-
-const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
 const REFER_URL = "https://go.menswellnesscenters.com/ambassador/referral";
+const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
 
 export const Route = createFileRoute("/refer")({
   head: () => ({
@@ -26,617 +12,229 @@ export const Route = createFileRoute("/refer")({
       {
         name: "description",
         content:
-          "Know a man who's not himself lately? Refer him to Men's Wellness Centers. Enroll as an ambassador, share your link, and get rewarded when he books his first visit.",
+          "Learn how the Men's Wellness Centers referral program works: how to refer, what your friend receives, how you're thanked, and eligibility details.",
       },
       { property: "og:title", content: "Refer a Friend · Men's Wellness Centers" },
       {
         property: "og:description",
         content:
-          "Enroll as an MWC Ambassador. Share your link. Get rewarded when the men in your life get their edge back.",
+          "How the MWC referral program works: refer a friend, he books a no-cost first visit, you get a personal thank-you.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://mwcbrand.lovable.app/refer" },
     ],
     links: [{ rel: "canonical", href: "https://mwcbrand.lovable.app/refer" }],
   }),
-  component: ReferMarketingPage,
+  component: ReferPage,
 });
 
-function ReferMarketingPage() {
+/* Design tokens (align with site) */
+const NAVY = "#0b1029";
+const INK = "#111528";
+const INK_SOFT = "#3b3f57";
+const MUTED = "#6b7085";
+const RULE = "#e5e7ef";
+const CREAM = "#faf8f4";
+const ORANGE = "#e8670a";
+const ORANGE_CTA = "#b84a08";
+
+const BODY_FONT = "'Open Sans', system-ui, sans-serif";
+const DISPLAY_FONT = "'Oswald', 'Open Sans', sans-serif";
+
+function ReferPage() {
   return (
-    <div style={{ background: NAVY, color: "#fff", fontFamily: "'Open Sans', sans-serif" }}>
-      <MockTopBar />
-      <MockNav />
-      <Hero />
-      <StatsBar />
+    <div style={{ background: "#fff", color: INK, fontFamily: BODY_FONT, fontSize: 16, lineHeight: 1.6 }}>
+      <SiteHeader />
+      <PageHeader />
+      <Intro />
       <HowItWorks />
-      <WhyRefer />
-      <TestimonialBand />
-      <PosterStrip />
-      <CtaBand />
-      <MockFooter />
+      <BenefitsGrid />
+      <Eligibility />
+      <Faq />
+      <CtaFooter />
+      <SiteFooter />
     </div>
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Top utility bar                                                   */
-/* ---------------------------------------------------------------- */
-function MockTopBar() {
-  const items = [
-    ["RICHMOND", "(804) 346-4636"],
-    ["NEWPORT NEWS", "(757) 806-6263"],
-    ["VIRGINIA BEACH", "(757) 612-4428"],
-  ];
+/* ---------------- Page header (breadcrumb + title) ---------------- */
+function PageHeader() {
   return (
-    <div style={{ background: NAVY, borderBottom: `1px solid rgba(255,255,255,0.08)` }}>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          padding: "10px 24px",
-          display: "flex",
-          justifyContent: "center",
-          gap: 40,
-          fontSize: 12,
-          letterSpacing: "0.12em",
-          fontWeight: 600,
-          color: "#fff",
-        }}
-      >
-        {items.map(([city, phone], i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ color: ORANGE }}>●</span>
-            <span>{city}</span>
-            <span style={{ opacity: 0.92 }}>{phone}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ---------------------------------------------------------------- */
-/* Main nav                                                          */
-/* ---------------------------------------------------------------- */
-function MockNav() {
-  return (
-    <div style={{ background: "#fff", color: NAVY_2 }}>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          padding: "18px 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div
-            style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontWeight: 700,
-              letterSpacing: "0.02em",
-              lineHeight: 1,
-              fontSize: 22,
-            }}
-          >
-            MEN'S
-            <div style={{ fontSize: 9, letterSpacing: "0.35em", marginTop: 2 }}>
-              WELLNESS CENTERS
-            </div>
-          </div>
-        </div>
-        <nav
-          style={{
-            display: "flex",
-            gap: 32,
-            fontSize: 13,
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-          }}
-        >
-          {["HOW IT WORKS", "SERVICES", "LOCATIONS", "ABOUT US", "REFER"].map((l) => (
-            <span key={l} style={{ opacity: l === "REFER" ? 1 : 0.85 }}>
-              {l}
-            </span>
-          ))}
-        </nav>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <span
-            style={{
-              border: `1.5px solid ${NAVY_2}`,
-              borderRadius: 999,
-              padding: "10px 18px",
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-            }}
-          >
-            866-344-4955
-          </span>
-          <span
-            style={{
-              background: ORANGE_CTA,
-              color: "#fff",
-              borderRadius: 999,
-              padding: "12px 20px",
-              fontSize: 12,
-              fontWeight: 800,
-              letterSpacing: "0.08em",
-            }}
-          >
-            BOOK APPOINTMENT
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------------------------------------------------------- */
-/* Hero                                                              */
-/* ---------------------------------------------------------------- */
-function Hero() {
-  return (
-    <section style={{ background: NAVY, padding: "80px 24px 96px" }}>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1.15fr 1fr",
-          gap: 64,
-          alignItems: "start",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              display: "inline-block",
-              padding: "8px 14px",
-              border: `1px solid ${ORANGE}`,
-              color: ORANGE,
-              fontSize: 11,
-              letterSpacing: "0.25em",
-              fontWeight: 700,
-              marginBottom: 28,
-            }}
-          >
-            AMBASSADOR PROGRAM · BY INVITATION
-          </div>
-          <h1
-            style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontWeight: 700,
-              fontSize: 84,
-              lineHeight: 0.98,
-              letterSpacing: "-0.01em",
-              margin: 0,
-              textTransform: "uppercase",
-            }}
-          >
-            Know a man who's{" "}
-            <span style={{ fontWeight: 400, fontStyle: "italic", opacity: 0.9 }}>
-              not himself
-            </span>{" "}
-            lately?
-          </h1>
-          <p
-            style={{
-              fontSize: 18,
-              lineHeight: 1.55,
-              maxWidth: 560,
-              marginTop: 28,
-              color: "rgba(255,255,255,0.95)",
-            }}
-          >
-            Refer him to Men's Wellness Centers. Sit-down visit with a licensed Virginia
-            provider. Labs drawn on-site and reviewed the same day. No-cost first
-            appointment. You get thanked, he gets his edge back.
-          </p>
-
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: "32px 0 0",
-              display: "grid",
-              gap: 12,
-              maxWidth: 520,
-            }}
-          >
-            {[
-              "Tired by noon. Coffee stopped working.",
-              "Same gym effort. Nothing to show.",
-              "Sex drive is down. He's noticed the change.",
-              "Labs came back fine. He isn't.",
-            ].map((line) => (
-              <li
-                key={line}
-                style={{ display: "flex", gap: 12, fontSize: 15, color: "rgba(255,255,255,0.96)" }}
-              >
-                <span style={{ color: ORANGE, marginTop: 6 }}>●</span>
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div style={{ display: "flex", gap: 20, marginTop: 40, flexWrap: "wrap", alignItems: "center" }}>
-            <a
-              href={REFER_URL}
-              style={{
-                background: ORANGE_CTA,
-                color: "#fff",
-                padding: "16px 26px",
-                borderRadius: 999,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              SEND A REFERRAL →
-            </a>
-            <a
-              href="#how-it-works"
-              style={{
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                color: "#fff",
-                padding: "16px 26px",
-                borderRadius: 999,
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              READ HOW IT WORKS
-            </a>
-            <span
-              style={{
-                fontSize: 12,
-                color: "rgba(255,255,255,0.82)",
-                fontStyle: "italic",
-              }}
-            >
-              No enrollment required to refer.
-            </span>
-          </div>
-        </div>
-
-        {/* Right: at-a-glance info panel */}
-        <aside
-          aria-label="Program at a glance"
-          style={{
-            background: NAVY_2,
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: 18,
-            padding: 36,
-            boxShadow: "0 30px 60px -20px rgba(0,0,0,0.5)",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.25em",
-              color: ORANGE,
-              fontWeight: 700,
-              marginBottom: 14,
-            }}
-          >
-            AT A GLANCE
-          </div>
-          <div
-            style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontWeight: 700,
-              fontSize: 26,
-              lineHeight: 1.15,
-              letterSpacing: "0.01em",
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-          >
-            The MWC Ambassador Program
-          </div>
-          {[
-            ["Who it's for", "Current members, referring partners, and anyone who knows a man who's been putting it off."],
-            ["What it costs", "Nothing to join. No purchase required. Free to share."],
-            ["What he gets", "A no-cost first visit with a licensed Virginia provider and on-site labs."],
-            ["What you get", "A personal thank-you every time a referred friend completes his first visit."],
-            ["Where it works", "All three MWC centers: Richmond, Newport News, Virginia Beach."],
-          ].map(([label, val]) => (
-            <div
-              key={label}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "130px 1fr",
-                gap: 16,
-                padding: "14px 0",
-                borderTop: "1px solid rgba(255,255,255,0.08)",
-                alignItems: "start",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 11,
-                  letterSpacing: "0.15em",
-                  color: "rgba(255,255,255,0.82)",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  paddingTop: 2,
-                }}
-              >
-                {label}
-              </div>
-              <div style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.96)" }}>
-                {val}
-              </div>
-            </div>
-          ))}
-          <p
-            style={{
-              fontSize: 11,
-              lineHeight: 1.5,
-              color: INK_SOFT === INK_SOFT ? "rgba(255,255,255,0.82)" : undefined,
-              marginTop: 20,
-              paddingTop: 16,
-              borderTop: "1px solid rgba(255,255,255,0.08)",
-            }}
-          >
-            Rewards are issued after a referred friend completes his first visit. MWC never
-            contacts a referred person more than once without their consent.
-          </p>
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- */
-/* Stats                                                             */
-/* ---------------------------------------------------------------- */
-function StatsBar() {
-  const stats = [
-    ["10,000+", "MEN TREATED SINCE 2015"],
-    ["10+", "YEARS OF EXPERIENCE"],
-    ["Same-Day", "APPOINTMENTS AVAILABLE"],
-    ["3", "CENTERS ACROSS VIRGINIA"],
-  ];
-  return (
-    <section
+    <header
       style={{
-        background: NAVY,
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-        padding: "48px 24px",
+        background: CREAM,
+        borderBottom: `1px solid ${RULE}`,
+        padding: "36px 24px 40px",
       }}
     >
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(4,1fr)",
-          gap: 24,
-          textAlign: "center",
-        }}
-      >
-        {stats.map(([n, label]) => (
-          <div key={label}>
-            <div
-              style={{
-                fontFamily: "'Oswald', sans-serif",
-                fontWeight: 700,
-                fontSize: 48,
-                lineHeight: 1,
-                letterSpacing: "0.01em",
-              }}
-            >
-              {n}
-            </div>
-            <div
-              style={{
-                marginTop: 10,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                color: "rgba(255,255,255,0.88)",
-                fontWeight: 700,
-              }}
-            >
-              {label}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- */
-/* How it works                                                      */
-/* ---------------------------------------------------------------- */
-function HowItWorks() {
-  const steps = [
-    ["01", "Get your link", "We give you a personal referral link instantly. Enroll anytime if you want rewards tracked to your name."],
-    ["02", "Share", "Text it, hand him a card, drop it on group chat. He books when he's ready."],
-    ["03", "Get thanked", "When he completes his first visit, we thank you. Every time."],
-  ];
-  return (
-    <section id="how-it-works" style={{ background: CREAM, color: NAVY_2, padding: "96px 24px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <nav style={{ fontSize: 13, color: MUTED, marginBottom: 14, letterSpacing: 0.2 }}>
+          <Link to="/" style={{ color: MUTED, textDecoration: "none" }}>
+            Home
+          </Link>
+          <span style={{ margin: "0 8px" }}>›</span>
+          <span style={{ color: INK }}>Refer a Friend</span>
+        </nav>
         <div
           style={{
+            display: "inline-block",
             fontSize: 12,
-            letterSpacing: "0.25em",
-            color: ORANGE,
             fontWeight: 700,
-            marginBottom: 16,
-          }}
-        >
-          HOW IT WORKS
-        </div>
-        <h2
-          style={{
-            fontFamily: "'Oswald', sans-serif",
-            fontWeight: 700,
-            fontSize: 56,
-            lineHeight: 1,
-            letterSpacing: "-0.01em",
-            margin: 0,
+            letterSpacing: 2,
+            color: ORANGE_CTA,
             textTransform: "uppercase",
-            maxWidth: 780,
+            marginBottom: 10,
           }}
         >
-          Refer the men around you.<br />We take it from there.
-        </h2>
-        <div
-          style={{
-            marginTop: 56,
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            gap: 32,
-          }}
-        >
-          {steps.map(([n, t, d]) => (
-            <div
-              key={n}
-              style={{
-                background: "#fff",
-                border: `1px solid rgba(27,43,75,0.1)`,
-                padding: 40,
-                borderRadius: 12,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "'Oswald', sans-serif",
-                  color: ORANGE,
-                  fontWeight: 700,
-                  fontSize: 40,
-                  lineHeight: 1,
-                }}
-              >
-                {n}
-              </div>
-              <div
-                style={{
-                  fontFamily: "'Oswald', sans-serif",
-                  fontWeight: 700,
-                  fontSize: 26,
-                  textTransform: "uppercase",
-                  marginTop: 18,
-                  letterSpacing: "0.02em",
-                }}
-              >
-                {t}
-              </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, marginTop: 12, color: "#3b4560" }}>{d}</p>
-            </div>
-          ))}
+          Ambassador Program
         </div>
+        <h1
+          style={{
+            fontFamily: DISPLAY_FONT,
+            fontWeight: 700,
+            fontSize: 44,
+            lineHeight: 1.1,
+            letterSpacing: 0.3,
+            margin: 0,
+            color: NAVY,
+            textTransform: "uppercase",
+          }}
+        >
+          Refer a Friend
+        </h1>
+        <p style={{ marginTop: 12, maxWidth: 720, color: INK_SOFT, fontSize: 17 }}>
+          Help the men in your life get their edge back. Share a link, they book a no-cost first
+          visit, and you get a personal thank-you when they show up.
+        </p>
       </div>
-    </section>
+    </header>
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Why refer / value                                                 */
-/* ---------------------------------------------------------------- */
-function WhyRefer() {
-  const points = [
-    [
-      "It's the easiest good you can do.",
-      "The man in your life won't book on his own. A referral from you is the reason he finally goes.",
-    ],
-    [
-      "No sales pitch. Ever.",
-      "Sit-down visit with a licensed Virginia provider. Labs on-site, reviewed the same day. That's it.",
-    ],
-    [
-      "He keeps his privacy.",
-      "We only ever contact who you tell us to, once. If he's not ready, he's not bothered again.",
-    ],
-    [
-      "You get thanked.",
-      "When he completes his first visit, you're rewarded. Not points. Not tiers. Real thanks.",
-    ],
+/* ---------------- Intro / at a glance ---------------- */
+function Intro() {
+  const facts: [string, string][] = [
+    ["Cost to refer", "Free. No purchase or enrollment required."],
+    ["What he receives", "A no-cost first visit with a licensed Virginia provider and on-site labs."],
+    ["What you receive", "A personal thank-you after each referred friend completes his first visit."],
+    ["Where it works", "All three MWC centers: Richmond, Newport News, Virginia Beach."],
+    ["Privacy", "HIPAA compliant. We contact a referred person once, unless they opt in."],
   ];
   return (
-    <section style={{ background: NAVY, padding: "96px 24px" }}>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1.4fr",
-          gap: 80,
-        }}
-      >
+    <section style={{ padding: "56px 24px", borderBottom: `1px solid ${RULE}` }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gap: 40, gridTemplateColumns: "1.1fr 1fr" }}>
         <div>
+          <h2 style={sectionTitle}>Program overview</h2>
+          <p style={{ marginTop: 16, color: INK_SOFT, fontSize: 17 }}>
+            The Men's Wellness Centers referral program is a simple way to point a friend, family
+            member, or teammate toward care that actually addresses low energy, low drive, and stalled
+            results. Share your referral link, he books when he's ready, and we take it from there.
+          </p>
+          <p style={{ marginTop: 12, color: INK_SOFT, fontSize: 17 }}>
+            There's no pressure, no promo codes, and no discount language. This is a program built on
+            trust between men who've been through the process and men who are about to start.
+          </p>
+        </div>
+        <div
+          style={{
+            background: CREAM,
+            border: `1px solid ${RULE}`,
+            padding: "24px 28px",
+          }}
+        >
           <div
             style={{
               fontSize: 12,
-              letterSpacing: "0.25em",
-              color: ORANGE,
+              letterSpacing: 2,
               fontWeight: 700,
-              marginBottom: 16,
-            }}
-          >
-            WHY REFER
-          </div>
-          <h2
-            style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontWeight: 700,
-              fontSize: 56,
-              lineHeight: 1,
-              margin: 0,
+              color: ORANGE_CTA,
               textTransform: "uppercase",
+              marginBottom: 12,
             }}
           >
-            Because he'd do it for you.
-          </h2>
-          <p
-            style={{
-              marginTop: 20,
-              fontSize: 16,
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.92)",
-              maxWidth: 380,
-            }}
-          >
-            Most men don't call. They wait. Then they wait more. A nudge from someone
-            they trust changes the whole timeline.
-          </p>
-        </div>
-        <div style={{ display: "grid", gap: 4, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-          {points.map(([t, d]) => (
-            <div
-              key={t}
-              style={{
-                borderBottom: "1px solid rgba(255,255,255,0.12)",
-                padding: "28px 0",
-                display: "grid",
-                gridTemplateColumns: "1fr 1.4fr",
-                gap: 32,
-                alignItems: "start",
-              }}
-            >
+            At a glance
+          </div>
+          <dl style={{ margin: 0 }}>
+            {facts.map(([label, value], i) => (
               <div
+                key={label}
                 style={{
-                  fontFamily: "'Oswald', sans-serif",
-                  fontWeight: 700,
-                  fontSize: 22,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.02em",
+                  display: "grid",
+                  gridTemplateColumns: "140px 1fr",
+                  gap: 16,
+                  padding: "12px 0",
+                  borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
                 }}
               >
-                {t}
+                <dt style={{ fontSize: 13, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                  {label}
+                </dt>
+                <dd style={{ margin: 0, fontSize: 15, color: INK_SOFT, lineHeight: 1.55 }}>{value}</dd>
               </div>
-              <div style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.94)" }}>{d}</div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- How it works ---------------- */
+function HowItWorks() {
+  const steps = [
+    {
+      n: "01",
+      title: "Get your referral link",
+      body:
+        "Copy your personal referral link from the ambassador portal. Enrollment is optional, but recommended if you plan to refer more than once.",
+    },
+    {
+      n: "02",
+      title: "Share it with someone who needs it",
+      body:
+        "Send it by text, email, or in person. He uses the link to book a no-cost first visit at the MWC location closest to him.",
+    },
+    {
+      n: "03",
+      title: "We handle the rest",
+      body:
+        "He meets with a licensed Virginia provider, gets labs drawn on-site, and reviews results the same day. Once his first visit is complete, you get a personal thank-you.",
+    },
+  ];
+  return (
+    <section id="how-it-works" style={{ padding: "64px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <h2 style={sectionTitle}>How it works</h2>
+        <p style={{ marginTop: 12, maxWidth: 720, color: INK_SOFT, fontSize: 17 }}>
+          Three steps. No paperwork on your end.
+        </p>
+        <div
+          style={{
+            marginTop: 32,
+            display: "grid",
+            gap: 24,
+            gridTemplateColumns: "repeat(3, 1fr)",
+          }}
+        >
+          {steps.map((s) => (
+            <div key={s.n} style={{ borderTop: `3px solid ${ORANGE}`, paddingTop: 20 }}>
+              <div style={{ fontFamily: DISPLAY_FONT, fontSize: 28, color: NAVY, fontWeight: 600 }}>
+                {s.n}
+              </div>
+              <div
+                style={{
+                  fontFamily: DISPLAY_FONT,
+                  fontSize: 20,
+                  fontWeight: 600,
+                  color: NAVY,
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5,
+                  marginTop: 6,
+                }}
+              >
+                {s.title}
+              </div>
+              <p style={{ marginTop: 10, color: INK_SOFT, fontSize: 15 }}>{s.body}</p>
             </div>
           ))}
         </div>
@@ -645,192 +243,107 @@ function WhyRefer() {
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Testimonial                                                       */
-/* ---------------------------------------------------------------- */
-function TestimonialBand() {
+/* ---------------- Benefits ---------------- */
+function BenefitsGrid() {
+  const him = [
+    "Sit-down visit with a licensed Virginia provider",
+    "Labs drawn on-site, reviewed the same day",
+    "Clear, personalized recommendations — no upsell",
+    "Follow-up guidance tailored to his goals",
+  ];
+  const you = [
+    "Personal thank-you after each completed first visit",
+    "Simple dashboard to track your referrals",
+    "Optional ambassador enrollment for repeat referrers",
+    "The quiet satisfaction of pointing a friend the right way",
+  ];
   return (
-    <section style={{ background: CREAM, color: NAVY_2, padding: "96px 24px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div
-          style={{
-            fontFamily: "'Oswald', sans-serif",
-            color: ORANGE,
-            fontSize: 56,
-            lineHeight: 1,
-            marginBottom: 24,
-          }}
-        >
-          "
-        </div>
-        <blockquote
-          style={{
-            fontFamily: "'Oswald', sans-serif",
-            fontWeight: 500,
-            fontSize: 36,
-            lineHeight: 1.2,
-            letterSpacing: "-0.005em",
-            margin: 0,
-            textTransform: "uppercase",
-          }}
-        >
-          My buddy sent me the link. I finally went. Six weeks later I'm sleeping,
-          lifting, and my wife noticed before I did.
-        </blockquote>
+    <section style={{ padding: "64px 24px", background: CREAM, borderTop: `1px solid ${RULE}`, borderBottom: `1px solid ${RULE}` }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <h2 style={sectionTitle}>What each side gets</h2>
         <div
           style={{
             marginTop: 28,
-            fontSize: 12,
-            letterSpacing: "0.25em",
-            fontWeight: 700,
-            color: "#3b4560",
+            display: "grid",
+            gap: 24,
+            gridTemplateColumns: "1fr 1fr",
           }}
         >
-          MARCUS · RICHMOND · MEMBER SINCE 2024
+          <BenefitCard title="For him" items={him} />
+          <BenefitCard title="For you" items={you} />
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Poster / assets strip                                             */
-/* ---------------------------------------------------------------- */
-function PosterStrip() {
+function BenefitCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <section style={{ background: NAVY, padding: "96px 24px" }}>
+    <div style={{ background: "#fff", border: `1px solid ${RULE}`, padding: "28px 28px 24px" }}>
       <div
         style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1.2fr",
-          gap: 64,
-          alignItems: "center",
+          fontFamily: DISPLAY_FONT,
+          fontSize: 22,
+          fontWeight: 700,
+          color: NAVY,
+          textTransform: "uppercase",
+          letterSpacing: 0.5,
         }}
       >
-        <div>
-          <div
+        {title}
+      </div>
+      <ul style={{ listStyle: "none", padding: 0, margin: "16px 0 0" }}>
+        {items.map((it) => (
+          <li
+            key={it}
             style={{
-              fontSize: 12,
-              letterSpacing: "0.25em",
-              color: ORANGE,
-              fontWeight: 700,
-              marginBottom: 16,
+              display: "flex",
+              gap: 12,
+              padding: "10px 0",
+              borderTop: `1px solid ${RULE}`,
+              fontSize: 15,
+              color: INK_SOFT,
+              lineHeight: 1.55,
             }}
           >
-            AMBASSADOR TOOLKIT
-          </div>
-          <h2
-            style={{
-              fontFamily: "'Oswald', sans-serif",
-              fontWeight: 700,
-              fontSize: 48,
-              lineHeight: 1,
-              textTransform: "uppercase",
-              margin: 0,
-            }}
-          >
-            Everything you need to share it.
-          </h2>
-          <p
-            style={{
-              marginTop: 20,
-              fontSize: 16,
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.92)",
-              maxWidth: 460,
-            }}
-          >
-            Referral business cards, in-center flyers in five poster sizes, dual-QR
-            hand-outs, and a personal referral link. All print-ready.
-          </p>
-          <div style={{ display: "flex", gap: 14, marginTop: 32, flexWrap: "wrap" }}>
-            <Link
-              to="/ambassador"
-              style={{
-                background: ORANGE_CTA,
-                color: "#fff",
-                padding: "16px 26px",
-                borderRadius: 999,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              OPEN THE AMBASSADOR HUB
-            </Link>
-            <Link
-              to="/business-card"
-              style={{
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                color: "#fff",
-                padding: "16px 26px",
-                borderRadius: 999,
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              REFERRAL CARDS
-            </Link>
-          </div>
-        </div>
+            <span style={{ color: ORANGE_CTA, fontWeight: 700 }}>✓</span>
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-        {/* Mock poster preview */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-          {[0, 1].map((i) => (
+/* ---------------- Eligibility ---------------- */
+function Eligibility() {
+  const rows: [string, string][] = [
+    ["Who can refer", "Anyone 18+. Current members, past members, spouses, coworkers, and friends."],
+    ["Who can be referred", "Adult men, 21+, who have not been an MWC patient in the last 12 months."],
+    ["How rewards work", "Issued after the referred friend completes his first visit. One thank-you per new patient."],
+    ["Outreach", "MWC contacts the referred person once. Additional outreach only with their consent."],
+    ["Compliance", "HIPAA compliant. Referring does not share any medical information about either party."],
+  ];
+  return (
+    <section style={{ padding: "64px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <h2 style={sectionTitle}>Eligibility & rules</h2>
+        <div style={{ marginTop: 24, border: `1px solid ${RULE}` }}>
+          {rows.map(([k, v], i) => (
             <div
-              key={i}
+              key={k}
               style={{
-                aspectRatio: "3 / 4",
-                background: i === 0 ? NAVY_2 : CREAM,
-                color: i === 0 ? "#fff" : NAVY_2,
-                borderRadius: 12,
-                padding: 24,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                border: "1px solid rgba(255,255,255,0.08)",
+                display: "grid",
+                gridTemplateColumns: "220px 1fr",
+                padding: "18px 24px",
+                borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
+                gap: 16,
               }}
             >
-              <div
-                style={{
-                  fontSize: 9,
-                  letterSpacing: "0.3em",
-                  fontWeight: 700,
-                  opacity: 0.75,
-                }}
-              >
-                MEN'S WELLNESS CENTERS
+              <div style={{ fontSize: 13, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                {k}
               </div>
-              <div
-                style={{
-                  fontFamily: "'Oswald', sans-serif",
-                  fontWeight: 700,
-                  fontSize: 26,
-                  lineHeight: 0.95,
-                  textTransform: "uppercase",
-                }}
-              >
-                Know a man<br />who needs<br />
-                <span style={{ color: ORANGE }}>his edge back?</span>
-              </div>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    background: i === 0 ? "#fff" : NAVY_2,
-                    borderRadius: 4,
-                  }}
-                />
-                <div style={{ fontSize: 9, letterSpacing: "0.2em", fontWeight: 700 }}>
-                  SCAN TO REFER
-                </div>
-              </div>
+              <div style={{ fontSize: 15, color: INK_SOFT }}>{v}</div>
             </div>
           ))}
         </div>
@@ -839,261 +352,162 @@ function PosterStrip() {
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* CTA band                                                          */
-/* ---------------------------------------------------------------- */
-function CtaBand() {
-  const faqs: [string, string][] = [
+/* ---------------- FAQ ---------------- */
+function Faq() {
+  const items: [string, string][] = [
     [
-      "Do I have to be a current patient to refer someone?",
-      "No. The program is open to current members, family, friends, and partner providers. If you know a man in Virginia who could benefit, you can refer him.",
+      "Do I have to enroll to refer someone?",
+      "No. You can send a referral without enrolling. Enrollment is only recommended if you plan to refer regularly and want a dashboard to track your referrals.",
     ],
     [
-      "What does it cost him to book?",
-      "Nothing for the first visit. MWC covers the initial consult and on-site labs so he can make a decision with real data in front of him.",
+      "Does my friend pay anything for the first visit?",
+      "No. The first visit is no-cost, includes labs, and comes with same-day review of his results.",
     ],
     [
-      "How will he be contacted?",
-      "One outreach from the local center, at a reasonable hour, to help him schedule. If he doesn't respond, we stop. He is never added to a marketing list without opting in.",
+      "How and when do I get thanked?",
+      "After your referred friend completes his first visit. Thank-yous are personal and go out through the ambassador portal.",
     ],
     [
-      "How am I rewarded, and when?",
-      "You're thanked after your referred friend completes his first visit. Details are outlined during enrollment; rewards are not tied to purchases he makes.",
+      "Will you keep contacting my friend?",
+      "No. MWC reaches out once. Any additional communication only happens with their consent.",
     ],
     [
-      "Is my information — or his — shared with anyone?",
-      "No. MWC is a licensed Virginia medical practice bound by HIPAA. Referral information is used only to schedule the visit and to thank you after it happens.",
+      "Is any of my friend's health information shared with me?",
+      "Never. The program is fully HIPAA compliant. You only see that a referral was completed, not any medical detail.",
     ],
     [
-      "Can I share my referral link publicly?",
-      "Yes. Ambassadors receive a personal link and print-ready materials (business cards, in-center flyers) they can share one-to-one or post as they see fit.",
+      "Can I refer more than one person?",
+      "Yes. There is no cap. Each completed first visit is acknowledged individually.",
     ],
   ];
   return (
-    <section style={{ background: NAVY, color: "#fff", padding: "96px 24px" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-        <div
-          style={{
-            fontSize: 12,
-            letterSpacing: "0.25em",
-            color: ORANGE,
-            fontWeight: 700,
-            marginBottom: 16,
-          }}
-        >
-          FREQUENTLY ASKED
-        </div>
-        <h2
-          style={{
-            fontFamily: "'Oswald', sans-serif",
-            fontWeight: 700,
-            fontSize: 48,
-            lineHeight: 1,
-            letterSpacing: "-0.005em",
-            textTransform: "uppercase",
-            margin: 0,
-            maxWidth: 780,
-          }}
-        >
-          Straight answers before you refer.
-        </h2>
-        <div style={{ marginTop: 40, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-          {faqs.map(([q, a]) => (
+    <section style={{ padding: "64px 24px", background: CREAM, borderTop: `1px solid ${RULE}` }}>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <h2 style={sectionTitle}>Frequently asked questions</h2>
+        <div style={{ marginTop: 24, background: "#fff", border: `1px solid ${RULE}` }}>
+          {items.map(([q, a], i) => (
             <details
               key={q}
               style={{
-                borderBottom: "1px solid rgba(255,255,255,0.12)",
-                padding: "22px 0",
+                borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
+                padding: "18px 24px",
               }}
             >
               <summary
                 style={{
-                  fontFamily: "'Oswald', sans-serif",
-                  fontWeight: 700,
-                  fontSize: 20,
-                  letterSpacing: "0.01em",
-                  textTransform: "uppercase",
                   cursor: "pointer",
                   listStyle: "none",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: 24,
-                  alignItems: "start",
+                  fontFamily: DISPLAY_FONT,
+                  fontSize: 17,
+                  fontWeight: 600,
+                  color: NAVY,
+                  letterSpacing: 0.3,
                 }}
               >
-                <span>{q}</span>
-                <span style={{ color: ORANGE, fontSize: 22, lineHeight: 1 }}>+</span>
+                {q}
               </summary>
-              <p
-                style={{
-                  marginTop: 14,
-                  fontSize: 15,
-                  lineHeight: 1.65,
-                  color: "rgba(255,255,255,0.94)",
-                  maxWidth: 780,
-                }}
-              >
-                {a}
-              </p>
+              <p style={{ marginTop: 10, color: INK_SOFT, fontSize: 15 }}>{a}</p>
             </details>
           ))}
-        </div>
-
-        <div
-          style={{
-            marginTop: 56,
-            padding: "28px 32px",
-            border: "1px solid rgba(255,255,255,0.12)",
-            borderRadius: 12,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 24,
-            flexWrap: "wrap",
-          }}
-        >
-          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.92)", maxWidth: 560 }}>
-            Still have questions? The program page has full terms and the ambassador hub
-            has the toolkit.
-          </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link
-              to="/ambassador"
-              style={{
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                color: "#fff",
-                padding: "14px 22px",
-                borderRadius: 999,
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              PROGRAM DETAILS
-            </Link>
-            <a
-              href={REFER_URL}
-              style={{
-                background: ORANGE_CTA,
-                color: "#fff",
-                padding: "14px 22px",
-                borderRadius: 999,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-              }}
-            >
-              REFER NOW →
-            </a>
-            <a
-              href={ENROLL_URL}
-              style={{
-                color: ORANGE,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
-                fontSize: 12,
-                textDecoration: "none",
-                borderBottom: `1px solid ${ORANGE}`,
-                paddingBottom: 2,
-              }}
-            >
-              ENROLL
-            </a>
-          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Footer                                                            */
-/* ---------------------------------------------------------------- */
-function MockFooter() {
+/* ---------------- CTA footer ---------------- */
+function CtaFooter() {
   return (
-    <footer style={{ background: "#070b1d", padding: "64px 24px 40px", color: "#fff" }}>
+    <section style={{ padding: "56px 24px", background: NAVY, color: "#fff" }}>
       <div
         style={{
-          maxWidth: 1280,
+          maxWidth: 900,
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
-          gap: 40,
+          gap: 24,
+          gridTemplateColumns: "1.4fr 1fr",
+          alignItems: "center",
         }}
       >
         <div>
-          {WORDMARK_WHITE ? (
-            <img src={WORDMARK_WHITE} alt="Men's Wellness Centers" style={{ height: 40 }} />
-          ) : (
-            <div
-              style={{
-                fontFamily: "'Oswald', sans-serif",
-                fontWeight: 700,
-                fontSize: 22,
-              }}
-            >
-              MEN'S WELLNESS CENTERS
-            </div>
-          )}
-          <p
+          <h2
             style={{
-              marginTop: 20,
-              fontSize: 13,
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.95)",
-              maxWidth: 340,
+              fontFamily: DISPLAY_FONT,
+              fontSize: 30,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 0.5,
+              margin: 0,
             }}
           >
-            Virginia's men's health practice since 2015. TRT, ED and medical weight loss
-            managed by licensed providers.
+            Ready to refer someone?
+          </h2>
+          <p style={{ marginTop: 10, color: "rgba(255,255,255,0.85)", fontSize: 16 }}>
+            Send a referral now, or enroll as an ambassador if you plan to refer more than once.
+            Enrollment is optional.
           </p>
         </div>
-        {[
-          ["LOCATIONS", ["Richmond", "Newport News", "Virginia Beach"]],
-          ["PROGRAM", ["How it works", "Refer a friend", "Ambassador hub"]],
-          ["COMPANY", ["About", "Contact", "Privacy"]],
-        ].map(([h, items]) => (
-          <div key={h as string}>
-            <div
-              style={{
-                fontSize: 11,
-                letterSpacing: "0.25em",
-                fontWeight: 700,
-                marginBottom: 16,
-                color: ORANGE,
-              }}
-            >
-              {h}
-            </div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
-              {(items as string[]).map((i) => (
-                <li key={i} style={{ fontSize: 14, color: "rgba(255,255,255,0.94)" }}>
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <a
+            href={REFER_URL}
+            style={{
+              display: "inline-block",
+              textAlign: "center",
+              background: ORANGE_CTA,
+              color: "#fff",
+              padding: "14px 24px",
+              fontFamily: DISPLAY_FONT,
+              letterSpacing: 1,
+              fontSize: 15,
+              fontWeight: 600,
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            Send a referral
+          </a>
+          <a
+            href={ENROLL_URL}
+            style={{
+              display: "inline-block",
+              textAlign: "center",
+              background: "transparent",
+              color: "#fff",
+              padding: "13px 24px",
+              border: "1.5px solid rgba(255,255,255,0.4)",
+              fontFamily: DISPLAY_FONT,
+              letterSpacing: 1,
+              fontSize: 15,
+              fontWeight: 600,
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            Enroll as an ambassador
+          </a>
+          <Link
+            to="/ambassador"
+            style={{
+              textAlign: "center",
+              color: "rgba(255,255,255,0.75)",
+              fontSize: 13,
+              textDecoration: "underline",
+            }}
+          >
+            View printable referral tools
+          </Link>
+        </div>
       </div>
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "48px auto 0",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          paddingTop: 24,
-          fontSize: 12,
-          color: "rgba(255,255,255,0.5)",
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <span>© {new Date().getFullYear()} Men's Wellness Centers. All rights reserved.</span>
-        <span>Licensed Virginia medical practice.</span>
-      </div>
-    </footer>
+    </section>
   );
 }
+
+const sectionTitle: React.CSSProperties = {
+  fontFamily: DISPLAY_FONT,
+  fontSize: 28,
+  fontWeight: 700,
+  color: NAVY,
+  textTransform: "uppercase",
+  letterSpacing: 0.5,
+  margin: 0,
+};
