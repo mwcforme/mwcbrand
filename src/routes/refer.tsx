@@ -973,7 +973,7 @@ function CtaBand() {
               PROGRAM DETAILS
             </Link>
             <a
-              href={ENROLL_URL}
+              href={REFER_URL}
               style={{
                 background: ORANGE_CTA,
                 color: "#fff",
@@ -985,7 +985,21 @@ function CtaBand() {
                 textDecoration: "none",
               }}
             >
-              ENROLL WHEN READY →
+              REFER NOW →
+            </a>
+            <a
+              href={ENROLL_URL}
+              style={{
+                color: ORANGE,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+                borderBottom: `1px solid ${ORANGE}`,
+                paddingBottom: 2,
+              }}
+            >
+              ENROLL
             </a>
           </div>
         </div>
