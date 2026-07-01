@@ -455,7 +455,7 @@ function HowItWorks() {
     ["03", "Get thanked", "When he completes his first visit, we thank you. Every time."],
   ];
   return (
-    <section style={{ background: CREAM, color: NAVY_2, padding: "96px 24px" }}>
+    <section id="how-it-works" style={{ background: CREAM, color: NAVY_2, padding: "96px 24px" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <div
           style={{
