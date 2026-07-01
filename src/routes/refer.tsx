@@ -265,6 +265,21 @@ function Hero() {
 
           <div style={{ display: "flex", gap: 20, marginTop: 40, flexWrap: "wrap", alignItems: "center" }}>
             <a
+              href={REFER_URL}
+              style={{
+                background: ORANGE_CTA,
+                color: "#fff",
+                padding: "16px 26px",
+                borderRadius: 999,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+              }}
+            >
+              SEND A REFERRAL →
+            </a>
+            <a
               href="#how-it-works"
               style={{
                 border: "1.5px solid rgba(255,255,255,0.35)",
@@ -279,20 +294,15 @@ function Hero() {
             >
               READ HOW IT WORKS
             </a>
-            <a
-              href={ENROLL_URL}
+            <span
               style={{
-                color: ORANGE,
-                fontWeight: 800,
-                letterSpacing: "0.08em",
                 fontSize: 12,
-                textDecoration: "none",
-                borderBottom: `1px solid ${ORANGE}`,
-                paddingBottom: 2,
+                color: "rgba(255,255,255,0.55)",
+                fontStyle: "italic",
               }}
             >
-              OR ENROLL WHEN YOU'RE READY →
-            </a>
+              No enrollment required to refer.
+            </span>
           </div>
         </div>
 
@@ -450,7 +460,7 @@ function StatsBar() {
 /* ---------------------------------------------------------------- */
 function HowItWorks() {
   const steps = [
-    ["01", "Enroll", "Two minutes. We give you a personal referral link and a page just for you."],
+    ["01", "Get your link", "We give you a personal referral link instantly. Enroll anytime if you want rewards tracked to your name."],
     ["02", "Share", "Text it, hand him a card, drop it on group chat. He books when he's ready."],
     ["03", "Get thanked", "When he completes his first visit, we thank you. Every time."],
   ];
@@ -963,7 +973,7 @@ function CtaBand() {
               PROGRAM DETAILS
             </Link>
             <a
-              href={ENROLL_URL}
+              href={REFER_URL}
               style={{
                 background: ORANGE_CTA,
                 color: "#fff",
@@ -975,7 +985,21 @@ function CtaBand() {
                 textDecoration: "none",
               }}
             >
-              ENROLL WHEN READY →
+              REFER NOW →
+            </a>
+            <a
+              href={ENROLL_URL}
+              style={{
+                color: ORANGE,
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                fontSize: 12,
+                textDecoration: "none",
+                borderBottom: `1px solid ${ORANGE}`,
+                paddingBottom: 2,
+              }}
+            >
+              ENROLL
             </a>
           </div>
         </div>
