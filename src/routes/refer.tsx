@@ -189,7 +189,6 @@ function ReferPage() {
   return (
     <div className="mwc-refer">
       <style>{scopedCSS}</style>
-      <SiteHeader />
       <Hero />
       <RewardsStrip />
       <HowItWorks />
@@ -197,7 +196,6 @@ function ReferPage() {
       <Eligibility />
       <Faq />
       <FinalCta />
-      <SiteFooter />
     </div>
   );
 }
