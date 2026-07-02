@@ -510,7 +510,7 @@ function Faq() {
         <div className="mwc-faq-shell reveal">
           <div className="mwc-faq">
             {items.map(([q, a]) => (
-              <details key={q}>
+              <details key={q} open>
                 <summary>
                   <span>{q}</span>
                   <span className="qi" aria-hidden>+</span>
