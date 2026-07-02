@@ -248,18 +248,18 @@ function HowItWorks() {
   const steps = [
     {
       n: "01",
-      meta: "2 Min to Copy",
-      title: "Get Your Referral Link",
+      meta: "No Link Needed",
+      title: "Give Your Friend Your Full Name",
       body:
-        "Copy your personal referral link from the ambassador portal. Enrollment is optional, but recommended if you plan to refer more than once.",
+        "Just tell him your full name and to mention it when he books. That's it — no portal, no link to copy, no code to remember. Enrollment is optional and only recommended if you plan to refer more than once.",
       cta: { label: "Enroll as an ambassador", href: ENROLL_URL },
     },
     {
       n: "02",
       meta: "Text · Email · In Person",
-      title: "Share It with Someone Who Needs It",
+      title: "Tell Someone Who Needs It",
       body:
-        "Send it by text, email, or in person. He uses your link to book a no-cost first visit at the MWC location closest to him — Richmond, Newport News, or Virginia Beach.",
+        "Text him, email him, or say it in person. When he books his no-cost first visit at the MWC location closest to him — Richmond, Newport News, or Virginia Beach — he gives your full name.",
     },
     {
       n: "03",
@@ -273,7 +273,7 @@ function HowItWorks() {
       meta: "After His First Visit",
       title: "You Get a Personal Thank-You",
       body:
-        "Once your referred friend completes his first visit, you get a personal thank-you through the ambassador portal. Refer as many people as you'd like — no cap.",
+        "Once your referred friend completes his first visit, you get a personal thank-you. Refer as many people as you'd like — no cap.",
     },
   ];
   return (
