@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
 
 const REFER_URL = "https://go.menswellnesscenters.com/ambassador/referral";
 const ENROLL_URL = "https://go.menswellnesscenters.com/ambassador/enroll";
+const HERO_IMAGE =
+  "https://picsum.photos/seed/mwc-refer-provider/1920/1200";
 
 export const Route = createFileRoute("/refer")({
   head: () => ({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/refer")({
       {
         name: "description",
         content:
-          "Refer a friend to Men's Wellness Centers. He gets 10% off his program. You get 3 months of free service for every friend who joins. Enrollment optional.",
+          "Refer a friend to Men's Wellness Centers. He gets 10% off his program. You get 3 months of free service for every friend who joins.",
       },
       { property: "og:title", content: "Refer a Friend · Men's Wellness Centers" },
       {
@@ -63,33 +63,38 @@ const scopedCSS = `
   font-weight:600; letter-spacing:1.4px; font-size:14px; text-transform:uppercase;
   text-decoration:none; transition: background .15s ease, transform .12s ease, border-color .15s ease; }
 .mwc-pill:hover { transform: translateY(-1px); }
+.mwc-pill:active { transform: translateY(0); }
 .mwc-pill-primary { background:${ORANGE}; color:#fff; }
 .mwc-pill-primary:hover { background:${ORANGE_HOVER}; }
-.mwc-pill-ghost { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.55); }
-.mwc-pill-ghost:hover { border-color:#fff; background:rgba(255,255,255,0.06); }
+.mwc-pill-ghost { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.65); }
+.mwc-pill-ghost:hover { border-color:#fff; background:rgba(255,255,255,0.08); }
 
 /* Hero */
 .mwc-hero { position:relative; background:${NAVY_DEEP};
-  padding: clamp(72px, 12vw, 140px) 0 clamp(80px, 13vw, 160px);
-  overflow:hidden; }
-.mwc-hero::before { content:""; position:absolute; inset:0;
+  padding: clamp(64px, 9vw, 96px) 0 clamp(72px, 11vw, 128px);
+  overflow:hidden; isolation:isolate; }
+.mwc-hero .bg { position:absolute; inset:0; z-index:0;
+  background-image:url("${HERO_IMAGE}");
+  background-size:cover; background-position:center;
+  opacity:0.28; filter:grayscale(0.6) contrast(1.05); }
+.mwc-hero .scrim { position:absolute; inset:0; z-index:1;
   background:
-    radial-gradient(1200px 500px at 80% -10%, rgba(239,108,26,0.10), transparent 60%),
-    radial-gradient(900px 400px at 10% 110%, rgba(255,255,255,0.05), transparent 60%);
+    linear-gradient(180deg, rgba(7,12,28,0.72) 0%, rgba(7,12,28,0.86) 60%, rgba(7,12,28,0.94) 100%),
+    radial-gradient(1200px 500px at 80% -10%, rgba(239,108,26,0.18), transparent 60%);
   pointer-events:none; }
-.mwc-hero-inner { position:relative; text-align:center; max-width:900px; margin:0 auto; padding:0 24px; }
+.mwc-hero-inner { position:relative; z-index:2; text-align:center; max-width:900px; margin:0 auto; padding:0 24px; }
 .mwc-hero h1 { font-size: clamp(44px, 8vw, 88px); }
 .mwc-hero .sub { margin: 22px auto 0; max-width: 640px;
-  color: rgba(255,255,255,0.85); font-size: clamp(16px, 1.6vw, 19px); }
+  color: rgba(255,255,255,0.88); font-size: clamp(16px, 1.6vw, 19px); }
 .mwc-hero .cta-row { margin-top: 34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
 
-.mwc-crumb { color:rgba(255,255,255,0.7); font-size:13px; letter-spacing:0.5px;
+.mwc-crumb { color:rgba(255,255,255,0.72); font-size:13px; letter-spacing:0.5px;
   margin-bottom:18px; text-align:center; }
-.mwc-crumb a { color:rgba(255,255,255,0.7); text-decoration:none; }
+.mwc-crumb a { color:rgba(255,255,255,0.72); text-decoration:none; }
 .mwc-crumb a:hover { color:#fff; text-decoration:underline; }
 .mwc-crumb .sep { margin:0 10px; opacity:0.5; }
 
-/* Rewards headline strip (replaces the old stats trust bar) */
+/* Rewards strip */
 .mwc-rewards { background:#fff; border-bottom:1px solid ${RULE}; }
 .mwc-rewards-grid { display:grid; grid-template-columns: 1fr 1fr;
   max-width:1200px; margin:0 auto; }
@@ -113,45 +118,26 @@ const scopedCSS = `
 .mwc-section-head { max-width: 780px; margin: 0 auto clamp(36px, 5vw, 56px); text-align:center; }
 .mwc-section-head p { margin-top:14px; color:${INK_SOFT}; font-size:17px; }
 
-/* Card grid */
+/* How-it-works cards */
 .mwc-cards { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
 @media (max-width:820px){ .mwc-cards { grid-template-columns:1fr; } }
-.mwc-card { background:${SURFACE}; border-radius:16px; padding:36px 36px 34px;
-  display:flex; flex-direction:column; gap:14px; }
-.mwc-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
-.mwc-card-n { font-family:${DISPLAY_FONT}; font-weight:700; color:${NAVY};
-  font-size: 42px; line-height:1; }
+.mwc-card { background:${SURFACE}; border-radius:16px; padding:32px 32px 30px;
+  display:flex; flex-direction:column; gap:12px; }
 .mwc-card h3 { font-family:${DISPLAY_FONT}; font-weight:700; color:${NAVY};
-  font-size: 24px; letter-spacing:0.3px; margin-top:6px; }
-.mwc-card .meta { font-size:13px; color:${MUTED}; font-weight:600; letter-spacing:0.6px; }
+  font-size: 22px; letter-spacing:0.3px; text-transform:uppercase; }
 .mwc-card p { color:${INK_SOFT}; font-size:15.5px; }
-.mwc-card a.inline { color:${ORANGE}; font-weight:700; text-decoration:underline; }
+.mwc-card a.inline { color:${ORANGE}; font-weight:700; text-decoration:underline;
+  align-self:flex-start; }
 
-/* Two-column benefits */
-.mwc-two { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-@media (max-width:820px){ .mwc-two { grid-template-columns:1fr; } }
-.mwc-benefit { background:${SURFACE}; border-radius:16px; padding:36px; }
-.mwc-benefit .badge { display:inline-block; font-family:${DISPLAY_FONT};
-  background:${ORANGE}; color:#fff; padding:6px 12px; border-radius:999px;
-  font-size:12px; letter-spacing:1.4px; text-transform:uppercase; font-weight:600; }
-.mwc-benefit h3 { font-family:${DISPLAY_FONT}; font-weight:700; color:${NAVY};
-  text-transform:uppercase; font-size:22px; letter-spacing:0.5px; margin-top:14px; }
-.mwc-benefit .headline { font-family:${DISPLAY_FONT}; color:${NAVY};
-  font-size:32px; font-weight:700; line-height:1.05; margin-top:6px; }
-.mwc-benefit ul { list-style:none; padding:0; margin:18px 0 0; }
-.mwc-benefit li { display:flex; gap:12px; padding:12px 0; color:${INK_SOFT}; font-size:15.5px; line-height:1.55; }
-.mwc-benefit li + li { border-top:1px solid rgba(11,18,38,0.08); }
-.mwc-benefit .ck { color:${ORANGE}; font-weight:800; flex-shrink:0; }
-
-/* Eligibility list */
-.mwc-elig { max-width:960px; margin:0 auto; background:#fff;
-  border:1px solid ${RULE}; border-radius:16px; overflow:hidden; }
-.mwc-elig-row { display:grid; grid-template-columns:260px 1fr; gap:24px; padding:22px 28px; }
-.mwc-elig-row + .mwc-elig-row { border-top:1px solid ${RULE}; }
-.mwc-elig-row .k { font-family:${DISPLAY_FONT}; font-weight:700; color:${NAVY};
+/* Eligibility card grid (replaces spec table) */
+.mwc-elig-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px;
+  max-width:1080px; margin:0 auto; }
+@media (max-width:820px){ .mwc-elig-grid { grid-template-columns:1fr; } }
+.mwc-elig-card { background:#fff; border:1px solid ${RULE}; border-radius:14px;
+  padding:26px 28px; display:flex; flex-direction:column; gap:10px; }
+.mwc-elig-card .k { font-family:${DISPLAY_FONT}; font-weight:700; color:${NAVY};
   text-transform:uppercase; font-size:14px; letter-spacing:1px; }
-.mwc-elig-row .v { color:${INK_SOFT}; font-size:15.5px; }
-@media (max-width:620px){ .mwc-elig-row { grid-template-columns:1fr; gap:6px; padding:20px 22px; } }
+.mwc-elig-card .v { color:${INK_SOFT}; font-size:15.5px; line-height:1.6; }
 
 /* FAQ */
 .mwc-faq { max-width:900px; margin:0 auto; background:#fff;
@@ -172,17 +158,20 @@ const scopedCSS = `
 .mwc-cta { background:${NAVY_DEEP}; padding: clamp(72px, 10vw, 120px) 0; position:relative;
   overflow:hidden; }
 .mwc-cta::before { content:""; position:absolute; inset:0;
-  background: radial-gradient(900px 400px at 50% -20%, rgba(239,108,26,0.12), transparent 60%);
+  background: radial-gradient(900px 400px at 50% -20%, rgba(239,108,26,0.14), transparent 60%);
   pointer-events:none; }
 .mwc-cta-inner { position:relative; text-align:center; max-width:820px;
   margin:0 auto; padding:0 24px; }
 .mwc-cta h2 { font-size: clamp(30px, 5vw, 52px); }
-.mwc-cta p { margin: 18px auto 0; color:rgba(255,255,255,0.85); max-width:56ch; font-size:17px; }
+.mwc-cta p { margin: 18px auto 0; color:rgba(255,255,255,0.88); max-width:56ch; font-size:17px; }
 .mwc-cta .row { margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
 .mwc-cta .tools { margin-top:22px; }
-.mwc-cta .tools a { color:rgba(255,255,255,0.75); font-size:13px;
+.mwc-cta .tools a { color:rgba(255,255,255,0.78); font-size:13px;
   text-decoration:underline; letter-spacing:0.4px; }
 .mwc-cta .tools a:hover { color:#fff; }
+
+/* Suppress unused token warnings for MUTED so lint stays quiet */
+.mwc-refer .u-muted { color:${MUTED}; }
 `;
 
 function ReferPage() {
@@ -192,7 +181,6 @@ function ReferPage() {
       <Hero />
       <RewardsStrip />
       <HowItWorks />
-      <Benefits />
       <Eligibility />
       <Faq />
       <FinalCta />
@@ -204,6 +192,8 @@ function ReferPage() {
 function Hero() {
   return (
     <section className="mwc-hero">
+      <div className="bg" aria-hidden />
+      <div className="scrim" aria-hidden />
       <div className="mwc-hero-inner">
         <nav className="mwc-crumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
@@ -224,7 +214,7 @@ function Hero() {
   );
 }
 
-/* ---------- Rewards strip (replaces the stat trust bar) ---------- */
+/* ---------- Rewards strip ---------- */
 function RewardsStrip() {
   return (
     <div className="mwc-rewards">
@@ -254,30 +244,22 @@ function RewardsStrip() {
 function HowItWorks() {
   const steps = [
     {
-      n: "01",
-      meta: "No Link Needed",
       title: "Give Your Friend Your Full Name",
       body:
         "Tell him your full name and to mention it when he books. No portal, no link to copy, no code to remember. Enrollment is optional and only recommended if you plan to refer more than once.",
       cta: { label: "Enroll as an ambassador", href: ENROLL_URL },
     },
     {
-      n: "02",
-      meta: "Text, Email, or In Person",
-      title: "Tell Someone Who Needs It",
+      title: "He Books His First Visit",
       body:
-        "When he books his no-cost first visit at the MWC location closest to him in Richmond, Newport News, or Virginia Beach, he gives your full name at booking.",
+        "He books his no-cost first visit at the MWC location closest to him in Richmond, Newport News, or Virginia Beach, and gives your full name at booking.",
     },
     {
-      n: "03",
-      meta: "60 Minutes On-Site",
       title: "He Meets a Licensed Provider",
       body:
         "Sit-down visit with a licensed Virginia provider. Labs drawn on-site and reviewed the same visit. When he enrolls in a program, he gets 10% off.",
     },
     {
-      n: "04",
-      meta: "3 Months Credited to Your Account",
       title: "You Get 3 Months Free",
       body:
         "Once he enrolls, 3 months of free service is added to your account. Refer as many friends as you like. Every enrollment stacks.",
@@ -293,14 +275,8 @@ function HowItWorks() {
         </div>
         <div className="mwc-cards">
           {steps.map((s) => (
-            <article className="mwc-card" key={s.n}>
-              <div className="mwc-card-top">
-                <div>
-                  <h3>{s.title}</h3>
-                  <div className="meta" style={{ marginTop: 6 }}>{s.meta}</div>
-                </div>
-                <div className="mwc-card-n">{s.n}</div>
-              </div>
+            <article className="mwc-card" key={s.title}>
+              <h3>{s.title}</h3>
               <p>{s.body}</p>
               {s.cta && <a className="inline" href={s.cta.href}>{s.cta.label} →</a>}
             </article>
@@ -311,81 +287,37 @@ function HowItWorks() {
   );
 }
 
-/* ---------- Benefits ---------- */
-function Benefits() {
-  const him = [
-    "No-cost first visit with a licensed Virginia provider",
-    "Labs drawn on-site and reviewed the same visit",
-    "10% off his program when he enrolls",
-    "Same-day appointments at all three Virginia locations",
-  ];
-  const you = [
-    "3 months of free service for every friend who enrolls",
-    "No cap. Stack credits across multiple referrals",
-    "Optional ambassador dashboard to track your referrals",
-    "Personal thank-you after each completed enrollment",
+/* ---------- Eligibility ---------- */
+function Eligibility() {
+  const rows: [string, string][] = [
+    ["Who Can Refer", "Any current or past MWC patient, 18 or older."],
+    [
+      "Who Can Be Referred",
+      "Adult men, 21 or older, who have not been an MWC patient in the last 12 months.",
+    ],
+    [
+      "Friend's Discount",
+      "10% off his program, applied at enrollment. One time, per new patient.",
+    ],
+    [
+      "Your Credit",
+      "3 months of free service, added to your account after his first visit and enrollment. Stackable across multiple referrals.",
+    ],
+    ["Outreach", "MWC contacts the referred person once. Additional contact only with his consent."],
+    [
+      "Privacy",
+      "HIPAA compliant. Referring does not share any medical information about either party.",
+    ],
   ];
   return (
     <section className="mwc-section tint">
       <div className="mwc-wrap">
         <div className="mwc-section-head">
-          <span className="mwc-eyebrow">What Each Side Gets</span>
-          <h2 className="mwc-h2" style={{ marginTop: 12 }}>Simple, on Both Ends</h2>
+          <h2 className="mwc-h2">Eligibility &amp; Rules</h2>
         </div>
-        <div className="mwc-two">
-          <BenefitCard badge="For Him" headline="10% Off" items={him} />
-          <BenefitCard badge="For You" headline="3 Months Free" items={you} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BenefitCard({
-  badge,
-  headline,
-  items,
-}: {
-  badge: string;
-  headline: string;
-  items: string[];
-}) {
-  return (
-    <div className="mwc-benefit">
-      <span className="badge">{badge}</span>
-      <div className="headline">{headline}</div>
-      <ul>
-        {items.map((it) => (
-          <li key={it}>
-            <span className="ck" aria-hidden>✓</span>
-            <span>{it}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/* ---------- Eligibility ---------- */
-function Eligibility() {
-  const rows: [string, string][] = [
-    ["Who Can Refer", "Any current or past MWC patient, 18 or older."],
-    ["Who Can Be Referred", "Adult men, 21 or older, who have not been an MWC patient in the last 12 months."],
-    ["Friend's Discount", "10% off his program, applied at enrollment. One time, per new patient."],
-    ["Your Credit", "3 months of free service, added to your account after his first visit and enrollment. Stackable across multiple referrals."],
-    ["Outreach", "MWC contacts the referred person once. Additional contact only with his consent."],
-    ["Privacy", "HIPAA compliant. Referring does not share any medical information about either party."],
-  ];
-  return (
-    <section className="mwc-section">
-      <div className="mwc-wrap">
-        <div className="mwc-section-head">
-          <span className="mwc-eyebrow">The Fine Print</span>
-          <h2 className="mwc-h2" style={{ marginTop: 12 }}>Eligibility &amp; Rules</h2>
-        </div>
-        <div className="mwc-elig">
+        <div className="mwc-elig-grid">
           {rows.map(([k, v]) => (
-            <div className="mwc-elig-row" key={k}>
+            <div className="mwc-elig-card" key={k}>
               <div className="k">{k}</div>
               <div className="v">{v}</div>
             </div>
@@ -429,11 +361,11 @@ function Faq() {
     ],
   ];
   return (
-    <section className="mwc-section tint">
+    <section className="mwc-section">
       <div className="mwc-wrap">
         <div className="mwc-section-head">
           <span className="mwc-eyebrow">Common Questions</span>
-          <h2 className="mwc-h2" style={{ marginTop: 12 }}>Frequently Asked</h2>
+          <h2 className="mwc-h2" style={{ marginTop: 12 }}>Questions</h2>
         </div>
         <div className="mwc-faq">
           {items.map(([q, a]) => (
@@ -453,8 +385,7 @@ function FinalCta() {
   return (
     <section className="mwc-cta">
       <div className="mwc-cta-inner">
-        <span className="mwc-eyebrow">Ready When You Are</span>
-        <h2 className="mwc-display" style={{ marginTop: 12, fontSize: "clamp(32px,5vw,56px)" }}>
+        <h2 className="mwc-display" style={{ fontSize: "clamp(32px,5vw,56px)" }}>
           He Gets 10% Off. You Get 3 Months Free.
         </h2>
         <p>
