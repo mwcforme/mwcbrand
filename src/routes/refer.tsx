@@ -12,16 +12,17 @@ export const Route = createFileRoute("/refer")({
       {
         name: "description",
         content:
-          "Learn how the Men's Wellness Centers referral program works: how to refer, what your friend receives, how you're thanked, and eligibility details.",
+          "How the Men's Wellness Centers referral program works: share a link, your friend books a no-cost first visit with labs, you get a personal thank-you. Enrollment optional.",
       },
       { property: "og:title", content: "Refer a Friend · Men's Wellness Centers" },
       {
         property: "og:description",
         content:
-          "How the MWC referral program works: refer a friend, he books a no-cost first visit, you get a personal thank-you.",
+          "Refer a friend to MWC. He books a no-cost first visit with on-site labs. You get a personal thank-you. Enrollment optional.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://mwcbrand.lovable.app/refer" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://mwcbrand.lovable.app/refer" }],
   }),
@@ -31,9 +32,10 @@ export const Route = createFileRoute("/refer")({
 /* Design tokens (align with site) */
 const NAVY = "#0b1029";
 const INK = "#111528";
-const INK_SOFT = "#3b3f57";
-const MUTED = "#6b7085";
+const INK_SOFT = "#2a2f45";
+const MUTED = "#5a6072";
 const RULE = "#e5e7ef";
+const RULE_SOFT = "#eef0f5";
 const CREAM = "#faf8f4";
 const ORANGE = "#e8670a";
 const ORANGE_CTA = "#b84a08";
@@ -41,11 +43,122 @@ const ORANGE_CTA = "#b84a08";
 const BODY_FONT = "'Open Sans', system-ui, sans-serif";
 const DISPLAY_FONT = "'Oswald', 'Open Sans', sans-serif";
 
+/* Scoped responsive styles — inline styles can't do media queries */
+const scopedCSS = `
+.refer-root { background:#fff; color:${INK}; font-family:${BODY_FONT}; font-size:16px; line-height:1.65; }
+.refer-root h1, .refer-root h2, .refer-root h3 { text-wrap: balance; }
+.refer-root p { text-wrap: pretty; }
+
+.refer-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.refer-wrap-narrow { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+.refer-eyebrow { display:inline-block; font-size:11px; font-weight:700; letter-spacing:2.5px;
+  color:${ORANGE_CTA}; text-transform:uppercase; }
+.refer-h1 { font-family:${DISPLAY_FONT}; font-weight:700; font-size: clamp(34px, 6vw, 52px);
+  line-height:1.05; letter-spacing:0.3px; margin:10px 0 0; color:${NAVY}; text-transform:uppercase; }
+.refer-h2 { font-family:${DISPLAY_FONT}; font-weight:700; font-size: clamp(24px, 3.4vw, 32px);
+  color:${NAVY}; text-transform:uppercase; letter-spacing:0.5px; margin:0; }
+.refer-lead { margin-top:14px; color:${INK_SOFT}; font-size: clamp(16px, 1.6vw, 18px); max-width: 62ch; }
+
+/* Header */
+.refer-header { background:${CREAM}; border-bottom:1px solid ${RULE}; padding: 44px 0 48px; }
+.refer-breadcrumb { font-size:13px; color:${MUTED}; margin-bottom:14px; }
+.refer-breadcrumb a { color:${MUTED}; text-decoration:none; }
+.refer-breadcrumb a:hover { color:${INK}; text-decoration:underline; }
+
+/* Stat strip */
+.refer-strip { display:grid; grid-template-columns: repeat(4, 1fr); gap:0;
+  border-top:1px solid ${RULE}; border-bottom:1px solid ${RULE}; background:#fff; }
+.refer-strip > div { padding: 22px 20px; border-left:1px solid ${RULE_SOFT}; }
+.refer-strip > div:first-child { border-left:none; }
+.refer-strip .k { font-family:${DISPLAY_FONT}; font-size: 26px; color:${NAVY}; line-height:1; }
+.refer-strip .v { font-size: 12px; color:${MUTED}; text-transform:uppercase; letter-spacing:1.2px;
+  margin-top: 8px; font-weight:600; }
+@media (max-width: 720px) { .refer-strip { grid-template-columns: repeat(2, 1fr); }
+  .refer-strip > div:nth-child(3) { border-left:none; border-top:1px solid ${RULE_SOFT}; }
+  .refer-strip > div:nth-child(4) { border-top:1px solid ${RULE_SOFT}; } }
+
+/* Two-column intro */
+.refer-two { display:grid; gap:40px; grid-template-columns: 1.15fr 1fr; align-items:start; }
+@media (max-width: 820px) { .refer-two { grid-template-columns: 1fr; gap:28px; } }
+
+.refer-facts { background:${CREAM}; border:1px solid ${RULE}; padding: 22px 26px; }
+.refer-fact-row { display:grid; grid-template-columns: 140px 1fr; gap:16px; padding: 12px 0; }
+.refer-fact-row + .refer-fact-row { border-top:1px solid ${RULE}; }
+.refer-fact-row dt { font-size:12px; font-weight:700; color:${NAVY}; text-transform:uppercase;
+  letter-spacing:0.6px; }
+.refer-fact-row dd { margin:0; font-size:15px; color:${INK_SOFT}; line-height:1.55; }
+@media (max-width: 520px) { .refer-fact-row { grid-template-columns: 1fr; gap:4px; } }
+
+/* Steps */
+.refer-steps { margin-top:32px; display:grid; gap:28px; grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 820px) { .refer-steps { grid-template-columns: 1fr; gap:20px; } }
+.refer-step { border-top:3px solid ${ORANGE}; padding-top:18px; }
+.refer-step .n { font-family:${DISPLAY_FONT}; font-size:28px; color:${NAVY}; font-weight:600;
+  line-height:1; }
+.refer-step .t { font-family:${DISPLAY_FONT}; font-size:19px; font-weight:600; color:${NAVY};
+  text-transform:uppercase; letter-spacing:0.5px; margin-top:8px; }
+.refer-step p { margin-top:10px; color:${INK_SOFT}; font-size:15px; }
+
+/* Benefits */
+.refer-benefits { margin-top:28px; display:grid; gap:22px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .refer-benefits { grid-template-columns: 1fr; } }
+.refer-card { background:#fff; border:1px solid ${RULE}; padding: 26px 28px 22px; }
+.refer-card h3 { font-family:${DISPLAY_FONT}; font-size:20px; font-weight:700; color:${NAVY};
+  text-transform:uppercase; letter-spacing:0.5px; margin:0; }
+.refer-card ul { list-style:none; padding:0; margin:14px 0 0; }
+.refer-card li { display:flex; gap:12px; padding:10px 0; font-size:15px; color:${INK_SOFT};
+  line-height:1.55; }
+.refer-card li + li { border-top:1px solid ${RULE}; }
+.refer-card .ck { color:${ORANGE_CTA}; font-weight:700; flex-shrink:0; }
+
+/* Eligibility table */
+.refer-elig { margin-top:24px; border:1px solid ${RULE}; }
+.refer-elig-row { display:grid; grid-template-columns: 220px 1fr; padding:18px 24px; gap:16px; }
+.refer-elig-row + .refer-elig-row { border-top:1px solid ${RULE}; }
+.refer-elig-row .k { font-size:12px; font-weight:700; color:${NAVY}; text-transform:uppercase;
+  letter-spacing:0.6px; }
+.refer-elig-row .v { font-size:15px; color:${INK_SOFT}; }
+@media (max-width: 620px) { .refer-elig-row { grid-template-columns: 1fr; gap:6px; padding:16px 18px; } }
+
+/* FAQ */
+.refer-faq { margin-top:24px; background:#fff; border:1px solid ${RULE}; }
+.refer-faq details { padding: 16px 22px; }
+.refer-faq details + details { border-top:1px solid ${RULE}; }
+.refer-faq summary { cursor:pointer; list-style:none; font-family:${DISPLAY_FONT};
+  font-size:17px; font-weight:600; color:${NAVY}; letter-spacing:0.3px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.refer-faq summary::-webkit-details-marker { display:none; }
+.refer-faq summary::after { content:"+"; font-family:${BODY_FONT}; font-weight:400; font-size:22px;
+  color:${ORANGE_CTA}; line-height:1; transition: transform .18s ease; }
+.refer-faq details[open] summary::after { content:"−"; }
+.refer-faq details p { margin: 10px 0 4px; color:${INK_SOFT}; font-size:15px; }
+
+/* CTA footer */
+.refer-cta-grid { display:grid; gap:28px; grid-template-columns: 1.4fr 1fr; align-items:center; }
+@media (max-width: 720px) { .refer-cta-grid { grid-template-columns: 1fr; } }
+.refer-cta-actions { display:flex; flex-direction:column; gap:12px; }
+.refer-btn { display:inline-block; text-align:center; padding:15px 24px; font-family:${DISPLAY_FONT};
+  letter-spacing:1.2px; font-size:14px; font-weight:600; text-transform:uppercase;
+  text-decoration:none; transition: transform .12s ease, background .15s ease; }
+.refer-btn:hover { transform: translateY(-1px); }
+.refer-btn-primary { background:${ORANGE_CTA}; color:#fff; }
+.refer-btn-primary:hover { background:#a03f06; }
+.refer-btn-ghost { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.45); }
+.refer-btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+/* Section spacing */
+.refer-section { padding: 72px 0; }
+@media (max-width: 720px) { .refer-section { padding: 52px 0; } }
+`;
+
 function ReferPage() {
   return (
-    <div style={{ background: "#fff", color: INK, fontFamily: BODY_FONT, fontSize: 16, lineHeight: 1.6 }}>
+    <div className="refer-root">
+      <style>{scopedCSS}</style>
       <SiteHeader />
       <PageHeader />
+      <StatStrip />
       <Intro />
       <HowItWorks />
       <BenefitsGrid />
@@ -57,57 +170,44 @@ function ReferPage() {
   );
 }
 
-/* ---------------- Page header (breadcrumb + title) ---------------- */
+/* ---------------- Page header ---------------- */
 function PageHeader() {
   return (
-    <header
-      style={{
-        background: CREAM,
-        borderBottom: `1px solid ${RULE}`,
-        padding: "36px 24px 40px",
-      }}
-    >
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <nav style={{ fontSize: 13, color: MUTED, marginBottom: 14, letterSpacing: 0.2 }}>
-          <Link to="/" style={{ color: MUTED, textDecoration: "none" }}>
-            Home
-          </Link>
-          <span style={{ margin: "0 8px" }}>›</span>
+    <header className="refer-header">
+      <div className="refer-wrap">
+        <nav className="refer-breadcrumb" aria-label="Breadcrumb">
+          <Link to="/">Home</Link>
+          <span style={{ margin: "0 8px", color: MUTED }}>›</span>
           <span style={{ color: INK }}>Refer a Friend</span>
         </nav>
-        <div
-          style={{
-            display: "inline-block",
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: 2,
-            color: ORANGE_CTA,
-            textTransform: "uppercase",
-            marginBottom: 10,
-          }}
-        >
-          Ambassador Program
-        </div>
-        <h1
-          style={{
-            fontFamily: DISPLAY_FONT,
-            fontWeight: 700,
-            fontSize: 44,
-            lineHeight: 1.1,
-            letterSpacing: 0.3,
-            margin: 0,
-            color: NAVY,
-            textTransform: "uppercase",
-          }}
-        >
-          Refer a Friend
-        </h1>
-        <p style={{ marginTop: 12, maxWidth: 720, color: INK_SOFT, fontSize: 17 }}>
-          Help the men in your life get their edge back. Share a link, they book a no-cost first
-          visit, and you get a personal thank-you when they show up.
+        <span className="refer-eyebrow">Ambassador Program</span>
+        <h1 className="refer-h1">Refer a Friend</h1>
+        <p className="refer-lead">
+          Help the men in your life get their edge back. Share a link, he books a no-cost first
+          visit, and you get a personal thank-you when he shows up.
         </p>
       </div>
     </header>
+  );
+}
+
+/* ---------------- Quick stat strip ---------------- */
+function StatStrip() {
+  const stats: [string, string][] = [
+    ["$0", "First visit cost"],
+    ["3", "Virginia locations"],
+    ["Same day", "Lab results"],
+    ["Optional", "Enrollment"],
+  ];
+  return (
+    <div className="refer-strip" role="list">
+      {stats.map(([k, v]) => (
+        <div key={v} role="listitem">
+          <div className="k">{k}</div>
+          <div className="v">{v}</div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -121,55 +221,27 @@ function Intro() {
     ["Privacy", "HIPAA compliant. We contact a referred person once, unless they opt in."],
   ];
   return (
-    <section style={{ padding: "56px 24px", borderBottom: `1px solid ${RULE}` }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gap: 40, gridTemplateColumns: "1.1fr 1fr" }}>
+    <section className="refer-section" style={{ borderBottom: `1px solid ${RULE}` }}>
+      <div className="refer-wrap refer-two">
         <div>
-          <h2 style={sectionTitle}>Program overview</h2>
+          <h2 className="refer-h2">Program overview</h2>
           <p style={{ marginTop: 16, color: INK_SOFT, fontSize: 17 }}>
             The Men's Wellness Centers referral program is a simple way to point a friend, family
             member, or teammate toward care that actually addresses low energy, low drive, and stalled
             results. Share your referral link, he books when he's ready, and we take it from there.
           </p>
           <p style={{ marginTop: 12, color: INK_SOFT, fontSize: 17 }}>
-            There's no pressure, no promo codes, and no discount language. This is a program built on
-            trust between men who've been through the process and men who are about to start.
+            No pressure, no promo codes, no discount language. Just a program built on trust between
+            men who've been through the process and men who are about to start.
           </p>
         </div>
-        <div
-          style={{
-            background: CREAM,
-            border: `1px solid ${RULE}`,
-            padding: "24px 28px",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 12,
-              letterSpacing: 2,
-              fontWeight: 700,
-              color: ORANGE_CTA,
-              textTransform: "uppercase",
-              marginBottom: 12,
-            }}
-          >
-            At a glance
-          </div>
+        <div className="refer-facts">
+          <div className="refer-eyebrow" style={{ marginBottom: 12 }}>At a glance</div>
           <dl style={{ margin: 0 }}>
-            {facts.map(([label, value], i) => (
-              <div
-                key={label}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "140px 1fr",
-                  gap: 16,
-                  padding: "12px 0",
-                  borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
-                }}
-              >
-                <dt style={{ fontSize: 13, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                  {label}
-                </dt>
-                <dd style={{ margin: 0, fontSize: 15, color: INK_SOFT, lineHeight: 1.55 }}>{value}</dd>
+            {facts.map(([label, value]) => (
+              <div className="refer-fact-row" key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
               </div>
             ))}
           </dl>
@@ -202,39 +274,16 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how-it-works" style={{ padding: "64px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <h2 style={sectionTitle}>How it works</h2>
-        <p style={{ marginTop: 12, maxWidth: 720, color: INK_SOFT, fontSize: 17 }}>
-          Three steps. No paperwork on your end.
-        </p>
-        <div
-          style={{
-            marginTop: 32,
-            display: "grid",
-            gap: 24,
-            gridTemplateColumns: "repeat(3, 1fr)",
-          }}
-        >
+    <section id="how-it-works" className="refer-section" style={{ background: "#fff" }}>
+      <div className="refer-wrap">
+        <h2 className="refer-h2">How it works</h2>
+        <p className="refer-lead">Three steps. No paperwork on your end.</p>
+        <div className="refer-steps">
           {steps.map((s) => (
-            <div key={s.n} style={{ borderTop: `3px solid ${ORANGE}`, paddingTop: 20 }}>
-              <div style={{ fontFamily: DISPLAY_FONT, fontSize: 28, color: NAVY, fontWeight: 600 }}>
-                {s.n}
-              </div>
-              <div
-                style={{
-                  fontFamily: DISPLAY_FONT,
-                  fontSize: 20,
-                  fontWeight: 600,
-                  color: NAVY,
-                  textTransform: "uppercase",
-                  letterSpacing: 0.5,
-                  marginTop: 6,
-                }}
-              >
-                {s.title}
-              </div>
-              <p style={{ marginTop: 10, color: INK_SOFT, fontSize: 15 }}>{s.body}</p>
+            <div key={s.n} className="refer-step">
+              <div className="n">{s.n}</div>
+              <div className="t">{s.title}</div>
+              <p>{s.body}</p>
             </div>
           ))}
         </div>
@@ -258,17 +307,13 @@ function BenefitsGrid() {
     "The quiet satisfaction of pointing a friend the right way",
   ];
   return (
-    <section style={{ padding: "64px 24px", background: CREAM, borderTop: `1px solid ${RULE}`, borderBottom: `1px solid ${RULE}` }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <h2 style={sectionTitle}>What each side gets</h2>
-        <div
-          style={{
-            marginTop: 28,
-            display: "grid",
-            gap: 24,
-            gridTemplateColumns: "1fr 1fr",
-          }}
-        >
+    <section
+      className="refer-section"
+      style={{ background: CREAM, borderTop: `1px solid ${RULE}`, borderBottom: `1px solid ${RULE}` }}
+    >
+      <div className="refer-wrap">
+        <h2 className="refer-h2">What each side gets</h2>
+        <div className="refer-benefits">
           <BenefitCard title="For him" items={him} />
           <BenefitCard title="For you" items={you} />
         </div>
@@ -279,34 +324,12 @@ function BenefitsGrid() {
 
 function BenefitCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div style={{ background: "#fff", border: `1px solid ${RULE}`, padding: "28px 28px 24px" }}>
-      <div
-        style={{
-          fontFamily: DISPLAY_FONT,
-          fontSize: 22,
-          fontWeight: 700,
-          color: NAVY,
-          textTransform: "uppercase",
-          letterSpacing: 0.5,
-        }}
-      >
-        {title}
-      </div>
-      <ul style={{ listStyle: "none", padding: 0, margin: "16px 0 0" }}>
+    <div className="refer-card">
+      <h3>{title}</h3>
+      <ul>
         {items.map((it) => (
-          <li
-            key={it}
-            style={{
-              display: "flex",
-              gap: 12,
-              padding: "10px 0",
-              borderTop: `1px solid ${RULE}`,
-              fontSize: 15,
-              color: INK_SOFT,
-              lineHeight: 1.55,
-            }}
-          >
-            <span style={{ color: ORANGE_CTA, fontWeight: 700 }}>✓</span>
+          <li key={it}>
+            <span className="ck" aria-hidden>✓</span>
             <span>{it}</span>
           </li>
         ))}
@@ -325,25 +348,14 @@ function Eligibility() {
     ["Compliance", "HIPAA compliant. Referring does not share any medical information about either party."],
   ];
   return (
-    <section style={{ padding: "64px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <h2 style={sectionTitle}>Eligibility & rules</h2>
-        <div style={{ marginTop: 24, border: `1px solid ${RULE}` }}>
-          {rows.map(([k, v], i) => (
-            <div
-              key={k}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "220px 1fr",
-                padding: "18px 24px",
-                borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
-                gap: 16,
-              }}
-            >
-              <div style={{ fontSize: 13, fontWeight: 700, color: NAVY, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                {k}
-              </div>
-              <div style={{ fontSize: 15, color: INK_SOFT }}>{v}</div>
+    <section className="refer-section" style={{ background: "#fff" }}>
+      <div className="refer-wrap-narrow">
+        <h2 className="refer-h2">Eligibility & rules</h2>
+        <div className="refer-elig">
+          {rows.map(([k, v]) => (
+            <div className="refer-elig-row" key={k}>
+              <div className="k">{k}</div>
+              <div className="v">{v}</div>
             </div>
           ))}
         </div>
@@ -381,32 +393,14 @@ function Faq() {
     ],
   ];
   return (
-    <section style={{ padding: "64px 24px", background: CREAM, borderTop: `1px solid ${RULE}` }}>
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <h2 style={sectionTitle}>Frequently asked questions</h2>
-        <div style={{ marginTop: 24, background: "#fff", border: `1px solid ${RULE}` }}>
-          {items.map(([q, a], i) => (
-            <details
-              key={q}
-              style={{
-                borderTop: i === 0 ? "none" : `1px solid ${RULE}`,
-                padding: "18px 24px",
-              }}
-            >
-              <summary
-                style={{
-                  cursor: "pointer",
-                  listStyle: "none",
-                  fontFamily: DISPLAY_FONT,
-                  fontSize: 17,
-                  fontWeight: 600,
-                  color: NAVY,
-                  letterSpacing: 0.3,
-                }}
-              >
-                {q}
-              </summary>
-              <p style={{ marginTop: 10, color: INK_SOFT, fontSize: 15 }}>{a}</p>
+    <section className="refer-section" style={{ background: CREAM, borderTop: `1px solid ${RULE}` }}>
+      <div className="refer-wrap-narrow">
+        <h2 className="refer-h2">Frequently asked questions</h2>
+        <div className="refer-faq">
+          {items.map(([q, a]) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
             </details>
           ))}
         </div>
@@ -418,80 +412,42 @@ function Faq() {
 /* ---------------- CTA footer ---------------- */
 function CtaFooter() {
   return (
-    <section style={{ padding: "56px 24px", background: NAVY, color: "#fff" }}>
-      <div
-        style={{
-          maxWidth: 900,
-          margin: "0 auto",
-          display: "grid",
-          gap: 24,
-          gridTemplateColumns: "1.4fr 1fr",
-          alignItems: "center",
-        }}
-      >
+    <section style={{ padding: "64px 0", background: NAVY, color: "#fff" }}>
+      <div className="refer-wrap-narrow refer-cta-grid">
         <div>
           <h2
             style={{
               fontFamily: DISPLAY_FONT,
-              fontSize: 30,
+              fontSize: "clamp(24px, 3.4vw, 32px)",
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: 0.5,
               margin: 0,
+              lineHeight: 1.15,
             }}
           >
             Ready to refer someone?
           </h2>
-          <p style={{ marginTop: 10, color: "rgba(255,255,255,0.85)", fontSize: 16 }}>
+          <p style={{ marginTop: 12, color: "rgba(255,255,255,0.88)", fontSize: 16, maxWidth: "48ch" }}>
             Send a referral now, or enroll as an ambassador if you plan to refer more than once.
             Enrollment is optional.
           </p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <a
-            href={REFER_URL}
-            style={{
-              display: "inline-block",
-              textAlign: "center",
-              background: ORANGE_CTA,
-              color: "#fff",
-              padding: "14px 24px",
-              fontFamily: DISPLAY_FONT,
-              letterSpacing: 1,
-              fontSize: 15,
-              fontWeight: 600,
-              textTransform: "uppercase",
-              textDecoration: "none",
-            }}
-          >
+        <div className="refer-cta-actions">
+          <a href={REFER_URL} className="refer-btn refer-btn-primary">
             Send a referral
           </a>
-          <a
-            href={ENROLL_URL}
-            style={{
-              display: "inline-block",
-              textAlign: "center",
-              background: "transparent",
-              color: "#fff",
-              padding: "13px 24px",
-              border: "1.5px solid rgba(255,255,255,0.4)",
-              fontFamily: DISPLAY_FONT,
-              letterSpacing: 1,
-              fontSize: 15,
-              fontWeight: 600,
-              textTransform: "uppercase",
-              textDecoration: "none",
-            }}
-          >
+          <a href={ENROLL_URL} className="refer-btn refer-btn-ghost">
             Enroll as an ambassador
           </a>
           <Link
             to="/ambassador"
             style={{
               textAlign: "center",
-              color: "rgba(255,255,255,0.75)",
+              color: "rgba(255,255,255,0.8)",
               fontSize: 13,
               textDecoration: "underline",
+              marginTop: 2,
             }}
           >
             View printable referral tools
@@ -501,13 +457,3 @@ function CtaFooter() {
     </section>
   );
 }
-
-const sectionTitle: React.CSSProperties = {
-  fontFamily: DISPLAY_FONT,
-  fontSize: 28,
-  fontWeight: 700,
-  color: NAVY,
-  textTransform: "uppercase",
-  letterSpacing: 0.5,
-  margin: 0,
-};
